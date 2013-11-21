@@ -12,8 +12,8 @@ mkdir bin
 
 # Prepare subject fat_malloc 
 echo "Prepare subject: fat_malloc"
-cd fat_malloc
+cd fat_memory
 make
-cp fat_malloc ../bin
+cp fat_memory ../bin
 cp libmalloc.so ../bin
 

@@ -1,5 +1,6 @@
 #include <stdlib.h>
-
+#include <stdio.h>
+#include <string.h>
 
 int main()
 {
@@ -9,9 +10,11 @@ int main()
     for(i = 0 ; i < 100000; i ++)
     {
         m  = rand() % 10000;  
-        p = malloc(sizeof(int) * m); 
+        p = malloc(sizeof(int) * m);
+	memset(p, 0, m); 
         free (p);
     }
+    printf("exit normally.\n");
     return 0;
 
 }

@@ -1,5 +1,4 @@
 # 1 "malloc.c"
-# 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "malloc.c"
 # 581 "malloc.c"
@@ -223,8 +222,8 @@ typedef __clockid_t clockid_t;
 typedef __timer_t timer_t;
 # 134 "/usr/include/x86_64-linux-gnu/sys/types.h" 2 3 4
 # 147 "/usr/include/x86_64-linux-gnu/sys/types.h" 3 4
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 1 3 4
-# 212 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 1 3 4
+# 213 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 3 4
 typedef long unsigned int size_t;
 # 148 "/usr/include/x86_64-linux-gnu/sys/types.h" 2 3 4
 
@@ -613,7 +612,7 @@ size_t malloc_usable_size(void*);
 
 
 
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 1 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 1 3 4
 # 35 "/usr/include/stdio.h" 2 3 4
 # 45 "/usr/include/stdio.h" 3 4
 struct _IO_FILE;
@@ -633,7 +632,7 @@ typedef struct _IO_FILE __FILE;
 # 32 "/usr/include/libio.h" 3 4
 # 1 "/usr/include/_G_config.h" 1 3 4
 # 15 "/usr/include/_G_config.h" 3 4
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 1 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 1 3 4
 # 16 "/usr/include/_G_config.h" 2 3 4
 
 
@@ -673,8 +672,8 @@ typedef unsigned int _G_uint16_t __attribute__ ((__mode__ (__HI__)));
 typedef unsigned int _G_uint32_t __attribute__ ((__mode__ (__SI__)));
 # 33 "/usr/include/libio.h" 2 3 4
 # 53 "/usr/include/libio.h" 3 4
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h" 1 3 4
-# 40 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stdarg.h" 1 3 4
+# 40 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stdarg.h" 3 4
 typedef __builtin_va_list __gnuc_va_list;
 # 54 "/usr/include/libio.h" 2 3 4
 # 172 "/usr/include/libio.h" 3 4
@@ -1391,7 +1390,7 @@ extern int *__errno_location (void) __attribute__ ((__nothrow__ , __leaf__)) __a
 
 
 
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 1 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 1 3 4
 # 39 "/usr/include/time.h" 2 3 4
 
 
@@ -1619,8 +1618,8 @@ extern int timer_getoverrun (timer_t __timerid) __attribute__ ((__nothrow__ , __
 
 # 1 "/usr/include/stdlib.h" 1 3 4
 # 33 "/usr/include/stdlib.h" 3 4
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 1 3 4
-# 324 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 1 3 4
+# 325 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 3 4
 typedef int wchar_t;
 # 34 "/usr/include/stdlib.h" 2 3 4
 
@@ -1963,7 +1962,7 @@ extern void cfree (void *__ptr) __attribute__ ((__nothrow__ , __leaf__));
 
 # 1 "/usr/include/alloca.h" 1 3 4
 # 25 "/usr/include/alloca.h" 3 4
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 1 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 1 3 4
 # 26 "/usr/include/alloca.h" 2 3 4
 
 
@@ -2224,7 +2223,7 @@ extern int getloadavg (double __loadavg[], int __nelem)
 
 
 
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 1 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 1 3 4
 # 35 "/usr/include/string.h" 2 3 4
 
 
@@ -2454,7 +2453,7 @@ extern char *stpncpy (char *__restrict __dest,
 # 1473 "malloc.c"
 # 1 "/usr/include/x86_64-linux-gnu/sys/mman.h" 1 3 4
 # 26 "/usr/include/x86_64-linux-gnu/sys/mman.h" 3 4
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 1 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 1 3 4
 # 27 "/usr/include/x86_64-linux-gnu/sys/mman.h" 2 3 4
 # 42 "/usr/include/x86_64-linux-gnu/sys/mman.h" 3 4
 # 1 "/usr/include/x86_64-linux-gnu/bits/mman.h" 1 3 4
@@ -2660,7 +2659,7 @@ extern int posix_fallocate (int __fd, __off_t __offset, __off_t __len);
 # 24 "/usr/include/x86_64-linux-gnu/bits/environments.h" 2 3 4
 # 208 "/usr/include/unistd.h" 2 3 4
 # 227 "/usr/include/unistd.h" 3 4
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 1 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 1 3 4
 # 228 "/usr/include/unistd.h" 2 3 4
 # 256 "/usr/include/unistd.h" 3 4
 typedef __useconds_t useconds_t;
@@ -4766,12 +4765,7 @@ static void* tmalloc_small(mstate m, size_t nb) {
 
 
 void* malloc(size_t bytes) {
-# 4567 "malloc.c"
-fprintf(stderr, "This is my malloc. allocating %d bytes...\n", bytes);
-
-
-
-
+# 4572 "malloc.c"
   if (!(0)) {
     void* mem;
     size_t nb;

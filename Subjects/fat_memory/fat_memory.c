@@ -1,20 +1,64 @@
-#include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
 
-int main()
-{
-    int  i = 0;
-    int * p = 0;
-    int m = 0;
-    for(i = 0 ; i < 100000; i ++)
-    {
-        m  = rand() % 10000;  
-        p = malloc(sizeof(int) * m);
-	memset(p, 0, m); 
-        free (p);
-    }
-    printf("exit normally.\n");
-    return 0;
+typedef struct _list{
+	int* chunk;
+	struct _list *next;
+}list;
 
+int count;
+
+void add(list *head, list *entry){
+	list *p=head, *q=p->next;
+	while(q && *(q->chunk)<count){
+		p->next=q->next;
+		free(q->chunk);
+		free(q);
+		q=p->next;
+	}
+	while(q && *(q->chunk)<*(entry->chunk)){
+		p=q;
+		q=q->next;
+	}
+	p->next=entry;
+	entry->next=q;
+}
+
+int main(int argc, char **argv){
+	if(argc<2){
+		printf("Invoke the program with a file name.\n");
+		return 0;
+	}
+	FILE* fp=fopen(argv[1], "r");
+	if(!fp){
+		printf("open file mallocBase.txt failed.\n");
+		exit(0);
+	}
+	list head;
+	head.chunk=NULL;
+	head.next=NULL;
+	list *p;
+	char line[128]={0};
+	int size, lifetime;
+	count=0;
+	while(!feof(fp)){
+		if(fgets(line, 128, fp)==NULL) break;
+		count++;
+		sscanf(line, "%d %d\n", &size, &lifetime);
+		//printf("size=%d, lifetime=%d\n", size, lifetime);
+		p=malloc(sizeof(list));
+		p->chunk=malloc(size);
+		*(p->chunk)=lifetime+count;
+		p->next=NULL;
+		add(&head, p);
+	}
+	p=&head;
+	list *q=p->next;
+	while(q){
+		p=q;
+		q=q->next;
+		free(p->chunk);
+		free(p);
+	}
+	return 0;
 }

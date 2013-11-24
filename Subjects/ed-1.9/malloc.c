@@ -4564,7 +4564,7 @@ void* dlmalloc(size_t bytes) {
   ensure_initialization(); /* initialize in sys_alloc if not using locks */
 #endif
 //YUE
-fprintf(stderr, "This is my malloc. allocating %d bytes...\n", bytes);
+fprintf(stderr, "This is my malloc. allocating %lu bytes...\n", bytes);
 /*fprintf(stderr, "ALIGN=%d, FLAG=%d, GRANULARITY=%d, TRIM=%d, MMAP=%d, RATE=%d\n", MALLOC_ALIGNMENT,
 	FOOTERS+INSECURE*2+NO_SEGMENT_TRAVERSAL*4, DEFAULT_GRANULARITY/1024, DEFAULT_TRIM_THRESHOLD/1024,
 	DEFAULT_MMAP_THRESHOLD/1024, MAX_RELEASE_CHECK_RATE);

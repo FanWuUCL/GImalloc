@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define VAIN 1
+
 typedef struct _list{
 	int* chunk;
 	struct _list *next;
@@ -41,6 +43,7 @@ int main(int argc, char **argv){
 	char line[128]={0};
 	int size, lifetime;
 	count=0;
+	int i, j;
 	while(!feof(fp)){
 		if(fgets(line, 128, fp)==NULL) break;
 		count++;
@@ -51,6 +54,11 @@ int main(int argc, char **argv){
 		*(p->chunk)=lifetime+count;
 		p->next=NULL;
 		add(&head, p);
+		for(i=0; i<VAIN; i++){
+			for(j=1; j<size/32; j++){
+				p->chunk[j]=size/32-j;
+			}
+		}
 	}
 	p=&head;
 	list *q=p->next;

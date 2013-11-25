@@ -22,7 +22,7 @@ dnl Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, U
 dnl
 
 dnl Process this file with autoconf to produce a configure script.
-
+AM_MAINTAINER_MODE([disable])
 AC_INIT([GNU Awk], 4.1.0, bug-gawk@gnu.org, gawk)
 
 # This is a hack. Different versions of install on different systems

@@ -1,0 +1,3 @@
+-f csv.awk -f totsv.awk Salaries.csv
+-f dft.awk input.txt
+-f 2num.awk 1996.wctriples.p

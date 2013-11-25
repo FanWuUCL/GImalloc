@@ -1,1 +1,0 @@
-gcc  -g -O2 -DNDEBUG  -export-dynamic -o gawk array.o awkgram.o builtin.o cint_array.o command.o debug.o dfa.o eval.o ext.o field.o floatcomp.o gawkapi.o gawkmisc.o getopt.o getopt1.o int_array.o io.o main.o mpfr.o msg.o node.o profile.o random.o re.o regex.o replace.o str_array.o symbol.o version.o      -ldl -lm -lm

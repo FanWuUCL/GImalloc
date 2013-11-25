@@ -101,7 +101,7 @@
 #define HAVE_LIBM 1
 
 /* Define to 1 if you have a fully functional readline library. */
-#define HAVE_LIBREADLINE 1
+/* #undef HAVE_LIBREADLINE */
 
 /* Define if you have the libsigsegv library. */
 /* #undef HAVE_LIBSIGSEGV */

@@ -347,6 +347,7 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
+<<<<<<< HEAD
 ACLOCAL = ${SHELL} /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0/extension/build-aux/missing aclocal-1.13
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
@@ -355,6 +356,16 @@ AUTOCONF = ${SHELL} /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0/extension/
 AUTOHEADER = ${SHELL} /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0/extension/build-aux/missing autoheader
 AUTOMAKE = ${SHELL} /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0/extension/build-aux/missing automake-1.13
 AWK = gawk
+=======
+ACLOCAL = ${SHELL} /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0/extension/build-aux/missing aclocal-1.13
+AMTAR = $${TAR-tar}
+AM_DEFAULT_VERBOSITY = 1
+AR = ar
+AUTOCONF = ${SHELL} /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0/extension/build-aux/missing autoconf
+AUTOHEADER = ${SHELL} /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0/extension/build-aux/missing autoheader
+AUTOMAKE = ${SHELL} /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0/extension/build-aux/missing automake-1.13
+AWK = mawk
+>>>>>>> c014f11e50d1c8724df240cf86106413cb5cca66
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2 -Wall -Wextra
@@ -373,8 +384,8 @@ EGREP = /bin/grep -E
 EXEEXT = 
 FGREP = /bin/grep -F
 GETTEXT_MACRO_VERSION = 0.18
-GMSGFMT = /usr/bin/msgfmt
-GMSGFMT_015 = /usr/bin/msgfmt
+GMSGFMT = :
+GMSGFMT_015 = :
 GREP = /bin/grep
 INSTALL = build-aux/install-sh -c
 INSTALL_DATA = ${INSTALL} -m 644
@@ -395,12 +406,16 @@ LN_S = ln -s
 LTLIBICONV = -liconv
 LTLIBINTL = 
 LTLIBOBJS = 
+<<<<<<< HEAD
 MAKEINFO = ${SHELL} /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0/extension/build-aux/missing makeinfo
+=======
+MAKEINFO = ${SHELL} /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0/extension/build-aux/missing makeinfo
+>>>>>>> c014f11e50d1c8724df240cf86106413cb5cca66
 MANIFEST_TOOL = :
 MKDIR_P = /bin/mkdir -p
-MSGFMT = /usr/bin/msgfmt
-MSGFMT_015 = /usr/bin/msgfmt
-MSGMERGE = /usr/bin/msgmerge
+MSGFMT = :
+MSGFMT_015 = :
+MSGMERGE = :
 NM = /usr/bin/nm -B
 NMEDIT = 
 OBJDUMP = objdump
@@ -423,13 +438,20 @@ SHELL = /bin/bash
 STRIP = strip
 USE_NLS = yes
 VERSION = 4.1.0
-XGETTEXT = /usr/bin/xgettext
-XGETTEXT_015 = /usr/bin/xgettext
+XGETTEXT = :
+XGETTEXT_015 = :
 XGETTEXT_EXTRA_OPTIONS = 
+<<<<<<< HEAD
 abs_builddir = /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0/extension
 abs_srcdir = /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0/extension
 abs_top_builddir = /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0/extension
 abs_top_srcdir = /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0/extension
+=======
+abs_builddir = /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0/extension
+abs_srcdir = /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0/extension
+abs_top_builddir = /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0/extension
+abs_top_srcdir = /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0/extension
+>>>>>>> c014f11e50d1c8724df240cf86106413cb5cca66
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = 
@@ -458,7 +480,11 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
+<<<<<<< HEAD
 install_sh = ${SHELL} /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0/extension/build-aux/install-sh
+=======
+install_sh = ${SHELL} /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0/extension/build-aux/install-sh
+>>>>>>> c014f11e50d1c8724df240cf86106413cb5cca66
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale

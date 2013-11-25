@@ -186,6 +186,7 @@ NROFF = nroff
 MANS = $(man_MANS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
+<<<<<<< HEAD
 ACLOCAL = ${SHELL} /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0/missing aclocal-1.13
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
@@ -193,6 +194,15 @@ AUTOCONF = ${SHELL} /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0/missing au
 AUTOHEADER = ${SHELL} /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0/missing autoheader
 AUTOMAKE = ${SHELL} /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0/missing automake-1.13
 AWK = gawk
+=======
+ACLOCAL = ${SHELL} /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0/missing aclocal-1.13
+AMTAR = $${TAR-tar}
+AM_DEFAULT_VERBOSITY = 1
+AUTOCONF = ${SHELL} /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0/missing autoconf
+AUTOHEADER = ${SHELL} /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0/missing autoheader
+AUTOMAKE = ${SHELL} /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0/missing automake-1.13
+AWK = mawk
+>>>>>>> c014f11e50d1c8724df240cf86106413cb5cca66
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2 -DNDEBUG
@@ -208,8 +218,8 @@ EGREP = /bin/grep -E
 EXEEXT = 
 GAWKLIBEXT = so
 GETTEXT_MACRO_VERSION = 0.18
-GMSGFMT = /usr/bin/msgfmt
-GMSGFMT_015 = /usr/bin/msgfmt
+GMSGFMT = :
+GMSGFMT_015 = :
 GREP = /bin/grep
 HAVE_LIBSIGSEGV = no
 INSTALL = .././install-sh -c
@@ -224,7 +234,7 @@ LIBICONV = -liconv
 LIBINTL = 
 LIBMPFR = 
 LIBOBJS = 
-LIBREADLINE = -lreadline
+LIBREADLINE = 
 LIBS = -ldl -lm -lm 
 LIBSIGSEGV = 
 LIBSIGSEGV_PREFIX = 
@@ -233,11 +243,15 @@ LTLIBICONV = -liconv
 LTLIBINTL = 
 LTLIBOBJS = 
 LTLIBSIGSEGV = 
+<<<<<<< HEAD
 MAKEINFO = ${SHELL} /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0/missing makeinfo --no-split --force
+=======
+MAKEINFO = ${SHELL} /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0/missing makeinfo --no-split --force
+>>>>>>> c014f11e50d1c8724df240cf86106413cb5cca66
 MKDIR_P = /bin/mkdir -p
-MSGFMT = /usr/bin/msgfmt
-MSGFMT_015 = /usr/bin/msgfmt
-MSGMERGE = /usr/bin/msgmerge
+MSGFMT = :
+MSGFMT_015 = :
+MSGMERGE = :
 OBJEXT = o
 PACKAGE = gawk
 PACKAGE_BUGREPORT = bug-gawk@gnu.org
@@ -254,15 +268,22 @@ SOCKET_LIBS =
 STRIP = 
 USE_NLS = yes
 VERSION = 4.1.0
-XGETTEXT = /usr/bin/xgettext
-XGETTEXT_015 = /usr/bin/xgettext
+XGETTEXT = :
+XGETTEXT_015 = :
 XGETTEXT_EXTRA_OPTIONS = 
 YACC = yacc
 YFLAGS = 
+<<<<<<< HEAD
 abs_builddir = /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0/doc
 abs_srcdir = /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0/doc
 abs_top_builddir = /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0
 abs_top_srcdir = /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0
+=======
+abs_builddir = /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0/doc
+abs_srcdir = /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0/doc
+abs_top_builddir = /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0
+abs_top_srcdir = /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0
+>>>>>>> c014f11e50d1c8724df240cf86106413cb5cca66
 ac_ct_CC = gcc
 acl_shlibext = so
 am__include = include
@@ -290,7 +311,11 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
+<<<<<<< HEAD
 install_sh = ${SHELL} /home/fanwu/Projects/GImalloc/Subjects/gawk-4.1.0/install-sh
+=======
+install_sh = ${SHELL} /home/yuejia/Projects/GImalloc/Subjects/gawk-4.1.0/install-sh
+>>>>>>> c014f11e50d1c8724df240cf86106413cb5cca66
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale

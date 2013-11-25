@@ -4,13 +4,13 @@ SUBJECT_PATH="$CURR_PATH/../../Subjects"
 ORIGINAL_PATH="$CURR_PATH/original"
 
 MILU="../../Milu/bin/milu"
-SUBJECT_NAME="cfrac"
-SUBJECT_PATH_NAME="$SUBJECT_PATH/cfrac"
+SUBJECT_NAME="gawk"
+SUBJECT_PATH_NAME="$SUBJECT_PATH/gawk-4.1.0"
 SUBJECT_PATH_TESTCASES="$SUBJECT_PATH_NAME/testcases"
 
 
 echo "Experiment: mutation sensitivity analysis"
-echo "Subject: cfrac"
+echo "Subject: gawk"
 echo "November 25, 2013"
 
 echo "Compiling original"
@@ -24,7 +24,7 @@ if [ ! -f fitness.txt ]; then
  fi
 
 cd $ORIGINAL_PATH 
-gcc -shared -fPIC -m32 malloc.c -o libmalloc.so
+gcc -shared -fPIC malloc.c -o libmalloc.so
 cp $SUBJECT_PATH/bin/$SUBJECT_NAME subject
 cp -r $SUBJECT_PATH_TESTCASES/* .
 cp $memory_path memory
@@ -41,7 +41,7 @@ for index in `ls milu_output/mutants/`
 do
 	cd milu_output/mutants/$index
     echo "Compiling mutant $index"
-	gcc -shared -fPIC -m32 src/malloc.c -o libmalloc.so
+	gcc -shared -fPIC src/malloc.c -o libmalloc.so
     cp $SUBJECT_PATH/bin/$SUBJECT_NAME subject
     cp -r $SUBJECT_PATH_TESTCASES/* .
 	cp $memory_path memory

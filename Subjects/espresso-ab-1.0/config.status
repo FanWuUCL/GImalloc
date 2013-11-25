@@ -269,11 +269,11 @@ s,@INSTALL_SCRIPT@,${INSTALL},;t t
 s,@INSTALL_DATA@,${INSTALL} -m 644,;t t
 s,@PACKAGE@,espresso-ab,;t t
 s,@VERSION@,1.0,;t t
-s,@ACLOCAL@,aclocal,;t t
-s,@AUTOCONF@,autoconf,;t t
-s,@AUTOMAKE@,automake,;t t
-s,@AUTOHEADER@,autoheader,;t t
-s,@MAKEINFO@,/home/fanwu/Projects/GImalloc/Subjects/espresso-ab-1.0/missing makeinfo,;t t
+s,@ACLOCAL@,/home/yuejia/Projects/GImalloc/Subjects/espresso-ab-1.0/missing aclocal,;t t
+s,@AUTOCONF@,/home/yuejia/Projects/GImalloc/Subjects/espresso-ab-1.0/missing autoconf,;t t
+s,@AUTOMAKE@,/home/yuejia/Projects/GImalloc/Subjects/espresso-ab-1.0/missing automake,;t t
+s,@AUTOHEADER@,/home/yuejia/Projects/GImalloc/Subjects/espresso-ab-1.0/missing autoheader,;t t
+s,@MAKEINFO@,/home/yuejia/Projects/GImalloc/Subjects/espresso-ab-1.0/missing makeinfo,;t t
 s,@SET_MAKE@,,;t t
 s,@CC@,gcc,;t t
 s,@CFLAGS@,-g -O2,;t t

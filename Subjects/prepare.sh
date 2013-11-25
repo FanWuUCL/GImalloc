@@ -31,3 +31,14 @@ make
 cp ed ../bin
 cp libmalloc.so ../bin
 
+
+# Prepare subject espresso 
+cd $curr_path
+echo "Prepare subject: Espresso"
+cd espresso-ab-1.0 
+./configure
+cd src
+make
+cp espresso ../../bin
+#cp libmalloc.so ../bin
+

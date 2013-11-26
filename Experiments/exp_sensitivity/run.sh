@@ -41,6 +41,12 @@ SUBJECT_PATH_NAME="c_hashmap"
 RUN_EXP="true"
 fi
 
+if [ "$1" == "fat_memory" ]; then
+SUBJECT_NAME=$1
+SUBJECT_PATH_NAME="fat_memory"
+RUN_EXP="true"
+fi
+
 if [ "true" == "$RUN_EXP" ]; then
 
 if [ ! -f "$SUBJECT_NAME"_fitness.txt ]; then

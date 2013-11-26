@@ -40,10 +40,10 @@ pkgincludedir = $(includedir)/espresso-ab
 
 top_builddir = ..
 
-ACLOCAL = /home/yuejia/Projects/GImalloc/Subjects/espresso-ab-1.0/missing aclocal
-AUTOCONF = /home/yuejia/Projects/GImalloc/Subjects/espresso-ab-1.0/missing autoconf
-AUTOMAKE = /home/yuejia/Projects/GImalloc/Subjects/espresso-ab-1.0/missing automake
-AUTOHEADER = /home/yuejia/Projects/GImalloc/Subjects/espresso-ab-1.0/missing autoheader
+ACLOCAL = aclocal
+AUTOCONF = autoconf
+AUTOMAKE = automake
+AUTOHEADER = autoheader
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL} $(AM_INSTALL_PROGRAM_FLAGS)

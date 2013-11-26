@@ -43,13 +43,13 @@ configure:1041: result: yes
 configure:1062: checking whether make sets ${MAKE}
 configure:1082: result: yes
 configure:1110: checking for working aclocal
-configure:1121: result: missing
+configure:1117: result: found
 configure:1125: checking for working autoconf
-configure:1136: result: missing
+configure:1132: result: found
 configure:1140: checking for working automake
-configure:1151: result: missing
+configure:1147: result: found
 configure:1155: checking for working autoheader
-configure:1166: result: missing
+configure:1162: result: found
 configure:1170: checking for working makeinfo
 configure:1181: result: missing
 configure:1232: checking for gcc

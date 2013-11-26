@@ -1,4 +1,4 @@
-#!/bin/bash
+#/bin/bash
 
 curr_path=`pwd`
 
@@ -42,3 +42,10 @@ make
 cp espresso ../../bin
 #cp libmalloc.so ../bin
 
+
+# Prepare subject espresso 
+cd $curr_path
+echo "Prepare subject: Cfrac"
+cd cfrac 
+make
+cp cfrac ../bin

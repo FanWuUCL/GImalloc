@@ -38,7 +38,7 @@ cd $SUBJECT_NAME
 ./prepare.sh $SUBJECT_NAME $SUBJECT_PATH_NAME
 
 cd $CURR_PATH
-rm -r $SUBJECT_NAME
+#rm -r $SUBJECT_NAME
 
 else
     echo "Unknown experiment!"

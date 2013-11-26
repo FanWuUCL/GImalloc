@@ -58,3 +58,20 @@ cd gawk-4.0.2
 cd src
 make
 cp gawk ../bin
+
+# Prepare subject space 
+cd $curr_path
+echo "Prepare subject: space"
+cd space 
+make
+cp space ../bin
+
+# Prepare subject hashmap 
+cd $curr_path
+echo "Prepare subject: hashmap"
+cd c_hashmap 
+make
+cp hashmap ../bin
+
+
+

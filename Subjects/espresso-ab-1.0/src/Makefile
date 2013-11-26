@@ -58,7 +58,7 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 CC = gcc
-MAKEINFO = /home/yuejia/Projects/GImalloc/Subjects/espresso-ab-1.0/missing makeinfo
+MAKEINFO = /home/fanwu/Projects/GImalloc/Subjects/espresso-ab-1.0/missing makeinfo
 PACKAGE = espresso-ab
 VERSION = 1.0
 

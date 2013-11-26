@@ -3,3 +3,4 @@
 ./run.sh gawk  
 ./run.sh cfrac  
 ./run.sh espresso 
+./run.sh fat_malloc 

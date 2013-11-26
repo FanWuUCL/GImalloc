@@ -4,11 +4,14 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <string.h>
+#include <signal.h>
 //#include <fcntl.h>
 #include "profiler.h"
 
 #define PIPE_IN 0 
 #define PIPE_OUT 1
+
+#define TIME_OUT_SEC 3
 
 extern gint profiler_debug;
 
@@ -115,6 +118,10 @@ gint profile(double* time, double* memory, double* correctness, int suiteSize){
 				//g_snprintf(line, 512, "cp %s curr/smaps%d", filename, sampleN);
 				//usleep(1000);
 				sampleN++;
+				if(sampleN>20000*TIME_OUT_SEC){
+					kill(pid, SIGINT);
+					break;
+				}
 			}
 			//if(profiler_debug) fprintf(stderr, "%d samples for case %d. memory= %lf\n", sampleN, j, memory_one_case);
 			g_snprintf(line, 128, "%lf\n", memory_one_case);
@@ -133,7 +140,6 @@ gint profile(double* time, double* memory, double* correctness, int suiteSize){
 		line[tmp_int]='\0';
 		sscanf(line, "%lf", &memory_one_case);
 		//g_spawn_close_pid(pid);
-		//fprintf(stderr, "%d samples for case %d.\n", sampleN, j);
 		memory_t+=memory_one_case;
 		time_t+=usage.ru_utime.tv_sec+usage.ru_stime.tv_sec+(usage.ru_utime.tv_usec+usage.ru_stime.tv_usec)/(double)1000000;
 		while(wait(&tmp_int)>0);

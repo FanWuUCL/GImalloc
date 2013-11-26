@@ -23,5 +23,5 @@ do
 	fi
 done
 
-echo $FILENAME > testcases.txt
+echo $FILENAME > testcases/testcases.txt
 

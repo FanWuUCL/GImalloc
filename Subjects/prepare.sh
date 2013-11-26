@@ -43,9 +43,18 @@ cp espresso ../../bin
 #cp libmalloc.so ../bin
 
 
-# Prepare subject espresso 
+# Prepare subject cfrac 
 cd $curr_path
 echo "Prepare subject: Cfrac"
 cd cfrac 
 make
 cp cfrac ../bin
+
+# Prepare subject gawk 
+cd $curr_path
+echo "Prepare subject: Gawk"
+cd gawk-4.0.2
+./configure
+cd src
+make
+cp gawk ../bin

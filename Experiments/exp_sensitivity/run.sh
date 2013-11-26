@@ -28,6 +28,14 @@ RUN_EXP="true"
 
 fi
 
+if [ "$1" == "gawk" ]; then
+
+SUBJECT_NAME="gawk"
+SUBJECT_PATH_NAME="gawk-4.0.2"
+RUN_EXP="true"
+
+fi
+
 if [ "true" == "$RUN_EXP" ]; then
 
 if [ ! -d "$SUBJECT_NAME" ]; then

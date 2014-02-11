@@ -2,27 +2,56 @@
 \section{Optimising Dlmalloc Parameters}
 
 % Intruduce the 9 parameters defined in Dlmalloc (1 paragraph)
-
 % draw a table with "para name, type, range, default, comment"
+\begin{table*}[htbp]
+\centering
+\caption{\emph{dlmalloc} parameters}
+\label{tab_dlmalloc_parameters}
+\resizebox{0.9\textwidth}{!}{
+\begin{tabular}{c|c|c|c|c}
+\hline
+Name & Default & Range & Type & Description\\
+\hline
+MALLOC\_ALIGNMENT & $2*sizeof(void*)$ & $(1~16)*sizeof(void*)$ & $2^n*sizeof(void*)$ & Alignment unit\\
+\hline
+FOOTERS & \emph{false} & \emph{true} or \emph{false} & boolean & Additional information of each chunk\\
+\hline
+INSECURE & \emph{false} & \emph{true} or \emph{false} & boolean & Secure check\\
+\hline
+NO\_SEGMENT\_TRAVERSAL & \emph{false} & \emph{true} or \emph{false} & boolean & Traversal of chunks before coalescing\\
+\hline
+MORECORE\_CONTIGUOUS & \emph{true} & \emph{true} or \emph{false} & boolean & Contiguous heap extension support\\
+\hline
+DEFAULT\_GRANULARITY & 0 & 4~512KB & $2^n$KB or 0 & Unit of heap extension\\
+\hline
+DEFAULT\_TRIM\_THRESHOLD & 2048KB & 64KB~16MB & $2^n$KB & Threshold of trimming\\
+\hline
+DEFAULT\_MMAP\_THRESHOLD & 256KB & 16KB~2MB & integer & Threshold of direct memory mapping\\
+\hline
+MAX\_RELEASE\_CHECK\_RATE & 4095 & 1000~10000 & integer & Frequency of coalescing\\
+\hline
+\end{tabular}}
+\end{table*}
+As a general-purpose allocator, \emph{dlmalloc} provides several tunable parameters to programmers to adjust at compilation. More specifically, these parameters are defined as macros in the source code, but can be modified via compilers (we achieve that through \emph{gcc}'s ``-D'' flag). In this article, we choose some of these parameters that are more likely to influence the allocator's behavior in terms of memory/time consumption, as our ``victims''. For the sake of brevity, only two of them are detailed as examples. \textbf{MALLOC\_ALIGNMENT} is one of the most basic macros in \emph{dlmalloc}, representing a multiple of how many bytes all request sizes should be rounded up to. Most of other macros in \emph{dlmalloc} rely on this alignment to avoid any incompatibility. Its default value is $2*sizeof(void*)$ where $sizeof(void*)$ varies across different systems. Normally smaller MALLOC\_ALIGNMENT tends to save more memory but could also cause incompatibility with some applications. \textbf{DEFAULT\_MMAP\_THRESHOLD} is the size bigger than which a request that can not be served via existing free chunks, is allocated through \emph{mmap}-like system call. These \emph{mmap}ed chunks can not be consolidated or reuse by other request, but unlike regular chunks, they never get trapped by other ocuppied chunks, meaning they can be directly released to the system as soon as the application frees it. Bigger DEFAULT\_MMAP\_THRESHOLD tends to cause more memory consumption but save allocation time. The default, 256KB, is ``an empirically derived value that works well in most systems''. A list of the parameters we target in this article is given in Table \ref{tab_dlmalloc_parameters}. More detailed description of these parameters can be found in the comments of \emph{dlmalloc} source code.
 
 \subsection{Algorithm}
-
+In this work, we apply NSGA II\cite{996017}, a multi-objective Genetic Algorithm, on the searching of the optimal values for those \emph{dlmalloc} parameters list above.
 % data representation
-
+Since these parameters can be easily interpreted as integers, we use linear representation to store each candidate, in which each gene is an integer number representing one of the parameters. For mutation, we use different operators according to each gene's legitimate range, while two-point crossover is applied.
 % fittness evaluation
-
+Since we need to re-compile \emph{dlmalloc} every time we change the parameters, in order to minimize compilation cost, we only compile \emph{dlmalloc} to a shared object and each application is compiled and linked to that shared object at the beginning of each experiment. In each generation, after new candidates are generated through mutation and crossover operators, each candidate is re-compiled and run with a given subject application. When the performance of the application with each candidate version of \emph{dlmalloc} is collected, an NSGA II style selection is applied to obtain the next generation.
 % how to measure time
-
 % how to measure memory
+Currently we focus on two non-functional properties: time and memory consumption. \emph{Glibc}'s \emph{wait4} function is used to calculate the cpu time consumed by the application (sum of user time and system time), while we compute the high-water mark of the memory consumption by instrumentation of \emph{dlmalloc}. In this way the memory measured is virtual memory, because the physical pages allocated to an application is not always deterministic but depends on the work load and the system so that measuring the physical memory usage could be hard and misleading.
 
 %** maybe need add some think to justiy the choice of self-implementation. 
 
-Introduction of the methods proposed in this paper. Including parameter tuning, sensitivity analysis via mutation operators, parameter exposure. Research Questions.
+\section{Exposing parameters}
+Other than the existing parameters introduced above, there might be some other valuable variables which could influence the performance of the allocator but burried and neglected in the massive source code. It could be a constant, an expression or even a predicate. In this paper we try to expose these valuable parts of \emph{dlmalloc} to users so that they can also adjust these parts to fit their needs. Other than blindly exposing random parameters, we need to know how much each piece of code could influence the behavior of \emph{dlmalloc} before we expose it. In another word, we need sensitivity analysis.
+\subsection{Mutation based sensitivity analysis}
 
-\section{Mutation based sensitivity analysis}
-
-% Introduce two type of mutations and why
-
+% Introduce two types of mutations and why
+In order to obtain the sensitivity information, one simple way is to delete each statement at a time to see how important this statement is to the performance of \emph{dlmalloc}. However, when the statement deleted is consist of a very complicated expression, which variable or operator is more important than others remains unknown. A more advanced way to obtain the sensitivity information is via Mutation Operators. Mutation Operators are used in Mutation Testing, which automatically inserts some faults to a target program via Mutation Operators to generate mutants of this program and try to detect those faults using a test suite to see whether the test suite is good enough to reveal program faults. In this work, we just use these Mutation Operators to slightly alter \emph{dlmalloc}, in order to understand which piece of source code influences the memory consumption most.
 % maybe rank
 
 

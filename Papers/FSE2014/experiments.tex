@@ -1,0 +1,54 @@
+
+
+\section{Experiment Setup}
+\subsection{Basic Parameters}
+introduction to the existing tunable parameters in the original dlmalloc which are tuned in this work.
+
+As a general-purpose allocator, \emph{dlmalloc} provides several tunable parameters to programmers to adjust at compilation. These parameters are defined as macros in the source code of \emph{dlmalloc}, but can be changed by compilers (we achieve that through \emph{gcc}'s ``-D'' flag in this work). In this article, we choose some of these parameters that are more likely to influence the allocator's behavior in terms of memory consumption, as our ``victims'', which are introduced as follows.
+
+\textbf{MALLOC\_ALIGNMENT} is one of the most basic macros in \emph{dlmalloc}, representing a multiple of how many bytes all request sizes should be rounded up to. Most of other macros in \emph{dlmalloc} rely on this alignment to avoid any incompatibility. Its default value is $2*sizeof(void*)$ where $sizeof(void*)$ varies across different systems. 
+\begin{table*}[htbp]
+\centering
+\caption{\emph{dlmalloc} parameters}
+\label{tab_1}
+\resizebox{0.8\textwidth}{!}{
+\begin{tabular}{c|c|c|c|c}
+\hline
+macro & default & minimum & maximum & type \\
+\hline
+MALLOC\_ALIGNMENT & $2*sizeof(void*)$ & $sizeof(void*)$ & $16*sizeof(void*)$ & $2^n*sizeof(void*)$ \\
+\hline
+FOOTERS & \emph{false} & \emph{false} & \emph{true} & boolean \\
+\hline
+INSECURE & \emph{false} & \emph{false} & \emph{true} & boolean \\
+\hline
+NO\_SEGMENT\_TRAVERSAL & \emph{false} & \emph{false} & \emph{true} & boolean \\
+\hline
+MORECORE\_CONTIGUOUS & \emph{true} & \emph{false} & \emph{true} & boolean \\
+\hline
+DEFAULT\_GRANULARITY & 0 & 4KB & 512KB & $2^n$KB or 0 \\
+\hline
+DEFAULT\_TRIM\_THRESHOLD & 2048KB & 64KB & 16MB & $2^n$KB \\
+\hline
+DEFAULT\_MMAP\_THRESHOLD & 256KB & 16KB & 2MB & integer \\
+\hline
+MAX\_RELEASE\_CHECK\_RATE & 4095 & 1000 & 10000 & integer \\
+\hline
+TOP\_FOOT\_SIZE & 80B & 16B & 2KB & integer \\
+\hline
+\end{tabular}}
+\end{table*}
+The legitimate values for MALLOC\_ALIGNMENT are a power of 2 times $sizeof(void*)$ and we constrain the searching space from $sizeof(void*)$ to $16*sizeof(void*)$. The default value and searching range of MALLOC\_ALIGNMENT, as well as other macros, is given in Table \ref{tab_1}.
+
+\textbf{FOOTERS}, \textbf{INSECURE} and \textbf{NO\_SEGMENT\_TRAVERSAL} are all boolean parameters. FOOTERS allows \emph{dlmalloc} place extra checking and dispatching information at the end of allocated chunks, which may increase memory consumption. The default value for FOOTERS is \emph{false}. When INSECURE is \emph{true}, \emph{dlmalloc} skips checks for usage errors and heap space overwrites. Its default value is \emph{false}, meaning \emph{dlmalloc} always keeps checking violated chunks by default. NO\_SEGMENT\_TRAVERSAL disables merging of segments that are contiguous and selectively releasing them to the OS if unused, by suppressing traversals of memory segments at some points of execution. It is set to \emph{false} by default. 
+
+\textbf{DEFAULT\_GRANULARITY} is the unit for allocation and deallocation from the system. Large DEFAULT\_GRANULARITY tends to lead to higher memory consumption but lower allocation time. Normally it is set to the page size if the system supports contiguous \emph{sbrk}-like system call. It should have a value of power of 2 and at least one page size. By default it is set to 0 meaning it equals to the page size according to the system. When \textbf{MORECORE\_CONTIGUOUS} is \emph{true}, change of DEFAULT\_GRANULARITY is turned off and 0 is set for DEFAULT\_GRANULARITY.
+
+\textbf{DEFAULT\_TRIM\_THRESHOLD} defines when the allocator should return some memory back to the system if it holds too much free memory. It only applies on the top chunk since allocation and deallocation from the system can only happen at the end of heap where the top chunk locates. If the allocator finds the size of the top chunk is bigger than DEFAULT\_TRIM\_THRESHOLD, it automatically releases some of the top chunk back to the system while keeping possibly enough space in the top chunk. DEFAULT\_TRIM\_THRESHOLD should be at least one page size and is set to 2048KB by default. 
+
+\textbf{DEFAULT\_MMAP\_THRESHOLD} is the size bigger than which a request that can not be served via existing free space, is allocated through \emph{mmap}-like system call. These \emph{mmaped} chunks can not be consolidated or reuse by other request, but unlike regular chunks, they never get trapped by other ocuppied chunks, meaning they can be directly released to the system at any time. Bigger DEFAULT\_MMAP\_THRESHOLD tends to cause more memory consumption but save allocation time. The default, 256KB, is ``an empirically derived value that works well in most systems''.
+
+\textbf{MAX\_RELEASE\_CHECK\_RATE} tells \emph{dlmalloc} how frequently it should check and release some unused memory when freeing. More frequent checks may keep the memory usage efficient, but obviously requires more computation during the freeing process. The default value for MAX\_RELEASE\_CHECK\_RATE is 4095 and all integers are valid for it. 
+\subsection{Exposed Parameters}
+Sensitivity Analysis via Mutation Operators. Description of choosing of parameters to expose.
+

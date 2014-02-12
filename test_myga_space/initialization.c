@@ -22,3 +22,26 @@ GList* initializePopulation(individual* seed, gint number){
 	calculateFrontier(&population);
 	return population;
 }
+
+GList* initializeRandPopulation(individual* seed, gint number){
+	GList* population=NULL;
+	gint i;
+	gint random;
+	individual* ind;
+	ind=copyIndividual(seed);
+	evaluateIndividual(ind, 0);
+	population=g_list_append(population, ind);
+	for(i=1; i<number; i++){
+                if (i % 10 == 0) printf("%d\n", i);
+		ind=copyIndividual(seed);
+		//random=randomIntRange(0, NUMBER_OF_GENE);
+                for(random = 0; random < NUMBER_OF_GENE; random++)
+                {
+		ind->chrom[random]=mutationGene(default_mutation_type[random], ind->chrom[random], default_lower_bound[random], default_upper_bound[random]);
+                }
+		evaluateIndividual(ind, i);
+		population=g_list_append(population, ind);
+	}
+	calculateFrontier(&population);
+	return population;
+}

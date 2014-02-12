@@ -44,7 +44,7 @@ cat fitness.txt >> $CURR_PATH/fitness.txt
 cd $CURR_PATH
 
 echo "Start mutation analysis"
-$MILU -m ../mop.txt -f ../func_list.txt ../malloc.c 
+$MILU -h -m ../mop.txt -f ../func_list.txt ../malloc.c
 
 for index in `ls milu_output/mutants/`
 do

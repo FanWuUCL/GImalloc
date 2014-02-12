@@ -3,6 +3,7 @@
 #include "public.h"
 
 GList* initializePopulation(individual*, gint);
+GList* initializeRandPopulation(individual* seed, gint number);
 
 
 #endif

@@ -7,13 +7,13 @@ PRO_OBJECTS=profiler_main.o profiler.o utility.o public.o
 all: myga profiler clean
 
 myga:	$(OBJECTS)
-	gcc -o myga $(OBJECTS) -lm `pkg-config --libs glib-2.0`
+	gcc  -o myga $(OBJECTS) -lm `pkg-config --libs glib-2.0`
 
 profiler: $(PRO_OBJECTS)
-	gcc -o profiler $(PRO_OBJECTS) `pkg-config --libs glib-2.0`
+	gcc  -o profiler $(PRO_OBJECTS) `pkg-config --libs glib-2.0`
 
 %.o: %.c
-	gcc -c $(GLIBFLAGS) $< -o $@
+	gcc  -c $(GLIBFLAGS) $< -o $@
 
 clean:
 	rm -rf *.o

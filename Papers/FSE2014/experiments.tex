@@ -1,5 +1,26 @@
 
-
 \section{Experiment Setup}
+We apply our approach on four subject applications: \emph{espresso}, \emph{space}, \emph{cfrac} and \emph{gawk}.
+\begin{table}[htbp]
+\centering
+\caption{subject applications}
+\label{tab_sub_app}
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{c|c|c|c}
+\hline
+Name & Loc & Number of testcases & Type \\
+\hline
+espresso & 13256 & 19 & Digital electronic gate circuits simplification\\
+\hline
+cfrac & 6040 & 2 & Big integer factorization\\
+\hline
+space & 5846 & 3 & Astronautics interpretation\\
+\hline
+gawk & 45241 & 20 & String processing\\
+\hline
+\end{tabular}}
+\end{table}
+\emph{Espresso} is a fast application for simplying complex digital electronic gate circuits and \emph{cfrac} is a factorization application for big integers. We obtain these two applications from the benchmarks of the \emph{DieHard} project, which contains the testcases we used in this work. \emph{Space} is a well known real world application in astronautics. We obtain this program from the SIR repository, where is also the origin of the testcases for it in this paper. \emph{Gawk} is the GNU \emph{awk} implementation for strings processing. We collect this application from the GNU archives, and generate some testcases for it on our own.
 
+The experiments are run on a 64-bit Ubuntu 13.10 system with 7.7 GiB memory and 4 Intel i7-3770 CPU cores. The compiler gcc 4.8.1 is used and \emph{dlmalloc} version 2.8.6 is our base allocator, which is compiled with -O3 option.
 

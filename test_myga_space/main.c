@@ -133,9 +133,9 @@ void main(int argc, char** argv){
 	//printList(testcaseResults);
 	printStdComsumption();
 	
-        /* Random */
-	//population=initializeRandPopulation(ori, 100);
-
+        /* Random 
+	population=initializeRandPopulation(ori, 1000);
+*/
         /* NSGAII */
         
 	population=initializePopulation(ori, POPULATION_SIZE);

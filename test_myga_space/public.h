@@ -9,10 +9,10 @@
 #define MYGP
 
 // user defines
-#define POPULATION_SIZE 5
+#define POPULATION_SIZE 50
 #define MUTATION_RATE 0.2
 #define CROSSOVER_RATE 0.8
-#define GENERATION_MAX 10
+#define GENERATION_MAX 20
 // the times should be no less than (1+MUTATION_RATE+CROSSOVER_RATE)
 #define COMBINED_POPULATION_SIZE (POPULATION_SIZE*2)
 // testcases dir, put in front of each test case and send it to the subject program in the cmd line

@@ -42,6 +42,6 @@ GList* initializeRandPopulation(individual* seed, gint number){
 		evaluateIndividual(ind, i);
 		population=g_list_append(population, ind);
 	}
-	calculateFrontier(&population);
+	//calculateFrontier(&population);
 	return population;
 }

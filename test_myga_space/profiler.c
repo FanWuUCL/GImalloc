@@ -193,7 +193,8 @@ gint profile(double* time, double* memory, double* correctness, int suiteSize){
 	*time=time_t;
 	//*memory=memory_t;
 	*memory=memory_new/(double)1024;
-	*correctness=correctness_t;
+	//*correctness=correctness_t;
+	*correctness=0;
 	profile_times++;
 	return 0;
 }

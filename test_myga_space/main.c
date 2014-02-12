@@ -133,10 +133,10 @@ void main(int argc, char** argv){
 	//printList(testcaseResults);
 	printStdComsumption();
 	
-        /* Random 
+        /* Random */
 	population=initializeRandPopulation(ori, 1000);
-*/
-        /* NSGAII */
+
+        /* NSGAII 
         
 	population=initializePopulation(ori, POPULATION_SIZE);
 	
@@ -158,7 +158,7 @@ void main(int argc, char** argv){
 		t1=(t2-t1)*(GENERATION_MAX-i-1)+t2;
 		g_printf("Estimated finish time: %s\n", ctime(&t1));
 	}
-       
+      */ 
 
 	savePopulation(population, 999);
 	free_population(population);

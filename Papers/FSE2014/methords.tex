@@ -1,39 +1,6 @@
 %\section{Searching for better DLMalloc parameters}
 \section{Optimising Dlmalloc Parameters}
 
-% Intruduce the 9 parameters defined in Dlmalloc (1 paragraph)
-% draw a table with "para name, type, range, default, comment"
-\begin{table*}[htbp]
-\centering
-\caption{\emph{dlmalloc} parameters}
-\label{tab_dlmalloc_parameters}
-\resizebox{0.9\textwidth}{!}{
-\begin{tabular}{c|c|c|c|c}
-\hline
-Name & Default & Range & Type & Description\\
-\hline
-MALLOC\_ALIGNMENT & $2*sizeof(void*)$ & $(1~16)*sizeof(void*)$ & $2^n*sizeof(void*)$ & Alignment unit\\
-\hline
-FOOTERS & \emph{false} & \emph{true} or \emph{false} & boolean & Additional information of each chunk\\
-\hline
-INSECURE & \emph{false} & \emph{true} or \emph{false} & boolean & Secure check\\
-\hline
-NO\_SEGMENT\_TRAVERSAL & \emph{false} & \emph{true} or \emph{false} & boolean & Traversal of chunks before coalescing\\
-\hline
-MORECORE\_CONTIGUOUS & \emph{true} & \emph{true} or \emph{false} & boolean & Contiguous heap extension support\\
-\hline
-DEFAULT\_GRANULARITY & 0 & 4~512KB & $2^n$KB or 0 & Unit of heap extension\\
-\hline
-DEFAULT\_TRIM\_THRESHOLD & 2048KB & 64KB~16MB & $2^n$KB & Threshold of trimming\\
-\hline
-DEFAULT\_MMAP\_THRESHOLD & 256KB & 16KB~2MB & integer & Threshold of direct memory mapping\\
-\hline
-MAX\_RELEASE\_CHECK\_RATE & 4095 & 1000~10000 & integer & Frequency of coalescing\\
-\hline
-\end{tabular}}
-\end{table*}
-As a general-purpose allocator, \emph{dlmalloc} provides several tunable parameters to programmers to adjust at compilation. More specifically, these parameters are defined as macros in the source code, but can be modified via compilers (we achieve that through \emph{gcc}'s ``-D'' flag). In this article, we choose some of these parameters that are more likely to influence the allocator's behavior in terms of memory/time consumption, as our ``victims''. For the sake of brevity, only two of them are detailed as examples. \textbf{MALLOC\_ALIGNMENT} is one of the most basic macros in \emph{dlmalloc}, representing a multiple of how many bytes all request sizes should be rounded up to. Most of other macros in \emph{dlmalloc} rely on this alignment to avoid any incompatibility. Its default value is $2*sizeof(void*)$ where $sizeof(void*)$ varies across different systems. Normally smaller MALLOC\_ALIGNMENT tends to save more memory but could also cause incompatibility with some applications. \textbf{DEFAULT\_MMAP\_THRESHOLD} is the size bigger than which a request that can not be served via existing free chunks, is allocated through \emph{mmap}-like system call. These \emph{mmap}ed chunks can not be consolidated or reuse by other request, but unlike regular chunks, they never get trapped by other ocuppied chunks, meaning they can be directly released to the system as soon as the application frees it. Bigger DEFAULT\_MMAP\_THRESHOLD tends to cause more memory consumption but save allocation time. The default, 256KB, is ``an empirically derived value that works well in most systems''. A list of the parameters we target in this article is given in Table \ref{tab_dlmalloc_parameters}. More detailed description of these parameters can be found in the comments of \emph{dlmalloc} source code.
-
 \subsection{Algorithm}
 In this work, we apply NSGA II\cite{996017}, a multi-objective Genetic Algorithm, on the searching of the optimal values for those \emph{dlmalloc} parameters list above.
 % data representation

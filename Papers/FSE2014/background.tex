@@ -11,7 +11,7 @@ Many memory allocation strategies and managers have been proposed and studied by
 \emph{Dlmalloc} is a general purpose memory allocator designed for c programs. It keeps two set of segregated lists managing small and large size available chunks respectively. 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=2.4in]{fig7}
+\includegraphics[width=3in]{fig7}
 \caption{structure of \emph{dlmalloc}}\label{fig_7}
 \end{figure}
 Each of the segregated lists is called a bin and there are 64 small bins and 64 large bins in \emph{dlmalloc} (Figure \ref{fig_7}). For small bins, each one contains chunks in the exact same size, in which way insertion to or deletion from the list is very quick. For large bins, each bin is associated with a range of sizes and any free chunks within that range are stored in the corresponding bin in the ascending order. So managing large bins is more costly than small bins but fortunately large bins are less frequent than small bins. Apart from these bins, \emph{dlmalloc} also keeps a top chunk, which is always at the end of the heap so that it can be extended or trimmed without affecting other memory chunks. The top chunk is used only when there is no available chunk in any bins that meets the memory request. If the request size is too large to be satisfied from the top chunk and bigger than a pre-defined threshold, \emph{dlmalloc} uses an \emph{mmap}-like system call to allocate this size of memory from the operating system directly. Or it tries to extend the top chunk using \emph{sbrk}-like system call, so that the extended top chunk is big enough to cover the request.

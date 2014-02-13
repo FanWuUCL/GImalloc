@@ -1,7 +1,29 @@
 %\section{Searching for better DLMalloc parameters}
-\section{Optimising Dlmalloc Parameters}
+\section{Deep Parameter Optimisation}
 
-\subsection{Algorithm}
+Our approach takes three step.
+
+First use sensitify approach to locate the intersting factor that could affect , we analyse the intersting locating and espress the intersting expression as paramertser. which can be turn from inptuer. We then apply SBSE approach to tuuning the tu
+
+This section will first discussion
+%** maybe need add some think to justiy the choice of self-implementation. 
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=3.2in]{pics/system}
+\caption{Deep parameter optimisation workflow}\label{system}
+\end{figure}
+
+
+\subsection{Exposing Implicit Parameters}
+Other than the existing parameters introduced above, there might be some other valuable variables which could influence the performance of the allocator but burried and neglected in the massive source code. It could be a constant, an expression or even a predicate. In this paper we try to expose these valuable parts of \emph{dlmalloc} to users so that they can also adjust these parts to fit their needs. Other than blindly exposing random parameters, we need to know how much each piece of code could influence the behavior of \emph{dlmalloc} before we expose it. In another word, we need sensitivity analysis.
+
+% Introduce two types of mutations and why
+In order to obtain the sensitivity information, one simple way is to delete each statement at a time to see how important this statement is to the performance of \emph{dlmalloc}. However, when the statement deleted is consist of a very complicated expression, which variable or operator is more important than others remains unknown. A more advanced way to obtain the sensitivity information is via Mutation Operators. Mutation Operators are used in Mutation Testing, which automatically inserts some faults to a target program via Mutation Operators to generate mutants of this program and try to detect those faults using a test suite to see whether the test suite is good enough to reveal program faults. In this work, we just use these Mutation Operators to slightly alter \emph{dlmalloc}, in order to understand which piece of source code influences the memory consumption most.
+% maybe rank
+
+
+\subsection{MultiObjective Paramter optimisation}
 In this work, we apply NSGA II\cite{996017}, a multi-objective Genetic Algorithm, on the searching of the optimal values for those \emph{dlmalloc} parameters list above.
 % data representation
 Since these parameters can be easily interpreted as integers, we use linear representation to store each candidate, in which each gene is an integer number representing one of the parameters. For mutation, we use different operators according to each gene's legitimate range, while two-point crossover is applied.
@@ -10,15 +32,3 @@ Since we need to re-compile \emph{dlmalloc} every time we change the parameters,
 % how to measure time
 % how to measure memory
 Currently we focus on two non-functional properties: time and memory consumption. \emph{Glibc}'s \emph{wait4} function is used to calculate the cpu time consumed by the application (sum of user time and system time), while we compute the high-water mark of the memory consumption by instrumentation of \emph{dlmalloc}. In this way the memory measured is virtual memory, because the physical pages allocated to an application is not always deterministic but depends on the work load and the system so that measuring the physical memory usage could be hard and misleading.
-
-%** maybe need add some think to justiy the choice of self-implementation. 
-
-\section{Exposing parameters}
-Other than the existing parameters introduced above, there might be some other valuable variables which could influence the performance of the allocator but burried and neglected in the massive source code. It could be a constant, an expression or even a predicate. In this paper we try to expose these valuable parts of \emph{dlmalloc} to users so that they can also adjust these parts to fit their needs. Other than blindly exposing random parameters, we need to know how much each piece of code could influence the behavior of \emph{dlmalloc} before we expose it. In another word, we need sensitivity analysis.
-\subsection{Mutation based sensitivity analysis}
-
-% Introduce two types of mutations and why
-In order to obtain the sensitivity information, one simple way is to delete each statement at a time to see how important this statement is to the performance of \emph{dlmalloc}. However, when the statement deleted is consist of a very complicated expression, which variable or operator is more important than others remains unknown. A more advanced way to obtain the sensitivity information is via Mutation Operators. Mutation Operators are used in Mutation Testing, which automatically inserts some faults to a target program via Mutation Operators to generate mutants of this program and try to detect those faults using a test suite to see whether the test suite is good enough to reveal program faults. In this work, we just use these Mutation Operators to slightly alter \emph{dlmalloc}, in order to understand which piece of source code influences the memory consumption most.
-% maybe rank
-
-

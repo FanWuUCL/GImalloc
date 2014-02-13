@@ -20,6 +20,29 @@
 	}
 	\caption{Pareto-best individuals for each application, ``before exposure'' points are abtained without tuning TOP\_FOOT\_SIZE and ``after exposure'' points with TOP\_FOOT\_SIZE tuned. Less memory and time is better.}\label{fig_10}
 \end{figure*}
+
+
+\subsection{Shallow Parameter Tuning Improvement}
+
+**How much did we improve comparing to default?
+
+**How much did we improve comparing to random?
+
+**What is the implication?
+
+
+\subsection{Deep Parameter Tuning Improvement}
+
+
+**How much more did we improve comparing to default?
+
+**How much more did we improve comparing to random?
+
+**How much more did we improve comparing to random?
+
+**What is the implication?
+
+
 The result for each application is depict in Figure \ref{fig_10}. All the time and memory consumptions shown in the figures are normalized to the consumption of running the corresponding application with the original \emph{dlmalloc}. The figures show that by tuning these parameters, we could achieve up to 11\% reduction on the time consumption (gawk, Figure \ref{fig_10_4}), and 7.5\% reduction on the memory usage (espresso, Figure \ref{fig_10_1}). The square points in each graph are the non-dominated individuals with parameter TOP\_FOOT\_SIZE intact, meaning in these individuals only the first 9 parameters are adjusted to the application. Without the parameter TOP\_FOOT\_SIZE tuned, we can get comparable but slightly worse results. After the parameter TOP\_FOOT\_SIZE is exposed and considered in the search space, clearly the Pareto front is widened and a little better performance is achieved.
 \begin{table*}[hbtp]
 \centering
@@ -81,7 +104,13 @@ most-memory-saving after exposure & 2.389 & 88.1\% & 4320 & 99.2\% \\
 \hline
 \end{tabular}}
 \end{table*}
+
+\subsection{Understanding the Exposed Parameters}
+
+** Add a table of all exposed parameters and add a paragraph to brief expalin them.
+
 The most time-saving and memory-saving individuals before or after exposing TOP\_FOOT\_SIZE are list in Table \ref{tab_2}. The interesting thing is, by finding the optimal values for these parameters, we can improve both memory and time at the same time. For instance, the most memory-saving individual for \emph{space} after TOP\_FOOT\_SIZE exposed costs 97.5\% of the original time cost while using only 92.5\% of the memory used by the original allocator. However, some of these application can not be improved by our approach in terms of time or memory. No improvement in memory consumption has been found in \emph{cfrac}, and the time saved for \emph{space} is not significant compared to the noise introduced in this experiment. Another interesting thing we learned in this study is, for different applications, the optimal values for those parameters are quite different. In another word, the optimal values for one application don't guarantee to improve other applications.
+
 
 (**explain why TOP\_FOOT\_SIZE can influence dlmalloc's behavior)
 \textbf{TOP\_FOOT\_SIZE} controls how many extra bytes should be included in the top chunk while the allocator extends the top chunk. It influences how much more memory than actually needed \emph{dlmalloc} should keep to buffer allocation and deallocation. Bigger TOP\_FOOT\_SIZE tends to cost more memory but possibly saves some costly system allocation and deallocation. The optimal value could vary across applications. Originally it is a constant determined by some macros and system related parameters. We now make it to a tunable parameter and expose it to users so that it can be changed at compilation like other configurations.

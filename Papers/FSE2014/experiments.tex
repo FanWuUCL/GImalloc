@@ -1,26 +1,26 @@
 
 \section{Experiments}
 
-In order to assess the improvement of our Deep Parameter Tuning approach, we compared our approach with the shallow parameter tuning approach and posed the following research questions: 
+In order to assess the improvement of our Deep Parameter Tuning approach, we compared our approach with the Shallow Parameter Tuning approach and posed the following research questions: 
  
 
 \begin{description}
  \item[RQ1] {\bf How much improvement can be obtained using the Shallow Parameter Turning approach? }
 \end{description}
 
-We asked RQ1 to provide us a baseline results against which to compare the results from our approach. To mimic a traditional Shallow Parameter Turning approach, we used the same NSGAII algorithm introduced in Section \ref{alg} to search for the default explicit parameters for Dlmalloc. To answer this question, we compared the performance of the optimised configuration found by the Shallow Parameter Turning approach with the default Dlmalloc configuration and a set of random generated configurations.  %The default Dlmalloc configuration is chosen by the developer of Dlmalloc and is believed can achieve a good performance on a wide range of programs. We 
+We asked RQ1 to provide us a baseline results against which to compare the results from our approach. To mimic a traditional Shallow Parameter Tuning approach, we used the same NSGAII algorithm introduced in Section \ref{sec_nsgaii} to search for the optimal values for the default explicit parameters in \emph{dlmalloc}. To answer this question, we compared the performance of the optimised configuration found by the Shallow Parameter Turning approach with the default \emph{dlmalloc} configuration and a set of random generated configurations.  %The default Dlmalloc configuration is chosen by the developer of Dlmalloc and is believed can achieve a good performance on a wide range of programs. We 
 
 \begin{description}
-\item[RQ2] {\bf How much more improvement can be obtained using the Deep Parameter Turning approach? }
+\item[RQ2] {\bf How much more improvement can be obtained using the Deep Parameter Tuning approach? }
 \end{description}
 
-We ask the RQ2 to see how useful our approach is at find optimised configurations for the given non-functional properties. Our Deep Parameter Turning approach apply NSGAII to optimise both explicit and implicit parameters for Dlmalloc. Of course, should it turn out that the Shallow Parameter Turning approach can find better configuration than our approach, then our approach would not be needed. 
+We ask the RQ2 to see how useful our approach is at finding better configurations for the given non-functional properties. Our Deep Parameter Turning approach apply NSGAII to optimise both explicit and implicit parameters for \emph{dlmalloc}. Of course, should it turn out that the Shallow Parameter Tuning approach can find as good configuration as that by our approach, then our approach would not be needed. 
 
 \begin{description}
 \item[RQ3] {\bf Do we see evidence that our Deep Parameter Tuning approach can expose implicit parameters which are meaningful to human developer? }
 \end{description} 
 
-Should it turn out that the Deep Parameter Tuning approach performs well, achieving much improvement than the Shallow Parameter Tuning approach, then we have evidence to suggest that the mutation based sensitivity analyse used in our approach is able to locate the inner expressions or variables which are sensitive to the given non-functional properties. However, do these inner expressions or variables also make sense to software developer? To answer this research question, we manually investigate the exposed variable and try learn why tuning these parameter can make Dlmalloc more efficient.  
+Should it turn out that the Deep Parameter Tuning approach performs well, achieving much improvement than the Shallow Parameter Tuning approach, then we have evidence to suggest that the mutation based sensitivity analyse used in our approach is able to locate the inner expressions or variables which are sensitive to the given non-functional properties. However, do these inner expressions or variables also make sense to software developer? To answer this research question, we manually investigate the exposed variable and try to learn why tuning these parameter can make \emph{dlmalloc} more efficient.  
 
 \subsection{Experiment Setup}
 
@@ -45,9 +45,9 @@ gawk & 45241 & 20 & String processing\\
 \end{tabular}}
 \end{table}
 
-For our evaluation, we selected four real world applications: \emph{espresso}, \emph{space}, \emph{cfrac} and \emph{gawk}. \emph{Espresso} is a fast application for simplying complex digital electronic gate circuits and \emph{cfrac} is a factorization application for big integers. We obtain these two applications from the benchmarks of the \emph{DieHard} project\cite{}. \emph{Space} is a well known real world application in astronautics. We obtain this program from the SIR repository \cite{}. \emph{Gawk} is the GNU \emph{awk} implementation for strings processing. We collect this application from the GNU archives \cite{}
+For our evaluation, we selected four real world applications: \emph{espresso}, \emph{space}, \emph{cfrac} and \emph{gawk}. \emph{Espresso} is a fast application for simplying complex digital electronic gate circuits and \emph{cfrac} is a factorization application for big integers. We obtain these two applications from the benchmarks of the \emph{DieHard} project\cite{Berger:2006:DPM:1133255.1134000}. \emph{Space} is a well known real world application in astronautics. We obtain this program from the SIR repository \cite{SIR2005}. \emph{Gawk} is the GNU \emph{awk} implementation for strings processing. We collect this application from the GNU archives \cite{}.
 
-Although turning parameter of malloc is less likely to change the behaviour of our subjects under optimise directly, some combination of unusual parameters' values could also crush a subject system. To make sure the configuration generated by our approach always prodcue the same results as the default configuration, we use the number of passed tests as an addtional hard constraints. We used the tests from the \emph{DieHard} project for \emph{Espresso} and \emph{cfrac} and the tests from SIR for \emph{Space}. These tests are designed by programmer and achieve high branche coverage. We mannully generated tests for \emph{awk}, which achieves ** branch coverage. 
+Although tuning parameter of malloc is less likely to change the behaviour of our subjects under optimise directly, some combination of unusual parameters' values could also crash a subject system. To make sure the configuration generated by our approach always prodcue the same functional results as the default configuration, we use the number of passed tests as an addtional hard constraints. We used the tests from the \emph{DieHard} project for \emph{Espresso} and \emph{cfrac} and the tests from SIR for \emph{Space}. These tests are designed by programmer and achieve high branche coverage. For \emph{gawk}, because the existing test cases are too small to precisely capture the running time, we manually generate a test suite which achieves ** branch coverage.
 
-All experiments were carried out on a desktop computer with a quad core 3.4GHz CPU and 7.7 GB memory runing 64-bit Ubuntu 13.10. We used \emph{dlmalloc} version 2.8.6 as our base allocator. It was compiled with gcc 4.8.1 with -O3 option. In order to capture the execution time and memory consuming precisly, we adapt developed our own performance tool to measure the CPU time and maxium vitural memory consumption (see Section \label{}) The tool is publicly available at www.fan.put.a.link.later.
+All experiments were carried out on a desktop computer with a quad core 3.4GHz CPU and 7.7 GB memory runing 64-bit Ubuntu 13.10. We used \emph{dlmalloc} version 2.8.6 as our base allocator. It was compiled with gcc 4.8.1 with -O3 option. In order to capture the execution time and memory consuming precisly, we developed our own performance tool to measure the CPU time and maxium vitural memory consumption (see Section \ref{}). The tool is publicly available at **www.fan.put.a.link.later.
 

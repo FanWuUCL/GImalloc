@@ -24,6 +24,7 @@ According to the sensitivity information abtained above, we pick the most influe
 
 
 \subsection{MultiObjective Paramter optimisation}
+\label{sec_nsgaii}
 In this work, we apply NSGA II\cite{996017}, a multi-objective Genetic Algorithm, on the searching of the optimal values for those \emph{dlmalloc} parameters list above.
 % data representation
 Since these parameters can be easily interpreted as integers, we use linear representation to store each candidate, in which each gene is an integer number representing one of the parameters. For mutation, we use different operators according to each gene's legitimate range, while two-point crossover is applied.

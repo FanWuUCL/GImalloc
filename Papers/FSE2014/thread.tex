@@ -1,2 +1,9 @@
-\section{Thread to Vadility}
-Thread to Vadility.
+\section{Threat to Vadility}
+
+Currently, the deep parameters are chosen manually according to the sensitivity information. We take the top 10, 100, 300 most influential mutants and investigate which line of code has been mutated most often in these mutants, then expose the mutated part of these lines as deep parameters. It remains a possibility that this way of choosing exposed parts could be sub-optimal. It is also possible that there exists some other parts of code, which could be influential to the memory and/or time consumption, slipped away from our approach. 
+
+Despite less possible, the repeating times of the experiments might be insufficient to statistically support the claims. 
+
+The choose of test suite could in some degree affect the results. Even with a good test suite that achieves a high branch coverage, it could still differ from the distribution of the real world inputs, in which case the optimized configuration over this test suite may not achieve the best performance in the real world. On the other hand, if we could find and optimize a piece of code that will be executed in most of the real inputs, we are likely able to achieve better performance in terms of the real world scenario.
+
+One other concern is whether the result holds on other applications. Despite subject applications from different fields for different uses, potential threat to our conclusion could exist beyond our test. Currently we can only claim that our approach works on the applications under test in this paper, but because of the wide range of where these applications come from, it is highly likely this approach can be easily generalized to other applications and lead to similar result on many of them.

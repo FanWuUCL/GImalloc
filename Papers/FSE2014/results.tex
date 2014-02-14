@@ -37,14 +37,14 @@
 \hline
 \textbf{\emph{space}} & 416 &  &  \\
 \hline
-\textbf{\emph{cfrac}} & 332 &  &  \\
+\textbf{\emph{cfrac}} & 332 & 332 & 332 \\
 \hline
 \textbf{\emph{gawk}} & 4356 &  &  \\
 \hline
 \end{tabular}}
 \end{table}
 
-In order to understand whether we can improve an application by specializing \emph{dlmalloc}, and whether our search-based algorithm is effective on this problem, we first conduct Shallow Parameter Tuning on \emph{dlmalloc} and compare the results with the performance of the default and randomly generated configurations. The result is reported in Table \ref{tab_shallow_random}. By Shallow Parameter Tuning, we consistantly achieve better performance in terms of memory on all applications except \emph{cfrac}. Noticing that \emph{cfrac} requires the least memory among all applications under test, it makes less difference if there is a little improvement. This result indicates that the general-purpose allocator has the potential to be improved by adjusting it to a specific application. On the other hand, for all applications but espresso, the Shallow Parameter Tuning can find better results than the random search under the same computation cost. (**How much did we improve comparing to random? add data later) This result shows that our multi-objective optimization of the shallow parameters is effective well-guided on this problem.
+In order to understand whether we can improve an application by specializing \emph{dlmalloc}, and whether our search-based algorithm is effective on this problem, we first conduct Shallow Parameter Tuning on \emph{dlmalloc} and compare the results with the performance of the default and randomly generated configurations. The result is reported in Table \ref{tab_shallow_random}. By Shallow Parameter Tuning, we consistantly achieve better performance in terms of memory on all applications except \emph{cfrac}. Noticing that \emph{cfrac} requires the least memory among all applications under test, it makes less difference if there is a little improvement. This result indicates that the general-purpose allocator has the potential to be improved by adjusting it to a specific application. On the other hand, for all applications but \emph{espresso} and \emph{cfrac}, the Shallow Parameter Tuning can find better results than the random search under the same computation cost. (**How much did we improve comparing to random? add data later) This result shows that our multi-objective optimization of the shallow parameters is effective well-guided on this problem.
 
 \subsection{Deep Parameter Tuning Improvement}
 

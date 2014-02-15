@@ -2,30 +2,30 @@
 \section{Introduction}
 
 Dynamic memory allocators help operating system manage memory efficiently. An optimised memory allocators can balance different non-functional properties, like memory consumption and execution time at the same time.
-However the default configuration might not always be an optimised configuration for a given program, as it is designed to human to achieve an overall good performance over a wild range of application.
+However the default configuration might not always be an optimised configuration for a given program, as it is designed to human to achieve an overall good performance over a wide range of applications.
 
-Given a program and a set of non-functional properties of interests, we can apply find an optimised configuration for  memory allocator using shallow parameters turning \cite{hutter2009paramils,Hoffmann:2011:DKR:1961296.1950390}. The shallow parameters refer to the explicit parameters in memory allocators for user to config. These values can be changed at compilation or run time directly. 
+Given a program and a set of non-functional properties of interests, we can find an optimised configuration for a dynamic memory allocator using shallow parameters turning \cite{hutter2009paramils,Hoffmann:2011:DKR:1961296.1950390}. The shallow parameters refer to the explicit parameters in memory allocators for users to config. These values can be changed at compilation or run time directly. 
 
-One recent work on shallow parameters turning is Dynamic Knob \cite{Hoffmann:2011:DKR:1961296.1950390}. It learns the impact to each non-functional properties for each explicit parameter. When a program under optimisation is running, it monitors the running environment and makes dynamic adjustment to balance different non-functional properties of interests through shallow parameters turning.
+One recent work on shallow parameters tuning is Dynamic Knob \cite{Hoffmann:2011:DKR:1961296.1950390}. It learns the impact of each explicit parameter to each non-functional property. When a program under optimisation is running, it monitors the running environment and makes dynamic adjustment to balance different non-functional properties of interests through shallow parameters tuning.
 
-Although shallow parameters turning is fast and easy to use, it often has limited ability to improve a program under optimisation. Because not all non-functional properties can be affected by shallow parameters. Some of the non-functional properties might only be affected by internal variables ore expressions which cannot be touched from outside of the program.
+Although shallow parameters tuning is fast and easy to use, it often has limited ability to improve a program under optimisation. Because some non-functional properties can not or barely be affected by shallow parameters. Some of the non-functional properties might only be affected by internal variables or expressions which cannot be touched from outside of the program.
 
-To address this problem, we introduced a new adaptive deep parameter optimisation technique. In this approach, we apply a mutation based sensitivity analysis to locate the  internal variables ore expressions which would affect the non-functional properties of interests. We then expose these inexplicit parameters to allow changes from external. Together with explicit parameters, we apply multi-objective optimisation technique to search for an optimal configuration for a given program.
+To address this problem, we introduced a new adaptive deep parameter optimisation technique. In this approach, we apply a mutation based sensitivity analysis to locate the internal variables or expressions which would better affect the non-functional properties of interests. We then expose these inexplicit parameters to allow changes from external. Together with explicit parameters, we apply multi-objective optimisation technique to search for an optimal configuration for a given program.
 
 
-The paper presents evidence to suggest that the deep parameter optimisation is an effective approach to improve non-function properties for Dlmalloc. Give different program applications, the approach will provide bespoke configurations for Dlmalloc for each case. Moreover we also present reasons why the implicit parameters exposed by our approach are meaningful to human developer. The contributions of the paper be summarised as follow.
+The paper presents evidence to suggest that the deep parameter optimisation is an effective approach to improve non-function properties for \emph{dlmalloc}. Give different program applications, the approach will provide bespoke configurations for \emph{dlmalloc} for each case. Moreover we also present reasons why the implicit parameters exposed by our approach are meaningful to human developer. The contributions of the paper be summarised as follow.
 
 \begin{enumerate}
 
-\item We introduce a new adaptive deep parameter optimisation approach. The approach find implicit parameters through a mutation based sensitivity analysis. It then applies search based parameter tuning on both explicit and implicit parameters to adaptive re-tuning a memory allocator for a given specific program.
+\item We introduce a new adaptive deep parameter optimisation approach. The approach find implicit parameters through a mutation based sensitivity analysis. It then applies search based parameter tuning on both explicit and implicit parameters to adaptively re-tuning a memory allocator for a given specific program.
 
-\item We report the results of an empirical study comparing the shallow parameter tuning approach with our approach. For * real world application, the results show that our approach can save x\% of memory and reduce y\% of execution time over shallow parameter tuning. 
+\item We report the results of an empirical study comparing the shallow parameter tuning approach with our approach. On \# real world applications, the results show that our approach can save x\% of memory and reduce y\% of execution time over shallow parameter tuning. 
 
 \item We also report a further case study on the implicity parameters found by the mutation based sensitivity analysis. The results suggest that these parameter are meaningfull to human developer and are good candidates to be promoted into explicit parameters. 
 \end{enumerate}
 
 The rest of this paper is organised as follows. 
-Section 2 introduces the background of memory management and a popular general purpose memory allocator Dlmalloc.
+Section 2 introduces the background of memory management and a popular general-purpose memory allocator \emph{dlmalloc}.
 Section 3 describes out adaptive deep parameter tuning approach.
 Section 4 explains the experimental methods for the empirical study, the results of which are discussed in Section 5
 Section 6 discusses related work, and the paper concludes with Section 7.

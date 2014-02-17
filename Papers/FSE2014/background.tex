@@ -4,7 +4,7 @@ Dynamic memory allocation is an essential activity in most of the applications. 
 
 Memory allocators have risen to solve this problem using different allocation strategies. Usually applications communicate with the operating system in terms of memory only through their memory allocators. The idea of these allocators is trying to hold and manage some extra memory applied from the system and use them to serve latter memory request from the application as effiecently as possible. On the other hand, when a piece of memory is freed by the application, before released to the system it is handled by memory allocators in case there is a memory request in the same size in the near future. So it works like a memory buffer between an application and the system. Different ways of memory management significantly influence the performance of an application in terms of both memory and time.
 
-\subsection{\emph{Dlmalloc}}
+\subsection{Dlmalloc}
 
 Many memory allocation strategies and managers have been proposed and studied by many researchers. Among them, Doug Lea's malloc (\emph{dlmalloc}) \cite{lea1996memory} is ``among the fastest, most space-conserving, tunable, and portable general purpose allocators''. A study of Berger et al\cite{Berger:2002:RCM:583854.582421} shows that many other custom memory allocators don't perform significantly better than \emph{dlmalloc}, sometimes even worse. So in this paper, we choose \emph{dlmalloc} as our starting point and optimize its configuration to each of the subject applications.
 
@@ -52,7 +52,7 @@ MAX\_RELEASE\_CHECK\_RATE & 4095 & 1000~10000 & integer & Frequency of coalescin
 \end{table*}
 
 
-\subsection{\emph{Dlmalloc} tunable parameters}
+\subsection{Dlmalloc tunable parameters}
 \label{sec_dlmalloc_tunable_parameters}
 As a general-purpose allocator, \emph{dlmalloc} provides several tunable parameters to programmers to adjust at compilation. More specifically, these parameters are defined as macros in the source code, but can be modified via compilers (we achieve that through \emph{gcc}'s ``-D'' flag). In this article, we choose some of these parameters that are more likely to influence the allocator's behavior in terms of memory/time consumption, as our ``victims''. 
 

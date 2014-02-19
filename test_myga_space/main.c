@@ -136,9 +136,7 @@ void main(int argc, char** argv){
         /* Random  */
 	population=initializeRandPopulation(ori, 1000);
 
-        /* NSGAII */
-        
-        /*
+        /* NSGAII 
 	population=initializePopulation(ori, POPULATION_SIZE);
 	
 	int i;
@@ -161,7 +159,6 @@ void main(int argc, char** argv){
 	}
         */
        
-
 	savePopulation(population, 999);
 	free_population(population);
 

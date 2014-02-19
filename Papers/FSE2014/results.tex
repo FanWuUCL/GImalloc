@@ -1,9 +1,174 @@
 
 \section{Results}
-Basic results of the Pareto front for each subject application, reporting time and memory consumption.
 
-Report of statistically significance result.
+\begin{figure*}[htbp]
+	\centering
+	\subfigure[espresso]{
+		\label{fig_10_1}
+		\includegraphics[width=0.4\textwidth]{fig10}
+	}
+	\subfigure[space]{
+		\label{fig_10_2}
+		\includegraphics[width=0.4\textwidth]{fig12}
+	}
+	\subfigure[cfrac]{
+		\label{fig_10_3}
+		\includegraphics[width=0.4\textwidth]{fig13}
+	}
+	\subfigure[gawk]{
+		\label{fig_10_4}
+		\includegraphics[width=0.4\textwidth]{fig14}
+	}
+	\caption{Pareto-best individuals for each application. Less memory and time is better.}\label{fig_10}
+\end{figure*}
 
-Instrumentation overhead.
+\subsection{Shallow Parameter Tuning Improvement}
 
-Answer to Research Questions.
+\begin{table}[hbtp]
+\centering
+\caption{Least memory/time consumption found by Shallow Parameter Tuning and Random Search}
+\label{tab_shallow_random}
+\resizebox{0.45\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{Multi-Row} & \multicolumn{2}{|c|}{Original} & \multicolumn{2}{|c|}{Random} & \multicolumn{2}{|c|}{Shallow Parameter Tuning} \\
+\cline{2-7}
+& time & memory & least-time & least-memory & least-time & least-memory\\
+\hline
+\textbf{\emph{espresso}} & 4.82s & 5152KB & 4.70s & 4768KB & 4.73s & 4768KB \\
+\hline
+\textbf{\emph{space}} & 32ms & 416KB & 22ms & 404KB & 21ms & 400KB \\
+\hline
+\textbf{\emph{cfrac}} & 1.00s & 332KB & 0.95s & 332KB & 0.94s & 332KB \\
+\hline
+\textbf{\emph{gawk}} & 2.55s & 4356KB & 2.47s & 4320KB & 2.44s & 4320KB \\
+\hline
+\end{tabular}}
+\end{table}
+
+In order to understand whether we can improve an application by specializing \emph{dlmalloc}, and whether our search-based algorithm is effective on this problem, we first conduct Shallow Parameter Tuning on \emph{dlmalloc} and compare the results with the performance of the default and randomly generated configurations. The result is reported in Table \ref{tab_shallow_random}. 
+
+By Shallow Parameter Tuning, we consistantly achieve better performance in terms of memory compared with the original on all applications except \emph{cfrac}. Noticing that \emph{cfrac} requires the least memory among all applications under test, it makes less difference than other applications. Compared with random search, the least-memory consumption found by Shallow Parameter Tuning is almost the same on each application, implying that the improvement is easy to be found so that improving \emph{dlmalloc} costs very little computation effort. On the time consumption, the Shallow Parameter Tuning can find better solution than both the original and random search result on all applications but \emph{espresso}. (**I'm still investigating why Shallow Parameter Tuning doesn't perform well on \emph{espresso})
+
+This result indicates that the general-purpose allocator has the potential to be easily improved by adjusting it to a specific application. Though the multi-optimization of the shallow parameters is effective and well-guided on this problem, it cannot perform much better than the random search due to the very little computation cost to find the best. This leads us to Deep Parameter Tuning.
+
+\subsection{Deep Parameter Tuning Improvement}
+
+\begin{figure}[htbp]
+	\centering
+	\subfigure[espresso]{
+		\label{fig_sig_espresso}
+		\includegraphics[width=0.2\textwidth]{espresso-small}
+	}
+	\subfigure[space]{
+		\label{fig_sig_space}
+		\includegraphics[width=0.2\textwidth]{space-small}
+	}
+	\subfigure[cfrac]{
+		\label{fig_sig_cfrac}
+		\includegraphics[width=0.2\textwidth]{cfrac-small}
+	}
+	\subfigure[gawk]{
+		\label{fig_sig_gawk}
+		\includegraphics[width=0.2\textwidth]{gawk-small}
+	}
+	\caption{Time consumption of the best configuration from the original, the Shallow and Deap Parameter Tuning}\label{fig_sig}
+\end{figure}
+
+Knowing the Shallow Parameter Tuning already works, but almost as well as the random search, on this optimisation problem, we want to know how much more can we achieve by the Deep Parameter Tuning. So we expose the most influential peices of code as tunable parameters and optimize them as well as the shallow parameters. 
+
+According to the result in Figure \ref{fig_10}, we achieve up to 11\% reduction on the time consumption (gawk, Figure \ref{fig_10_4}), and 7.5\% reduction on the memory consumption (espresso, Figure \ref{fig_10_1}), compared to the default configuration. Due to the instrumentation way of memory measurement, the memory consumption is deterministic as reported. But the time consumption could fluctuate due to the system noises. In order to understand the subtle difference between the results of Shallow and Deep Parameter Tuning, the most time-saving configurations gotten from the results of these two approaches are re-test for 30 times and the time consumption is recorded. Figure \ref{fig_sig} shows that, the result from Deep Parameter Tuning is slightly better than the Shallow Parameter Tuning on \emph{cfrac} and \emph{gawk}, whilst comparable on \emph{space} and slightly worse on \emph{espresso}. From Table \ref{tab_2}, we also find that the time and memory performance can be improved at the same time. 
+
+On the other hand, for some non-functional properties in several applications, we can't find better configuration, implying the default configuration might already be the optimal for these applications in terms of one of these properties. We also find that, the optimal configuration for one application doesn't guarantee to improve other applications, showing that the default configuration is the result of negotiation between general applications. What's more interesting is, by the Deep Parameter Tuning, we are able to find more extreme performance that widens the Pareto front. This means we could provide wider range of choices to users especially when the application has to run in an extreme environment.
+
+\begin{table*}[hbtp]
+\centering
+\caption{Best individuals for each application. The square points in each graph are the non-dominated best individuals of the Deep Parameter Tuning, and the triangle points are the result of the Shallow Parameter Tuning.}
+\label{tab_2}
+\resizebox{0.8\textwidth}{!}{
+\begin{tabular}{c|c|c|c|c}
+\hline
+\textbf{\emph{espresso}} & time(s) & normalized time & memory(kB) & normalized memory \\
+\hline
+original & 4.773 & 100\% & 5152 & 100\% \\
+\hline
+most-time-saving before exposure & 4.667 & 97.8\% & 5440 & 105.6\% \\
+\hline
+most-time-saving after exposure & 4.638 & 97.2\% & 6272 & 121.7\% \\
+\hline
+most-memory-saving before exposure & 4.689 & 98.2\% & 4768 & 92.5\% \\
+\hline
+most-memory-saving after exposure & 4.654 & 97.5\% & 4768 & 92.5\% \\
+\hline
+\hline
+\textbf{\emph{space}} & time(ms) & normalized time & memory(kB) & normalized memory \\
+\hline
+original & 19.3 & 100\% & 416 & 100\% \\
+\hline
+most-time-saving before exposure & 18.7 & 96.9\% & 416 & 100\% \\
+\hline
+most-time-saving after exposure & 18.0 & 93.2\% & 416 & 100\% \\
+\hline
+most-memory-saving before exposure & 21.6 & 111.8\% & 400 & 96.2\% \\
+\hline
+most-memory-saving after exposure & 39.9 & 206.3\% & 396 & 95.2\% \\
+\hline
+\hline
+\textbf{\emph{cfrac}} & time(s) & normalized time & memory(kB) & normalized memory \\
+\hline
+original & 1.071 & 100\% & 332 & 100\% \\
+\hline
+most-time-saving before exposure & 0.956 & 89.2\% & 448 & 134.9\% \\
+\hline
+most-time-saving after exposure & 0.981 & 91.6\% & 352 & 106\% \\
+\hline
+most-memory-saving before exposure & 0.962 & 89.8\% & 332 & 100\% \\
+\hline
+most-memory-saving after exposure & 1.001 & 93.5\% & 332 & 100\% \\
+\hline
+\hline
+\textbf{\emph{gawk}} & time(s) & normalized time & memory(kB) & normalized memory \\
+\hline
+original & 2.711 & 100\% & 4356 & 100\% \\
+\hline
+most-time-saving before exposure & 2.396 & 88.4\% & 4356 & 100\% \\
+\hline
+most-time-saving after exposure & 2.389 & 88.1\% & 4320 & 99.2\% \\
+\hline
+most-memory-saving before exposure & 2.406 & 88.8\% & 4320 & 99.2\% \\
+\hline
+most-memory-saving after exposure & 2.389 & 88.1\% & 4320 & 99.2\% \\
+\hline
+\end{tabular}}
+\end{table*}
+
+(**We still need time to run the same experiments for many times, in order to show the consistency of the results)
+
+\subsection{Understanding the Exposed Parameters}
+
+\begin{table*}[htbp]
+\centering
+\caption{Exposed Parameters}
+\label{tab_exposed_param}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+Line & Exposed part & Substitute options & Description \\
+\hline
+4059 & (use\_mmap(m) \&\& nb >= mparams.mmap\_threshold \&\& m->topsize != 0) & 2 & Enable \emph{mmap} system call\\
+\hline
+4144 & (m->footprint\_limit == 0 || (fp > m->footprint \&\& fp <= m->footprint\_limit)) & 4 & Predicate controling system allocation\\
+\hline
+4348 & TOP\_FOOT\_SIZE & numeric & Segment overhead size of the top chunk\\
+\hline
+4353 & ((m->topsize - pad + (unit - SIZE\_T\_ONE)) / unit - SIZE\_T\_ONE) * unit & 6 & Calculation of remaining memory when trimming\\
+\hline
+\end{tabular}}
+\end{table*}
+From the sensitivity information, we find four places that have the most impact to the performance of \emph{dlmalloc}, which are list in Table \ref{tab_exposed_param}. They locate in different functions that involve system allocation and deallocation. LINE4059 checks whether current situation meets the \emph{mmap} criteria, so it could easily enable or disable direct memory mapping. LINE4144 is also a predicate controling the extending of the heap. TOP\_FOOT\_SIZE in LINE4383 is a constant determined by some other macros and parameters. It influences how much memory should be always kept in the top chunk. LINE4353 is an expression calculating how much memory should be preserved when shrinking the heap.
+
+After human inspection, one can easily find the exposed parameters introduced above can directly influence the memory and/or time performance of the allocator. Due to the limit space, we only elaborate one of them. TOP\_FOOT\_SIZE controls how many extra bytes should be included in the top chunk while the allocator extends the top chunk. It influences how much more memory than actually needed \emph{dlmalloc} should keep to buffer allocation and deallocation. 
+
+Bigger TOP\_FOOT\_SIZE tends to cost more memory but possibly saves some costly system allocation and deallocation. The optimal value could vary across applications. Originally it is a constant determined by some macros and system related parameters. After made to a tunable parameter and exposed to users, it can be explicitly configured from the outside like other parameters.
+
+To anyone who is familiar to the code, TOP\_FOOT\_SIZE as well as other exposed parameters are very obvious to have the potential to vary the performance of the allocator. So the mutation-based sensitivity analysis can not only help us discover useful internal parameters to expose, but also point them out to human developers so that the developers could pay more attention to these pieces of code and possibly improve the program with less effort.

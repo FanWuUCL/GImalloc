@@ -1,28 +1,29 @@
 \section{Background}
 
-(**Fan check: what is memory allocation)
-Memory allocation is an essential activity in any applications.
-When an application asks for some memory from the operating system, the simplest way is to give exact size of memory it requests, and to return that memory back to the system when the application frees it. However, getting memory from the system and returning it to the system usually require invoking some system calls, which are much slower than other operations. Plus memory allocation and deallocation are very basic and used frequently in most of the applications, so frequently allocating memory directly from the system is impractical. 
+Dynamic memory allocation is an essential activity in most of the applications. It happens when an application needs a piece of memory whose size cannot be determined until runtime. Most systems support some system calls that could dynamically assign some memory to an application. When an application asks for some dynamic memory from the operating system, the simplest way is to give the exact size of memory it requests through these system calls, and to retrieve that memory back as soon as the application frees it. However, these allocation and deallocation system calls are usually much slower than other operations. So frequently allocating memory directly from the system is impractical for most of the applications. 
 
-(**Fan check: what are memory allocators)
-Memory allocators have risen to solve this problem using different allocation strategies. They usually are the only one who communicate with the operating system in terms of memory in any application. They apply memory from the system, hold some extra available memory and manage them in order to respond to any memory request from the application as efficiently as possible. The freed memory is not returned to the system but handled by memory allocators and then given back to system by the allocator when it is necessary. Different ways of memory management significantly influence the performance of an application and researchers have proposed and studied many of them.
+Memory allocators have risen to solve this problem using different allocation strategies. Usually applications communicate with the operating system in terms of memory only through their memory allocators. The idea of these allocators is trying to hold and manage some extra memory applied from the system and use them to serve latter memory request from the application as effiecently as possible. On the other hand, when a piece of memory is freed by the application, before released to the system it is handled by memory allocators in case there is a memory request in the same size in the near future. So it works like a memory buffer between an application and the system. Different ways of memory management significantly influence the performance of an application in terms of both memory and time.
 
 \subsection{Dlmalloc}
 
-(**Fan: Introduce Dlmalloc)
-In this paper, we optmise configuration for Dlmalloc. Dlmalloc is a general purpose memory allocator ....
+Many memory allocation strategies and managers have been proposed and studied by many researchers. Among them, Doug Lea's malloc (\emph{dlmalloc}) \cite{lea1996memory} is ``among the fastest, most space-conserving, tunable, and portable general purpose allocators''. A study of Berger et al\cite{Berger:2002:RCM:583854.582421} shows that many other custom memory allocators don't perform significantly better than \emph{dlmalloc}, sometimes even worse. So in this paper, we choose \emph{dlmalloc} as our starting point and optimize its configuration to each of the subject applications.
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=3.2in]{fig7}
+\caption{structure of \emph{dlmalloc}}\label{fig_7}
+\end{figure}
 
+\emph{Dlmalloc} is a general purpose memory allocator designed for c programs. It keeps two set of segregated lists managing small and large size available chunks respectively. Each of the segregated lists is called a bin and there are 64 small bins and 64 large bins in \emph{dlmalloc} (Figure \ref{fig_7}). For small bins, each one contains chunks in the exact same size, in which way insertion to or deletion from the list is very quick. For large bins, each bin is associated with a range of sizes and any free chunks within that range are stored in the corresponding bin in the ascending order. So managing large bins is more costly than small bins but fortunately large bins are less frequent than small bins. Apart from these bins, \emph{dlmalloc} also keeps a top chunk, which is always at the end of the heap so that it can be extended or trimmed without affecting other memory chunks. 
 
-**Fan Write a paragraph to expalin why do we choose DLmalloc
-
-
+The top chunk is used only when there is no available chunk in any bins that meets the memory request. If the request size is too large to be satisfied from the top chunk and bigger than a pre-defined threshold, \emph{dlmalloc} uses an \emph{mmap}-like system call to allocate this size of memory from the operating system directly. Or it tries to extend the top chunk using \emph{sbrk}-like system call, so that the extended top chunk is big enough to cover the request.
+When a chunk is freed by the application, it is put back to one of the bins according to its size, after which \emph{dlmalloc} occasionally coalesces contiguous free chunks to create bigger chunks. If the top chunk is enlarged by combining free chunks next to it, it could be trimmed if it is too large for the need of the application if the freed chunk was mapped directly from the system, it is released to the system immediately. 
 
 % Intruduce the 9 parameters defined in Dlmalloc (1 paragraph)
 % draw a table with "para name, type, range, default, comment"
 \begin{table*}[htbp]
 \centering
-\caption{\emph{dlmalloc} parameters}
+\caption{Selective \emph{dlmalloc} parameters}
 \label{tab_dlmalloc_parameters}
 \resizebox{0.9\textwidth}{!}{
 \begin{tabular}{c|c|c|c|c}
@@ -50,6 +51,9 @@ MAX\_RELEASE\_CHECK\_RATE & 4095 & 1000~10000 & integer & Frequency of coalescin
 \end{tabular}}
 \end{table*}
 
+
+\subsection{Dlmalloc tunable parameters}
+\label{sec_dlmalloc_tunable_parameters}
 As a general-purpose allocator, \emph{dlmalloc} provides several tunable parameters to programmers to adjust at compilation. More specifically, these parameters are defined as macros in the source code, but can be modified via compilers (we achieve that through \emph{gcc}'s ``-D'' flag). In this article, we choose some of these parameters that are more likely to influence the allocator's behavior in terms of memory/time consumption, as our ``victims''. 
 
 One of the core parapemter macros in \emph{dlmalloc}  is \textbf{MALLOC\_ALIGNMENT}. It represents a a multiple of how many bytes all request sizes should be rounded up to. Many of other macros in \emph{dlmalloc} rely on this alignment to avoid any incompatibility. Its default value is $2*sizeof(void*)$ where $sizeof(void*)$ varies across different systems. Normally smaller MALLOC\_ALIGNMENT tends to save more memory but could also cause incompatibility with some applications. 

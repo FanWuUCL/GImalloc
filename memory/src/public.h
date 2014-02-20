@@ -5,8 +5,8 @@
 #include<glib/gstdio.h>
 #include<stdio.h>
 #include<stdlib.h>
+#include "subjectSetting.h"
 
-#define MYGP
 
 // user defines
 #define POPULATION_SIZE 50
@@ -16,37 +16,38 @@
 // the times should be no less than (1+MUTATION_RATE+CROSSOVER_RATE)
 #define COMBINED_POPULATION_SIZE (POPULATION_SIZE*2)
 // testcases dir, put in front of each test case and send it to the subject program in the cmd line
-#define DEFAULT_TESTCASES_DIR ""
-#define DEFAULT_CURR_DIR ""
+#ifndef DEFAULT_TESTCASES_DIR
+#define DEFAULT_TESTCASES_DIR "testcases/"
+#endif
+#ifndef DEFAULT_CURR_DIR
+#define DEFAULT_CURR_DIR "curr/"
+#endif
 // additional compile command for malloc.c
-#define DEFAULT_COMPILE_CMD "-m32"
+#ifndef DEFAULT_COMPILE_CMD
+#define DEFAULT_COMPILE_CMD ""
+#endif
 // usleep() parameter, also the precision of profiled time
 #define SLEEP_UNIT 100
 // sample number for testcases
 #define CASES_PER_PROG 20
 // # of times a testcase should be run against for
-#define REPEAT 5
+#ifndef REPEAT
+#define REPEAT 1
+#endif
 // fitness transit ratio, f(n)=ratio*f(n-1)+(1-ratio)*g(n)
 #define FITNESS_TRANSIT_RATIO 0.5
 // memory profiling unit, out of date
 #define MEMORY_PROFILING_UNIT peak
 // user defines
 
-#ifdef MYGP
-typedef struct _instruction{
-	gchar* in;
-	gint depth;
-	gboolean fixed;
-}instruction;
+gint populationSize;
+gint generationMax;
+gint repeatTimes;
+double mutationRate;
+double crossoverRate;
+gint numberOfGenes;
 
-instruction* copyInstruction(instruction*);
-
-void free_instruction(instruction*);
-
-instruction* getData(GList*);
-
-#endif // MYGP
-
+#define NUMBER_OF_SHALLOW_GENE 6
 typedef enum _gene{
 	malloc_alignment,
 	malloc_footer_insecure_no_segment_traversal,
@@ -67,6 +68,7 @@ typedef enum _mutationType{
 	mutation_gap,
 	mutation_random,
 	mutation_power2,
+	mutation_power2_allow0,
 	mutation_boolean
 }mutType;
 

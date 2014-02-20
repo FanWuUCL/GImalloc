@@ -25,7 +25,7 @@
 // sample number for testcases
 #define CASES_PER_PROG 20
 // # of times a testcase should be run against for
-#define REPEAT 10
+#define REPEAT 1
 // fitness transit ratio, f(n)=ratio*f(n-1)+(1-ratio)*g(n)
 #define FITNESS_TRANSIT_RATIO 0.5
 // memory profiling unit, out of date

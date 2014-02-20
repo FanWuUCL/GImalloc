@@ -112,8 +112,8 @@ gint profile(double* time, double* memory, double* correctness, int suiteSize){
 	if(profiler_debug) g_printf("memory: %lf\nmemory_new: %lf\ntime: %lf\n", memory_t, memory_new/(double)1024, time_t);
 	*time=time_t;
 	*memory=memory_new/(double)1024;
-	//*correctness=correctness_t;
-	*correctness=0;
+	*correctness=correctness_t;
+	//*correctness=0;
 	profile_times++;
 	return 0;
 }

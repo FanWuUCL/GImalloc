@@ -10,13 +10,13 @@ const gchar CURRDIR[]=DEFAULT_CURR_DIR;
 
 const gchar GCC_M32[]=DEFAULT_COMPILE_CMD;
 
-const gint default_individual[]={2, 8, 64, 2048, 256, 4095};
+const gint default_individual[]={2, 8, 0, 2048, 256, 4095, 80, 0, 0, 0};
 
-const gint default_lower_bound[]={1, 0, 4, 64, 16, 1000};
+const gint default_lower_bound[]={1, 0, 4, 64, 16, 1000, 16, 0, 0, 0};
 
-const gint default_upper_bound[]={16, 15, 512, 16*1024, 2048, 10000};
+const gint default_upper_bound[]={16, 15, 512, 16*1024, 2048, 10000, 2048, 3, 5, 1};
 
-const mutType default_mutation_type[]={mutation_power2, mutation_random, mutation_power2, mutation_power2, mutation_random, mutation_random};
+const mutType default_mutation_type[]={mutation_power2, mutation_random, mutation_power2_allow0, mutation_power2, mutation_random, mutation_random, mutation_random, mutation_random, mutation_random, mutation_random};
 
 gint saveIndividual(individual* program, gchar* filename){
 	if(!filename) g_printf("Function saveIndividual(): filename is not valid.\n");
@@ -32,16 +32,21 @@ gint saveIndividual(individual* program, gchar* filename){
 		}
 	}
 	gchar* cmd=g_malloc0(512*sizeof(gchar));
-	g_snprintf(cmd, 512, "gcc %s -shared -o %s -O3 -fPIC malloc.c -D\'MALLOC_ALIGNMENT=((size_t)(%d*sizeof(void*)))\' -DFOOTERS=%d -DINSECURE=%d -DNO_SEGMENT_TRAVERSAL=%d -DMORECORE_CONTIGUOUS=%d -DDEFAULT_GRANULARITY=%d -DDEFAULT_TRIM_THRESHOLD=%d -DDEFAULT_MMAP_THRESHOLD=%d -DMAX_RELEASE_CHECK_RATE=%d", GCC_M32, filename,
-		program->chrom[0],
-		(program->chrom[1] & FOOTER_BIT)==0? 0:1,
-		(program->chrom[1] & INSECURE_BIT)==0? 0:1,
-		(program->chrom[1] & NO_SEGMENT_TRAVERSAL_BIT)==0? 0:1,
-		(program->chrom[1] & MORECORE_CONTIGUOUS_BIT)==0? 0:1,
-		program->chrom[2]*1024,
-		program->chrom[3]*1024,
-		program->chrom[4]*1024,
-		program->chrom[5]);
+	if(program==ori){
+		g_snprintf(cmd, 512, "gcc %s -shared -fPIC -o %s -O3 malloc.c", GCC_M32, filename);
+	}
+	else{
+		g_snprintf(cmd, 512, "gcc %s -shared -fPIC -o %s -O3 malloc.c -D\'MALLOC_ALIGNMENT=((size_t)(%d*sizeof(void*)))\' -DFOOTERS=%d -DINSECURE=%d -DNO_SEGMENT_TRAVERSAL=%d -DMORECORE_CONTIGUOUS=%d -DDEFAULT_GRANULARITY=%d -DDEFAULT_TRIM_THRESHOLD=%d -DDEFAULT_MMAP_THRESHOLD=%d -DMAX_RELEASE_CHECK_RATE=%d", GCC_M32, filename,
+			program->chrom[0],
+			(program->chrom[1] & FOOTER_BIT)==0? 0:1,
+			(program->chrom[1] & INSECURE_BIT)==0? 0:1,
+			(program->chrom[1] & NO_SEGMENT_TRAVERSAL_BIT)==0? 0:1,
+			(program->chrom[1] & MORECORE_CONTIGUOUS_BIT)==0? 0:1,
+			program->chrom[2]*1024,
+			program->chrom[3]*1024,
+			program->chrom[4]*1024,
+			program->chrom[5]);
+	}
 	//g_spawn_command_line_sync(cmd, NULL, NULL, NULL, NULL);
 	system(cmd);
 	g_free(cmd);
@@ -171,25 +176,3 @@ gint cmpOutput(gchar* filename1, gchar* filename2){
 	fclose(fp2);
 	return flag;
 }
-
-#ifdef MYGP
-instruction* copyInstruction(instruction* i){
-	instruction* copy=g_malloc0(sizeof(instruction));
-	copy->depth=i->depth;
-	copy->fixed=i->fixed;
-	copy->in=g_strdup(i->in);
-	return copy;
-}
-
-void free_instruction(instruction* a){
-	if(a){
-		if(a->in) g_free(a->in);
-		g_free(a);
-	}
-}
-
-instruction* getData(GList* glist){
-	instruction* i=glist->data;
-	return i;
-}
-#endif // MYGP

@@ -112,7 +112,7 @@ gint profile(double* time, double* memory, double* correctness, int suiteSize){
 	}
 	g_free(filename);
 	g_free(append);
-	if(profiler_debug) g_printf("memory: %lf\nmemory_new: %lf\ntime: %lf\n", memory_t, memory_new/(double)1024, time_t);
+	if(profiler_debug) g_printf("memory: %lf\ntime: %lf\n", memory_new/(double)1024, time_t);
 	*time=time_t;
 	//*memory=memory_t;
 	*memory=memory_new/(double)1024;

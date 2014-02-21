@@ -9,9 +9,10 @@ SUBJECT_PATH_NAME="$SUBJECT_PATH/$2"
 SUBJECT_PATH_TESTCASES="$SUBJECT_PATH_NAME/testcases"
 
 
+echo $MILU
 echo "Experiment: mutation sensitivity analysis"
 echo "Subject: $SUBJECT_NAME"
-echo "V. November 25, 2013"
+echo "V. Feb 20, 2014"
 
 echo "Compiling original"
 
@@ -38,7 +39,7 @@ cp -r $SUBJECT_PATH_TESTCASES/* .
 cp $memory_path memory
 ./memory > fitness.txt
 cat *.s > results.txt
-echo "Original: " >> $CURR_PATH/fitness.txt
+echo "Ori " >> $CURR_PATH/fitness.txt
 cat fitness.txt >> $CURR_PATH/fitness.txt
 
 cd $CURR_PATH
@@ -61,11 +62,16 @@ do
 	./memory > fitness.txt
     cat *.s > results.txt
     if diff results.txt $ORIGINAL_PATH/results.txt >/dev/null ; then
-          echo "tests: 1" >> fitness.txt
+          #echo "tests: 1" >> fitness.txt
+          echo "1" >> fitness.txt
           else
-                echo "tests: 0" >> fitness.txt 
+                #echo "tests: 0" >> fitness.txt 
+                echo "0" >> fitness.txt 
     fi
-    echo "Mutant: $index" >> $CURR_PATH/fitness.txt
+    #echo "Mutant: $index" >> $CURR_PATH/fitness.txt
+    echo "M$index" >> $CURR_PATH/fitness.txt
+    cat line >> $CURR_PATH/fitness.txt
+    echo "" >> $CURR_PATH/fitness.txt
     cat fitness.txt >> $CURR_PATH/fitness.txt
 	cd ../../..
 

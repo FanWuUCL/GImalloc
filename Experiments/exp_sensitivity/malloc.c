@@ -1,7 +1,8 @@
-# 1 "malloc.c"
+# 1 "malloc_.c"
+# 1 "<built-in>"
 # 1 "<command-line>"
-# 1 "malloc.c"
-# 581 "malloc.c"
+# 1 "malloc_.c"
+# 581 "malloc_.c"
 # 1 "/usr/include/x86_64-linux-gnu/sys/types.h" 1 3 4
 # 26 "/usr/include/x86_64-linux-gnu/sys/types.h" 3 4
 # 1 "/usr/include/features.h" 1 3 4
@@ -222,8 +223,8 @@ typedef __clockid_t clockid_t;
 typedef __timer_t timer_t;
 # 134 "/usr/include/x86_64-linux-gnu/sys/types.h" 2 3 4
 # 147 "/usr/include/x86_64-linux-gnu/sys/types.h" 3 4
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 1 3 4
-# 213 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 1 3 4
+# 212 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 3 4
 typedef long unsigned int size_t;
 # 148 "/usr/include/x86_64-linux-gnu/sys/types.h" 2 3 4
 
@@ -534,8 +535,8 @@ typedef union
 
 
 
-# 582 "malloc.c" 2
-# 763 "malloc.c"
+# 582 "malloc_.c" 2
+# 763 "malloc_.c"
 struct mallinfo {
   size_t arena;
   size_t ordblks;
@@ -548,9 +549,9 @@ struct mallinfo {
   size_t fordblks;
   size_t keepcost;
 };
-# 854 "malloc.c"
+# 854 "malloc_.c"
 extern void* malloc(size_t);
-# 863 "malloc.c"
+# 863 "malloc_.c"
 extern void free(void*);
 
 
@@ -559,13 +560,13 @@ extern void free(void*);
 
 
 extern void* calloc(size_t, size_t);
-# 894 "malloc.c"
+# 894 "malloc_.c"
 extern void* realloc(void*, size_t);
-# 909 "malloc.c"
+# 909 "malloc_.c"
 extern void* realloc_in_place(void*, size_t);
-# 923 "malloc.c"
+# 923 "malloc_.c"
 extern void* memalign(size_t, size_t);
-# 933 "malloc.c"
+# 933 "malloc_.c"
 extern int posix_memalign(void**, size_t, size_t);
 
 
@@ -574,23 +575,23 @@ extern int posix_memalign(void**, size_t, size_t);
 
 
 extern void* valloc(size_t);
-# 964 "malloc.c"
+# 964 "malloc_.c"
 extern int mallopt(int, int);
-# 975 "malloc.c"
+# 975 "malloc_.c"
 extern size_t malloc_footprint(void);
-# 988 "malloc.c"
+# 988 "malloc_.c"
 extern size_t malloc_max_footprint(void);
-# 999 "malloc.c"
+# 999 "malloc_.c"
 extern size_t malloc_footprint_limit();
-# 1013 "malloc.c"
+# 1013 "malloc_.c"
 extern size_t malloc_set_footprint_limit(size_t bytes);
-# 1072 "malloc.c"
+# 1072 "malloc_.c"
 extern struct mallinfo mallinfo(void);
-# 1124 "malloc.c"
+# 1124 "malloc_.c"
 extern void** independent_calloc(size_t, size_t, void**);
-# 1182 "malloc.c"
+# 1182 "malloc_.c"
 extern void** independent_comalloc(size_t, size_t*, void**);
-# 1193 "malloc.c"
+# 1193 "malloc_.c"
 extern size_t bulk_free(void**, size_t n_elements);
 
 
@@ -599,20 +600,20 @@ extern size_t bulk_free(void**, size_t n_elements);
 
 
 extern void* pvalloc(size_t);
-# 1223 "malloc.c"
+# 1223 "malloc_.c"
 extern int malloc_trim(size_t);
-# 1244 "malloc.c"
+# 1244 "malloc_.c"
 extern void malloc_stats(void);
-# 1260 "malloc.c"
+# 1260 "malloc_.c"
 size_t malloc_usable_size(void*);
-# 1436 "malloc.c"
+# 1436 "malloc_.c"
 # 1 "/usr/include/stdio.h" 1 3 4
 # 30 "/usr/include/stdio.h" 3 4
 
 
 
 
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 1 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 1 3 4
 # 35 "/usr/include/stdio.h" 2 3 4
 # 45 "/usr/include/stdio.h" 3 4
 struct _IO_FILE;
@@ -632,7 +633,7 @@ typedef struct _IO_FILE __FILE;
 # 32 "/usr/include/libio.h" 3 4
 # 1 "/usr/include/_G_config.h" 1 3 4
 # 15 "/usr/include/_G_config.h" 3 4
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 1 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 1 3 4
 # 16 "/usr/include/_G_config.h" 2 3 4
 
 
@@ -672,8 +673,8 @@ typedef unsigned int _G_uint16_t __attribute__ ((__mode__ (__HI__)));
 typedef unsigned int _G_uint32_t __attribute__ ((__mode__ (__SI__)));
 # 33 "/usr/include/libio.h" 2 3 4
 # 53 "/usr/include/libio.h" 3 4
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stdarg.h" 1 3 4
-# 40 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stdarg.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h" 1 3 4
+# 40 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h" 3 4
 typedef __builtin_va_list __gnuc_va_list;
 # 54 "/usr/include/libio.h" 2 3 4
 # 172 "/usr/include/libio.h" 3 4
@@ -1348,7 +1349,7 @@ extern int ftrylockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)
 extern void funlockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
 # 940 "/usr/include/stdio.h" 3 4
 
-# 1437 "malloc.c" 2
+# 1437 "malloc_.c" 2
 
 
 # 1 "/usr/include/errno.h" 1 3 4
@@ -1378,8 +1379,8 @@ extern int *__errno_location (void) __attribute__ ((__nothrow__ , __leaf__)) __a
 # 37 "/usr/include/errno.h" 2 3 4
 # 59 "/usr/include/errno.h" 3 4
 
-# 1440 "malloc.c" 2
-# 1455 "malloc.c"
+# 1440 "malloc_.c" 2
+# 1455 "malloc_.c"
 # 1 "/usr/include/time.h" 1 3 4
 # 30 "/usr/include/time.h" 3 4
 
@@ -1390,7 +1391,7 @@ extern int *__errno_location (void) __attribute__ ((__nothrow__ , __leaf__)) __a
 
 
 
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 1 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 1 3 4
 # 39 "/usr/include/time.h" 2 3 4
 
 
@@ -1613,13 +1614,13 @@ extern int timer_gettime (timer_t __timerid, struct itimerspec *__value)
 extern int timer_getoverrun (timer_t __timerid) __attribute__ ((__nothrow__ , __leaf__));
 # 417 "/usr/include/time.h" 3 4
 
-# 1456 "malloc.c" 2
+# 1456 "malloc_.c" 2
 
 
 # 1 "/usr/include/stdlib.h" 1 3 4
 # 33 "/usr/include/stdlib.h" 3 4
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 1 3 4
-# 325 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 1 3 4
+# 324 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 3 4
 typedef int wchar_t;
 # 34 "/usr/include/stdlib.h" 2 3 4
 
@@ -1962,7 +1963,7 @@ extern void cfree (void *__ptr) __attribute__ ((__nothrow__ , __leaf__));
 
 # 1 "/usr/include/alloca.h" 1 3 4
 # 25 "/usr/include/alloca.h" 3 4
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 1 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 1 3 4
 # 26 "/usr/include/alloca.h" 2 3 4
 
 
@@ -2213,7 +2214,7 @@ extern int getloadavg (double __loadavg[], int __nelem)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 # 964 "/usr/include/stdlib.h" 3 4
 
-# 1459 "malloc.c" 2
+# 1459 "malloc_.c" 2
 
 
 # 1 "/usr/include/string.h" 1 3 4
@@ -2223,7 +2224,7 @@ extern int getloadavg (double __loadavg[], int __nelem)
 
 
 
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 1 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 1 3 4
 # 35 "/usr/include/string.h" 2 3 4
 
 
@@ -2449,11 +2450,11 @@ extern char *stpncpy (char *__restrict __dest,
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 # 646 "/usr/include/string.h" 3 4
 
-# 1462 "malloc.c" 2
-# 1473 "malloc.c"
+# 1462 "malloc_.c" 2
+# 1473 "malloc_.c"
 # 1 "/usr/include/x86_64-linux-gnu/sys/mman.h" 1 3 4
 # 26 "/usr/include/x86_64-linux-gnu/sys/mman.h" 3 4
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 1 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 1 3 4
 # 27 "/usr/include/x86_64-linux-gnu/sys/mman.h" 2 3 4
 # 42 "/usr/include/x86_64-linux-gnu/sys/mman.h" 3 4
 # 1 "/usr/include/x86_64-linux-gnu/bits/mman.h" 1 3 4
@@ -2534,7 +2535,7 @@ extern int shm_open (__const char *__name, int __oflag, mode_t __mode);
 extern int shm_unlink (__const char *__name);
 
 
-# 1474 "malloc.c" 2
+# 1474 "malloc_.c" 2
 
 
 
@@ -2640,7 +2641,7 @@ extern int posix_fadvise (int __fd, __off_t __offset, __off_t __len,
 extern int posix_fallocate (int __fd, __off_t __offset, __off_t __len);
 # 255 "/usr/include/fcntl.h" 3 4
 
-# 1481 "malloc.c" 2
+# 1481 "malloc_.c" 2
 
 
 
@@ -2659,7 +2660,7 @@ extern int posix_fallocate (int __fd, __off_t __offset, __off_t __len);
 # 24 "/usr/include/x86_64-linux-gnu/bits/environments.h" 2 3 4
 # 208 "/usr/include/unistd.h" 2 3 4
 # 227 "/usr/include/unistd.h" 3 4
-# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h" 1 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h" 1 3 4
 # 228 "/usr/include/unistd.h" 2 3 4
 # 256 "/usr/include/unistd.h" 3 4
 typedef __useconds_t useconds_t;
@@ -3821,8 +3822,8 @@ extern int fdatasync (int __fildes);
 extern char *ctermid (char *__s) __attribute__ ((__nothrow__ , __leaf__));
 # 1174 "/usr/include/unistd.h" 3 4
 
-# 1485 "malloc.c" 2
-# 2182 "malloc.c"
+# 1485 "malloc_.c" 2
+# 2182 "malloc_.c"
 struct malloc_chunk {
   size_t prev_foot;
   size_t head;
@@ -3836,7 +3837,7 @@ typedef struct malloc_chunk* sbinptr;
 typedef unsigned int bindex_t;
 typedef unsigned int binmap_t;
 typedef unsigned int flag_t;
-# 2391 "malloc.c"
+# 2391 "malloc_.c"
 struct malloc_tree_chunk {
 
   size_t prev_foot;
@@ -3852,7 +3853,7 @@ struct malloc_tree_chunk {
 typedef struct malloc_tree_chunk tchunk;
 typedef struct malloc_tree_chunk* tchunkptr;
 typedef struct malloc_tree_chunk* tbinptr;
-# 2467 "malloc.c"
+# 2467 "malloc_.c"
 struct malloc_segment {
   char* base;
   size_t size;
@@ -3865,7 +3866,7 @@ struct malloc_segment {
 
 typedef struct malloc_segment msegment;
 typedef struct malloc_segment* msegmentptr;
-# 2577 "malloc.c"
+# 2577 "malloc_.c"
 struct malloc_state {
   binmap_t smallmap;
   binmap_t treemap;
@@ -3892,7 +3893,7 @@ struct malloc_state {
 };
 
 typedef struct malloc_state* mstate;
-# 2613 "malloc.c"
+# 2613 "malloc_.c"
 struct malloc_params {
   size_t magic;
   size_t page_size;
@@ -3911,7 +3912,7 @@ static struct malloc_params mparams;
 
 
 static struct malloc_state _gm_;
-# 2696 "malloc.c"
+# 2696 "malloc_.c"
 static msegmentptr segment_holding(mstate m, char* addr) {
   msegmentptr sp = &m->seg;
   for (;;) {
@@ -3932,7 +3933,7 @@ static int has_segment_link(mstate m, msegmentptr ss) {
       return 0;
   }
 }
-# 3097 "malloc.c"
+# 3111 "malloc_.c"
 static int init_mparams(void) {
 
 
@@ -3948,7 +3949,7 @@ static int init_mparams(void) {
 
     psize = sysconf(_SC_PAGESIZE);
     gsize = (((0) != 0)? (0) : psize);
-# 3128 "malloc.c"
+# 3142 "malloc_.c"
     if ((sizeof(size_t) != sizeof(char*)) ||
         ((~(size_t)0) < (((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) ||
         (sizeof(int) < 4) ||
@@ -3978,7 +3979,7 @@ static int init_mparams(void) {
 
 
     {
-# 3173 "malloc.c"
+# 3187 "malloc_.c"
       magic = (size_t)(time(0) ^ (size_t)0x55555555U);
 
       magic |= (size_t)8U;
@@ -4015,7 +4016,7 @@ static int change_mparam(int param_number, int value) {
     return 0;
   }
 }
-# 3482 "malloc.c"
+# 3496 "malloc_.c"
 static struct mallinfo internal_mallinfo(mstate m) {
   struct mallinfo nm = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
   (void)(mparams.magic != 0 || init_mparams());
@@ -4087,7 +4088,7 @@ static void internal_malloc_stats(mstate m) {
     fprintf(stderr, "in use bytes     = %10lu\n", (unsigned long)(used));
   }
 }
-# 3821 "malloc.c"
+# 3835 "malloc_.c"
 static void* mmap_alloc(mstate m, size_t nb) {
   size_t mmsize = (((nb + (((sizeof(size_t))<<2)+((sizeof(size_t))<<1)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) + (mparams.page_size - ((size_t)1))) & ~(mparams.page_size - ((size_t)1)));
   if (m->footprint_limit != 0) {
@@ -4098,6 +4099,8 @@ static void* mmap_alloc(mstate m, size_t nb) {
   if (mmsize > nb) {
     char* mm = (char*)(mmap(0, (mmsize), (0x1|0x2), (0x02|0x20), -1, 0));
     if (mm != ((char*)(((void*)((~(size_t)0)))))) {
+
+fprintf(stderr, "memory: %zd\t%p\n", mmsize, ((void *)0));
       size_t offset = ((((size_t)(((void*)((char*)(mm) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(mm) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))));
       size_t psize = mmsize - offset - (((sizeof(size_t))<<2));
       mchunkptr p = (mchunkptr)(mm + offset);
@@ -4143,6 +4146,8 @@ static mchunkptr mmap_resize(mstate m, mchunkptr oldp, size_t nb, int flags) {
       ((mchunkptr)(((char*)(newp)) + (psize)))->head = (((((size_t)1))|(((size_t)2)))|(sizeof(size_t)));
       ((mchunkptr)(((char*)(newp)) + (psize+(sizeof(size_t)))))->head = 0;
 
+fprintf(stderr, "memory: %zd\t%p\n", newmmsize-oldmmsize, ((void *)0));
+
       if (cp < m->least_addr)
         m->least_addr = cp;
       if ((m->footprint += newmmsize - oldmmsize) > m->max_footprint)
@@ -4181,7 +4186,7 @@ static void init_bins(mstate m) {
     bin->fd = bin->bk = bin;
   }
 }
-# 3935 "malloc.c"
+# 3953 "malloc_.c"
 static void* prepend_alloc(mstate m, char* newbase, char* oldbase,
                            size_t nb) {
   mchunkptr p = (mchunkptr)((newbase) + ((((size_t)(((void*)((char*)(newbase) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(newbase) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))));
@@ -4288,11 +4293,13 @@ static void* sys_alloc(mstate m, size_t nb) {
   (void)(mparams.magic != 0 || init_mparams());
 
 
+
   if (((m)->mflags & (((size_t)1))) && nb >= mparams.mmap_threshold && m->topsize != 0) {
     void* mem = mmap_alloc(m, nb);
     if (mem != 0)
       return mem;
   }
+
 
   asize = (((nb + ((((((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(((sizeof(struct malloc_segment)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) + ((size_t)(2 * sizeof(void *))))) + (mparams.granularity - ((size_t)1))) & ~(mparams.granularity - ((size_t)1)));
   if (asize <= nb)
@@ -4302,7 +4309,7 @@ static void* sys_alloc(mstate m, size_t nb) {
     if (fp <= m->footprint || fp > m->footprint_limit)
       return 0;
   }
-# 4078 "malloc.c"
+# 4098 "malloc_.c"
   if (1 && !((m)->mflags & (4U))) {
     char* br = ((char*)(((void*)((~(size_t)0)))));
     size_t ssize = asize;
@@ -4311,18 +4318,24 @@ static void* sys_alloc(mstate m, size_t nb) {
 
     if (ss == 0) {
       char* base = (char*)sbrk(0);
+
+fprintf(stderr, "start: %p\n", base);
       if (base != ((char*)(((void*)((~(size_t)0)))))) {
         size_t fp;
 
         if (!(((size_t)(base) & (mparams.page_size - ((size_t)1))) == 0))
           ssize += (((((size_t)base) + (mparams.page_size - ((size_t)1))) & ~(mparams.page_size - ((size_t)1))) - (size_t)base);
         fp = m->footprint + ssize;
+
         if (ssize > nb && ssize < ((~(size_t)0) / 2U) &&
             (m->footprint_limit == 0 ||
              (fp > m->footprint && fp <= m->footprint_limit)) &&
             (br = (char*)(sbrk(ssize))) == base) {
+# 4135 "malloc_.c"
           tbase = base;
           tsize = ssize;
+
+fprintf(stderr, "memory: %zd\t%p\n", ssize, sbrk(0));
         }
       }
     }
@@ -4334,6 +4347,8 @@ static void* sys_alloc(mstate m, size_t nb) {
           (br = (char*)(sbrk(ssize))) == ss->base+ss->size) {
         tbase = br;
         tsize = ssize;
+
+fprintf(stderr, "memory: %zd\t%p\n", ssize, sbrk(0));
       }
     }
 
@@ -4344,11 +4359,16 @@ static void* sys_alloc(mstate m, size_t nb) {
           size_t esize = (((nb + ((((((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(((sizeof(struct malloc_segment)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) + ((size_t)(2 * sizeof(void *)))) - ssize) + (mparams.granularity - ((size_t)1))) & ~(mparams.granularity - ((size_t)1)));
           if (esize < ((~(size_t)0) / 2U)) {
             char* end = (char*)sbrk(esize);
-            if (end != ((char*)(((void*)((~(size_t)0))))))
+            if (end != ((char*)(((void*)((~(size_t)0)))))){
               ssize += esize;
+
+fprintf(stderr, "memory: %zd\t%p\n", esize, sbrk(0));
+   }
             else {
               (void) sbrk(-ssize);
               br = ((char*)(((void*)((~(size_t)0)))));
+
+fprintf(stderr, "memory: %zd\t%p\n", -ssize, sbrk(0));
             }
           }
         }
@@ -4370,6 +4390,8 @@ static void* sys_alloc(mstate m, size_t nb) {
       tbase = mp;
       tsize = asize;
       mmap_flag = (((size_t)1));
+
+fprintf(stderr, "memory: %zd\t%p\n", asize, ((void *)0));
     }
   }
 
@@ -4386,6 +4408,8 @@ static void* sys_alloc(mstate m, size_t nb) {
         if (ssize > nb + (((((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(((sizeof(struct malloc_segment)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1))))) {
           tbase = br;
           tsize = ssize;
+
+fprintf(stderr, "memory: %zd\t%p\n", ssize, sbrk(0));
         }
       }
     }
@@ -4496,6 +4520,8 @@ static size_t release_unused_segments(mstate m) {
           released += size;
           m->footprint -= size;
 
+fprintf(stderr, "memory: %zd\t%p\n", -size, ((void *)0));
+
           sp = pred;
           sp->next = next;
         }
@@ -4524,8 +4550,10 @@ static int sys_trim(mstate m, size_t pad) {
     if (m->topsize > pad) {
 
       size_t unit = mparams.granularity;
+
       size_t extra = ((m->topsize - pad + (unit - ((size_t)1))) / unit -
                       ((size_t)1)) * unit;
+# 4372 "malloc_.c"
       msegmentptr sp = segment_holding(m, (char*)m->top);
 
       if (!((sp)->sflags & (8U))) {
@@ -4539,6 +4567,8 @@ static int sys_trim(mstate m, size_t pad) {
             if ((mremap(((sp->base)), ((sp->size)), ((newsize)), ((0))) != ((void*)((~(size_t)0)))) ||
                 (munmap(((sp->base + newsize)), ((extra))) == 0)) {
               released = extra;
+
+fprintf(stderr, "memory: %zd\t%p\n", -extra, ((void *)0));
             }
           }
         }
@@ -4554,6 +4584,8 @@ static int sys_trim(mstate m, size_t pad) {
               char* new_br = (char*)(sbrk(0));
               if (rel_br != ((char*)(((void*)((~(size_t)0))))) && new_br < old_br)
                 released = old_br - new_br;
+
+fprintf(stderr, "memory: %zd\t%p\n", -released, sbrk(0));
             }
           }
           ;
@@ -4590,8 +4622,11 @@ static void dispose_chunk(mstate m, mchunkptr p, size_t psize) {
     size_t prevsize = p->prev_foot;
     if ((((p)->head & ((((size_t)1))|(((size_t)2)))) == 0)) {
       psize += prevsize + (((sizeof(size_t))<<2));
-      if (munmap((((char*)p - prevsize)), ((psize))) == 0)
+      if (munmap((((char*)p - prevsize)), ((psize))) == 0){
         m->footprint -= psize;
+
+fprintf(stderr, "memory: %zd\t%p\n", -psize, ((void *)0));
+   }
       return;
     }
     prev = ((mchunkptr)(((char*)(p)) - (prevsize)));
@@ -4765,7 +4800,7 @@ static void* tmalloc_small(mstate m, size_t nb) {
 
 
 void* malloc(size_t bytes) {
-# 4572 "malloc.c"
+# 4650 "malloc_.c"
   if (!(0)) {
     void* mem;
     size_t nb;
@@ -4776,7 +4811,7 @@ void* malloc(size_t bytes) {
       idx = (bindex_t)((nb) >> (3U));
       smallbits = (&_gm_)->smallmap >> idx;
 
-      if ((smallbits & 0x3U) != 0 ) {
+      if ((smallbits & 0x3U) != 0) {
         mchunkptr b, p;
         idx += ~smallbits & 1;
         b = ((sbinptr)((char*)&(((&_gm_))->smallbins[(idx)<<1])));
@@ -4885,7 +4920,7 @@ void free(void* mem) {
 
   if (mem != 0) {
     mchunkptr p = ((mchunkptr)((char*)(mem) - ((sizeof(size_t))<<1)));
-# 4700 "malloc.c"
+# 4778 "malloc_.c"
     if (!(0)) {
       ;
       if (__builtin_expect(((char*)(p) >= ((&_gm_))->least_addr) && (((p)->head & ((((size_t)1))|(((size_t)2)))) != (((size_t)1))), 1)) {
@@ -4895,8 +4930,11 @@ void free(void* mem) {
           size_t prevsize = p->prev_foot;
           if ((((p)->head & ((((size_t)1))|(((size_t)2)))) == 0)) {
             psize += prevsize + (((sizeof(size_t))<<2));
-            if (munmap((((char*)p - prevsize)), ((psize))) == 0)
+            if (munmap((((char*)p - prevsize)), ((psize))) == 0){
               (&_gm_)->footprint -= psize;
+
+fprintf(stderr, "memory: %zd\t%p\n", -psize, ((void *)0));
+   }
             goto postaction;
           }
           else {
@@ -5099,7 +5137,7 @@ static void* internal_memalign(mstate m, size_t alignment, size_t bytes) {
       if ((0))
         return 0;
       if ((((size_t)(mem)) & (alignment - 1)) != 0) {
-# 4921 "malloc.c"
+# 5002 "malloc_.c"
         char* br = (char*)((mchunkptr)((char*)((size_t)(((size_t)((char*)mem + alignment - ((size_t)1))) & -alignment)) - ((sizeof(size_t))<<1)))
 
                                                          ;
@@ -5142,7 +5180,7 @@ static void* internal_memalign(mstate m, size_t alignment, size_t bytes) {
   }
   return mem;
 }
-# 4971 "malloc.c"
+# 5052 "malloc_.c"
 static void** ialloc(mstate m,
                      size_t n_elements,
                      size_t* sizes,
@@ -5241,11 +5279,11 @@ static void** ialloc(mstate m,
       break;
     }
   }
-# 5086 "malloc.c"
+# 5167 "malloc_.c"
   ;
   return marray;
 }
-# 5097 "malloc.c"
+# 5178 "malloc_.c"
 static size_t internal_bulk_free(mstate m, void* array[], size_t nelem) {
   size_t unfreed = 0;
   if (!(0)) {
@@ -5287,7 +5325,7 @@ static size_t internal_bulk_free(mstate m, void* array[], size_t nelem) {
   }
   return unfreed;
 }
-# 5185 "malloc.c"
+# 5266 "malloc_.c"
 void* realloc(void* oldmem, size_t bytes) {
   void* mem = 0;
   if (oldmem == 0) {
@@ -5422,7 +5460,7 @@ void** independent_comalloc(size_t n_elements, size_t sizes[],
 size_t bulk_free(void* array[], size_t nelem) {
   return internal_bulk_free((&_gm_), array, nelem);
 }
-# 5334 "malloc.c"
+# 5415 "malloc_.c"
 int malloc_trim(size_t pad) {
   int result = 0;
   (void)(mparams.magic != 0 || init_mparams());

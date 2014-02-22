@@ -35,31 +35,31 @@ gcc -shared -fPIC malloc.c -o libmalloc.so
 
 
 # Prepare subject espresso 
-#cd $curr_path
-#echo "Prepare subject: Espresso"
-#cd espresso-ab-1.0 
-#./configure
-#cd src
-#make
-#cp espresso ../../bin
-#cp libmalloc.so ../bin
+cd $curr_path
+echo "Prepare subject: Espresso"
+cd espresso-ab-1.0 
+./configure
+cd src
+make
+cp espresso ../../bin
+cp libmalloc.so ../bin
 
 
 # Prepare subject cfrac 
-#cd $curr_path
-#echo "Prepare subject: Cfrac"
-#cd cfrac 
-#make
-#cp cfrac ../bin
+cd $curr_path
+echo "Prepare subject: Cfrac"
+cd cfrac 
+make
+cp cfrac ../bin
 
 # Prepare subject gawk 
-#cd $curr_path
-#echo "Prepare subject: Gawk"
-#cd gawk-4.0.2
-#./configure
-#cd src
-#make
-#cp gawk ../bin
+cd $curr_path
+echo "Prepare subject: Gawk"
+cd gawk-4.0.2
+./configure
+cd src
+make
+cp gawk ../bin
 
 # Prepare subject space 
 cd $curr_path

@@ -47,36 +47,3 @@ cd $CURR_PATH
 echo "Start mutation analysis"
 $MILU -h -m ../mop.txt -f ../func_list.txt ../malloc.c
 
-for index in `ls milu_output/mutants/`
-do
-	cd milu_output/mutants/$index
-    echo "Compiling mutant $index"
-    if [ "$SUBJECT_NAME" == "cfrac" ]; then
-	gcc -shared -fPIC -m32 src/malloc.c -o libmalloc.so
-    else
-	gcc -shared -fPIC src/malloc.c -o libmalloc.so
-    fi
-    cp $SUBJECT_PATH/bin/$SUBJECT_NAME subject
-    cp -r $SUBJECT_PATH_TESTCASES/* .
-	cp $memory_path memory
-	./memory > fitness.txt
-    cat *.s > results.txt
-    if diff results.txt $ORIGINAL_PATH/results.txt >/dev/null ; then
-          #echo "tests: 1" >> fitness.txt
-          echo "1" >> fitness.txt
-          else
-                #echo "tests: 0" >> fitness.txt 
-                echo "0" >> fitness.txt 
-    fi
-    #echo "Mutant: $index" >> $CURR_PATH/fitness.txt
-    echo "M$index" >> $CURR_PATH/fitness.txt
-    cat line >> $CURR_PATH/fitness.txt
-    echo "" >> $CURR_PATH/fitness.txt
-    cat fitness.txt >> $CURR_PATH/fitness.txt
-	cd ../../..
-
-done
-cd $CURR_PATH
-#echo "Subject: $SUBJECT_NAME" >> ../fitness.txt
-cat fitness.txt >> ../"$SUBJECT_NAME"_fitness.txt
-

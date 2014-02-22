@@ -150,20 +150,21 @@ void main(){
 	double defaultMemory;
 	gint i, j;
 	fscanf(fp, "%*[^ ] %d %lf %lf", &i, &defaultMemory, &defaultTime);
-	printf("default memory %lf, default time %lf\n", defaultMemory, defaultTime);
+	//printf("default memory %lf, default time %lf\n", defaultMemory, defaultTime);
 	GList *combine=NULL, *p, *q;
 	double time, memory;
-	gint lineNumber;
+	gint mutantIndex, lineNumber;
 	individual *ind;
 	i=0;
 	while(!feof(fp)){
-		if(fscanf(fp, "%*[^ ] %d %lf %lf", &lineNumber, &memory, &time)<3){
+		if(fscanf(fp, "%*[^0-9]%d %d %lf %lf", &mutantIndex, &lineNumber, &memory, &time)<3){
 			continue;
 		}
 		memory=memory-defaultMemory;
 		time=time-defaultTime;
 		// discard all mutants worse than the original either on memory or time consumption
 		if(memory>0 || time>0){
+			//i++;
 			continue;
 		}
 		p=combine;
@@ -175,7 +176,7 @@ void main(){
 			p=p->next;
 		}
 		if(p!=NULL){
-			ind->m[ind->nm++]=i;
+			ind->m[ind->nm++]=mutantIndex;
 			ind->time+=time;
 			ind->memory+=memory;
 		}
@@ -185,12 +186,14 @@ void main(){
 			ind->memory=memory;
 			ind->time=time;
 			ind->nm=1;
-			ind->m[0]=i;
+			ind->m[0]=mutantIndex;
 			combine=g_list_append(combine, ind);
+			i++;
 		}
-		i++;
+		//i++;
 	}
 	fclose(fp);
+	printf("Total %d entries recorded.\n", i);
 /*	checking whether reading file is successful.
 	p=combine;
 	while(p!=NULL){

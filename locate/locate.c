@@ -7,6 +7,18 @@
 #define COMBINED_POPULATION_SIZE 1000
 #define NUMBER_DESIRED 8
 
+gint instrLine[]={4331, 4341, 4366, 4407, 4412, 4438, 4471, 4608, 4663, 4682, 4725, 5137, 4103, 4149};
+
+gint isInstr(gint l){
+	gint i;
+	for(i=0; i<14; i++){
+		if(l==instrLine[i]){
+			return 1;
+		}
+	}
+	return 0;
+}
+
 typedef struct _individual{
 	gint line;
 	double time;
@@ -150,20 +162,21 @@ void main(){
 	double defaultMemory;
 	gint i, j;
 	fscanf(fp, "%*[^ ] %d %lf %lf", &i, &defaultMemory, &defaultTime);
-	printf("default memory %lf, default time %lf\n", defaultMemory, defaultTime);
+	//printf("default memory %lf, default time %lf\n", defaultMemory, defaultTime);
 	GList *combine=NULL, *p, *q;
 	double time, memory;
-	gint lineNumber;
+	gint mutantIndex, lineNumber;
 	individual *ind;
 	i=0;
 	while(!feof(fp)){
-		if(fscanf(fp, "%*[^ ] %d %lf %lf", &lineNumber, &memory, &time)<3){
+		if(fscanf(fp, "%*[^0-9]%d %d %lf %lf", &mutantIndex, &lineNumber, &memory, &time)<3){
 			continue;
 		}
 		memory=memory-defaultMemory;
 		time=time-defaultTime;
 		// discard all mutants worse than the original either on memory or time consumption
-		if(memory>0 || time>0){
+		if(memory>0 || time>0 || isInstr(lineNumber)){
+			//i++;
 			continue;
 		}
 		p=combine;
@@ -175,7 +188,7 @@ void main(){
 			p=p->next;
 		}
 		if(p!=NULL){
-			ind->m[ind->nm++]=i;
+			ind->m[ind->nm++]=mutantIndex;
 			ind->time+=time;
 			ind->memory+=memory;
 		}
@@ -185,12 +198,14 @@ void main(){
 			ind->memory=memory;
 			ind->time=time;
 			ind->nm=1;
-			ind->m[0]=i;
+			ind->m[0]=mutantIndex;
 			combine=g_list_append(combine, ind);
+			i++;
 		}
-		i++;
+		//i++;
 	}
 	fclose(fp);
+	printf("Total %d entries recorded.\n", i);
 /*	checking whether reading file is successful.
 	p=combine;
 	while(p!=NULL){

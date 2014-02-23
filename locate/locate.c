@@ -7,6 +7,18 @@
 #define COMBINED_POPULATION_SIZE 1000
 #define NUMBER_DESIRED 8
 
+gint instrLine[]={4331, 4341, 4366, 4407, 4412, 4438, 4471, 4608, 4663, 4682, 4725, 5137, 4103, 4149};
+
+gint isInstr(gint l){
+	gint i;
+	for(i=0; i<14; i++){
+		if(l==instrLine[i]){
+			return 1;
+		}
+	}
+	return 0;
+}
+
 typedef struct _individual{
 	gint line;
 	double time;
@@ -163,7 +175,7 @@ void main(){
 		memory=memory-defaultMemory;
 		time=time-defaultTime;
 		// discard all mutants worse than the original either on memory or time consumption
-		if(memory>0 || time>0){
+		if(memory>0 || time>0 || isInstr(lineNumber)){
 			//i++;
 			continue;
 		}

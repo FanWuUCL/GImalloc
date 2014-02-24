@@ -4,7 +4,8 @@ CC=gcc
 GLIBFLAGS=`/usr/bin/pkg-config --cflags glib-2.0`
 CLANGFLAGS=-I./src/include/clang-c
 GLIBLIB=`/usr/bin/pkg-config --libs glib-2.0`
-CLANGLIB= -lclang `/usr/bin/llvm-config --ldflags`
+#CLANGLIB= -lclang `/usr/bin/llvm-config --ldflags`
+CLANGLIB = -lclang -L.  -lpthread -lffi -ldl -lm 
 
 CFLAGS= $(GLIBFLAGS)  $(CLANGFLAGS)  -std=c99 -c -I./src/include
 CLIBS= $(CLANGLIB) $(GLIBLIB)

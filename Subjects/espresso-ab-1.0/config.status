@@ -273,7 +273,7 @@ s,@ACLOCAL@,aclocal,;t t
 s,@AUTOCONF@,autoconf,;t t
 s,@AUTOMAKE@,automake,;t t
 s,@AUTOHEADER@,autoheader,;t t
-s,@MAKEINFO@,/home/yuejia/Projects/GImalloc/Subjects/espresso-ab-1.0/missing makeinfo,;t t
+s,@MAKEINFO@,/home/localadmin/programs/GImalloc/Subjects/espresso-ab-1.0/missing makeinfo,;t t
 s,@SET_MAKE@,,;t t
 s,@CC@,gcc,;t t
 s,@CFLAGS@,-g -O2,;t t

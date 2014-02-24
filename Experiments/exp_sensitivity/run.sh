@@ -4,6 +4,8 @@ echo "November 25, 2013"
 
 CURR_PATH=`pwd`
 RUN_EXP="false"
+killall killps.sh
+./killps.sh &
 
 if [ "$1" == "espresso" ]; then
 

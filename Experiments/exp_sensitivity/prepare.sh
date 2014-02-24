@@ -9,6 +9,7 @@ SUBJECT_PATH_NAME="$SUBJECT_PATH/$2"
 SUBJECT_PATH_TESTCASES="$SUBJECT_PATH_NAME/testcases"
 
 
+export LD_LIBRARY_PATH="/usr/lib/llvm-3.2/lib/"
 echo $MILU
 echo "Experiment: mutation sensitivity analysis"
 echo "Subject: $SUBJECT_NAME"

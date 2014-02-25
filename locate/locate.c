@@ -5,7 +5,7 @@
 
 #define FILENAME "fitness.txt"
 #define COMBINED_POPULATION_SIZE 1000
-#define NUMBER_DESIRED 8
+#define NUMBER_DESIRED 13
 
 gint instrLine[]={4331, 4341, 4366, 4407, 4412, 4438, 4471, 4608, 4663, 4682, 4725, 5137, 4103, 4149};
 

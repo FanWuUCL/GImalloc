@@ -1,4 +1,4 @@
-f = open("cfrac_fitness.txt","r")
+f = open("gawk_fitness.txt","r")
 ls = f.readlines()
 f.close()
 

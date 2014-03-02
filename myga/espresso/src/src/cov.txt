@@ -1,0 +1,205 @@
+File 'black_white.c'
+Lines executed:0.00% of 209
+Creating 'black_white.c.gcov'
+
+File '/usr/include/x86_64-linux-gnu/bits/stdio2.h'
+Lines executed:100.00% of 3
+Creating 'stdio2.h.gcov'
+
+File 'canonical.c'
+Lines executed:0.00% of 27
+Creating 'canonical.c.gcov'
+
+File 'cofactor.c'
+Lines executed:92.82% of 181
+Creating 'cofactor.c.gcov'
+
+File 'cols.c'
+Lines executed:28.89% of 90
+Creating 'cols.c.gcov'
+
+File 'compl.c'
+Lines executed:45.13% of 277
+Creating 'compl.c.gcov'
+
+File 'contain.c'
+Lines executed:45.51% of 167
+Creating 'contain.c.gcov'
+
+File 'cpu_time.c'
+Lines executed:100.00% of 5
+Creating 'cpu_time.c.gcov'
+
+File 'cubestr.c'
+Lines executed:80.00% of 90
+Creating 'cubestr.c.gcov'
+
+File 'cvrin.c'
+Lines executed:36.32% of 424
+Creating 'cvrin.c.gcov'
+
+File '/usr/include/x86_64-linux-gnu/bits/string3.h'
+Lines executed:0.00% of 1
+Creating 'string3.h.gcov'
+
+File '/usr/include/x86_64-linux-gnu/bits/stdio.h'
+Lines executed:100.00% of 1
+Creating 'stdio.h.gcov'
+
+File 'cvrm.c'
+Lines executed:50.00% of 210
+Creating 'cvrm.c.gcov'
+
+File 'cvrmisc.c'
+Lines executed:83.93% of 56
+Creating 'cvrmisc.c.gcov'
+
+File 'cvrout.c'
+Lines executed:13.06% of 291
+Creating 'cvrout.c.gcov'
+
+File 'dominate.c'
+Lines executed:97.30% of 37
+Creating 'dominate.c.gcov'
+
+File 'equiv.c'
+Lines executed:0.00% of 45
+Creating 'equiv.c.gcov'
+
+File 'espresso.c'
+Lines executed:77.78% of 45
+Creating 'espresso.c.gcov'
+
+File 'essen.c'
+Lines executed:98.25% of 57
+Creating 'essen.c.gcov'
+
+File 'essentiality.c'
+Lines executed:0.00% of 145
+Creating 'essentiality.c.gcov'
+
+File 'exact.c'
+Lines executed:0.00% of 67
+Creating 'exact.c.gcov'
+
+File 'expand.c'
+Lines executed:83.90% of 267
+Creating 'expand.c.gcov'
+
+File 'gasp.c'
+Lines executed:87.50% of 80
+Creating 'gasp.c.gcov'
+
+File 'gimpel.c'
+Lines executed:100.00% of 40
+Creating 'gimpel.c.gcov'
+
+File 'hack.c'
+Lines executed:0.00% of 298
+Creating 'hack.c.gcov'
+
+File 'indep.c'
+Lines executed:87.18% of 39
+Creating 'indep.c.gcov'
+
+File 'irred.c'
+Lines executed:88.14% of 177
+Creating 'irred.c.gcov'
+
+File 'main.c'
+Lines executed:33.24% of 364
+Creating 'main.c.gcov'
+
+File '/usr/include/stdlib.h'
+Lines executed:0.00% of 1
+Creating 'stdlib.h.gcov'
+
+File 'map.c'
+Lines executed:0.00% of 39
+Creating 'map.c.gcov'
+
+File 'matrix.c'
+Lines executed:47.24% of 199
+Creating 'matrix.c.gcov'
+
+File 'mincov.c'
+Lines executed:65.13% of 152
+Creating 'mincov.c.gcov'
+
+File 'opo.c'
+Lines executed:0.00% of 239
+Creating 'opo.c.gcov'
+
+File 'pair.c'
+Lines executed:0.00% of 339
+Creating 'pair.c.gcov'
+
+File 'part.c'
+Lines executed:70.27% of 37
+Creating 'part.c.gcov'
+
+File 'primes.c'
+Lines executed:0.00% of 72
+Creating 'primes.c.gcov'
+
+File 'prtime.c'
+Lines executed:100.00% of 3
+Creating 'prtime.c.gcov'
+
+File 'reduce.c'
+Lines executed:94.25% of 87
+Creating 'reduce.c.gcov'
+
+File 'rows.c'
+Lines executed:60.00% of 90
+Creating 'rows.c.gcov'
+
+File 'set.c'
+Lines executed:48.93% of 327
+Creating 'set.c.gcov'
+
+File 'setc.c'
+Lines executed:90.60% of 149
+Creating 'setc.c.gcov'
+
+File 'sharp.c'
+Lines executed:0.00% of 102
+Creating 'sharp.c.gcov'
+
+File 'sigma.c'
+Lines executed:0.00% of 31
+Creating 'sigma.c.gcov'
+
+File 'signature.c'
+Lines executed:0.00% of 67
+Creating 'signature.c.gcov'
+
+File 'signature_exact.c'
+Lines executed:0.00% of 25
+Creating 'signature_exact.c.gcov'
+
+File 'sminterf.c'
+Lines executed:100.00% of 14
+Creating 'sminterf.c.gcov'
+
+File 'solution.c'
+Lines executed:65.79% of 38
+Creating 'solution.c.gcov'
+
+File 'sparse.c'
+Lines executed:98.04% of 51
+Creating 'sparse.c.gcov'
+
+File 'unate.c'
+Lines executed:61.08% of 185
+Creating 'unate.c.gcov'
+
+File 'util_signature.c'
+No executable lines
+Removing 'util_signature.c.gcov'
+
+File 'verify.c'
+Lines executed:14.29% of 77
+Creating 'verify.c.gcov'
+
+Lines executed:40.85% of 6017

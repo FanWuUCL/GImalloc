@@ -1,4 +1,6 @@
-f = open("gawk_fitness.txt","r")
+import sys
+
+f = open(sys.argv[1],"r")
 ls = f.readlines()
 f.close()
 
@@ -22,7 +24,7 @@ while i < num:
                                 mut[name].append(tim)
                         i = i + 4
 
-f = open("mlines","r")
+f = open(sys.argv[2],"r")
 ls = f.readlines()
 f.close()
 

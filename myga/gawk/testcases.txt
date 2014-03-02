@@ -1,0 +1,348 @@
+-f testcases/csv.awk -f testcases/totsv.awk testcases/Salaries.csv
+-f testcases/dft.awk testcases/input.txt
+-f testcases/2num.awk testcases/1996.wctriples.p
+-f testcases/aadelete1.awk
+-f testcases/aadelete2.awk
+-f testcases/aarray1.awk
+-f testcases/aasort.awk
+-f testcases/aasorti.awk
+-f testcases/addcomma.awk testcases/addcomma.in
+-f testcases/anchgsub.awk testcases/anchgsub.in
+-f testcases/argarray.awk testcases/argarray.in
+-f testcases/argtest.awk
+-f testcases/arrayparm.awk
+-f testcases/arrayprm2.awk
+-f testcases/arrayprm3.awk
+-f testcases/arrayref.awk
+-f testcases/arraysort.awk
+-f testcases/arrymem1.awk
+-f testcases/arryref2.awk
+-f testcases/arryref3.awk
+-f testcases/arryref4.awk
+-f testcases/arryref5.awk
+-f testcases/arynasty.awk
+-f testcases/arynocls.awk testcases/arynocls.in
+-f testcases/aryprm1.awk
+-f testcases/aryprm2.awk
+-f testcases/aryprm3.awk
+-f testcases/aryprm4.awk
+-f testcases/aryprm5.awk
+-f testcases/aryprm6.awk
+-f testcases/aryprm7.awk
+-f testcases/aryprm8.awk
+-f testcases/arysubnm.awk
+-f testcases/asgext.awk testcases/asgext.in
+-f testcases/asort.awk
+-f testcases/asorti.awk
+-f testcases/back89.awk testcases/back89.in
+-f testcases/backgsub.awk testcases/backgsub.in
+-f testcases/backw.awk testcases/backw.in
+-f testcases/beginfile1.awk
+-f testcases/charasbytes.awk testcases/charasbytes.in
+-f testcases/childin.awk testcases/childin.in
+-f testcases/clobber.awk
+-f testcases/clos1way.awk
+-f testcases/closebad.awk
+-f testcases/clsflnam.awk testcases/clsflnam.in
+-f testcases/colonwarn.awk testcases/colonwarn.in
+-f testcases/compare2.awk
+-f testcases/compare.awk testcases/compare.in
+-f testcases/concat1.awk testcases/concat1.in
+-f testcases/concat2.awk
+-f testcases/concat3.awk
+-f testcases/concat4.awk testcases/concat4.in
+-f testcases/convfmt.awk
+-f testcases/datanonl.awk testcases/datanonl.in
+-f testcases/defref.awk
+-f testcases/delargv.awk
+-f testcases/delarpm2.awk
+-f testcases/delarprm.awk
+-f testcases/delfunc.awk
+-f testcases/delsub.awk
+-f testcases/devfd1.awk
+-f testcases/dfastress.awk
+-f testcases/double1.awk
+-f testcases/double2.awk
+-f testcases/dtdgport.awk
+-f testcases/dynlj.awk
+-f testcases/eofsplit.awk
+-f testcases/exitval1.awk
+-f testcases/exitval2.awk
+-f testcases/fcall_exit2.awk testcases/fcall_exit2.in
+-f testcases/fcall_exit.awk
+-f testcases/fieldwdth.awk testcases/fieldwdth.in
+-f testcases/filefuncs.awk
+-f testcases/fldchg.awk testcases/fldchg.in
+-f testcases/fldchgnf.awk testcases/fldchgnf.in
+-f testcases/fmtspcl.awk
+-f testcases/fmttest.awk
+-f testcases/fnamedat.awk testcases/fnamedat.in
+-f testcases/fnarray2.awk testcases/fnarray2.in
+-f testcases/fnarray.awk
+-f testcases/fnarydel.awk
+-f testcases/fnaryscl.awk
+-f testcases/fnasgnm.awk testcases/fnasgnm.in
+-f testcases/fnmatch.awk
+-f testcases/fnmisc.awk
+-f testcases/fnparydl.awk
+-f testcases/fordel.awk
+-f testcases/fork2.awk
+-f testcases/fork.awk
+-f testcases/forref.awk
+-f testcases/forsimp.awk
+-f testcases/fpat1.awk testcases/fpat1.in
+-f testcases/fpat2.awk
+-f testcases/fpat3.awk testcases/fpat3.in
+-f testcases/fpatnull.awk testcases/fpatnull.in
+-f testcases/fsbs.awk testcases/fsbs.in
+-f testcases/fsfwfs.awk testcases/fsfwfs.in
+-f testcases/fsrs.awk testcases/fsrs.in
+-f testcases/fsspcoln.awk testcases/fsspcoln.in
+-f testcases/fstabplus.awk testcases/fstabplus.in
+-f testcases/fts.awk
+-f testcases/functab1.awk
+-f testcases/functab2.awk
+-f testcases/functab3.awk
+-f testcases/functab4.awk
+-f testcases/funlen.awk testcases/funlen.in
+-f testcases/funsemnl.awk
+-f testcases/funsmnam.awk
+-f testcases/funstack.awk testcases/funstack.in
+-f testcases/fwtest2.awk testcases/fwtest2.in
+-f testcases/fwtest3.awk testcases/fwtest3.in
+-f testcases/fwtest.awk testcases/fwtest.in
+-f testcases/gensub2.awk
+-f testcases/gensub.awk testcases/gensub.in
+-f testcases/getline2.awk
+-f testcases/getline3.awk
+-f testcases/getline4.awk testcases/getline4.in
+-f testcases/getline5.awk
+-f testcases/getline.awk testcases/getline.in
+-f testcases/getlnbuf.awk testcases/getlnbuf.in
+-f testcases/getlndir.awk
+-f testcases/getlnhd.awk
+-f testcases/getnr2tb.awk testcases/getnr2tb.in
+-f testcases/getnr2tm.awk testcases/getnr2tm.in
+-f testcases/gnuops2.awk
+-f testcases/gnuops3.awk
+-f testcases/gnureops.awk
+-f testcases/gsubasgn.awk
+-f testcases/gsubtest.awk
+-f testcases/gsubtst2.awk
+-f testcases/gsubtst3.awk testcases/gsubtst3.in
+-f testcases/gsubtst4.awk
+-f testcases/gsubtst5.awk testcases/gsubtst5.in
+-f testcases/gsubtst6.awk
+-f testcases/gsubtst7.awk testcases/gsubtst7.in
+-f testcases/gsubtst8.awk testcases/gsubtst8.in
+-f testcases/gtlnbufv.awk
+-f testcases/hello.awk
+-f testcases/hex.awk
+-f testcases/hsprint.awk
+-f testcases/icasefs.awk
+-f testcases/icasers.awk testcases/icasers.in
+-f testcases/id.awk
+-f testcases/igncdym.awk testcases/igncdym.in
+-f testcases/igncfs.awk testcases/igncfs.in
+-f testcases/ignrcas2.awk
+-f testcases/ignrcase.awk testcases/ignrcase.in
+-f testcases/inchello.awk
+-f testcases/inclib.awk
+-f testcases/include.awk
+-f testcases/indirectcall.awk testcases/indirectcall.in
+-f testcases/inftest.awk
+-f testcases/inputred.awk
+-f testcases/intest.awk
+-f testcases/intformat.awk
+-f testcases/intprec.awk
+-f testcases/iobug1.awk
+-f testcases/jarebug.awk testcases/jarebug.in
+-f testcases/lc_num1.awk
+-f testcases/leaddig.awk
+-f testcases/leadnl.awk testcases/leadnl.in
+-f testcases/lint.awk
+-f testcases/lintold.awk testcases/lintold.in
+-f testcases/lintwarn.awk
+-f testcases/litoct.awk
+-f testcases/longdbl.awk testcases/longdbl.in
+-f testcases/longsub.awk testcases/longsub.in
+-f testcases/longwrds.awk testcases/longwrds.in
+-f testcases/manglprm.awk testcases/manglprm.in
+-f testcases/manyfiles.awk
+-f testcases/match1.awk
+-f testcases/match2.awk
+-f testcases/match3.awk testcases/match3.in
+-f testcases/math.awk
+-f testcases/mbfw1.awk testcases/mbfw1.in
+-f testcases/mbprintf1.awk testcases/mbprintf1.in
+-f testcases/mbprintf2.awk
+-f testcases/mbprintf3.awk testcases/mbprintf3.in
+-f testcases/mbstr1.awk
+-f testcases/membug1.awk testcases/membug1.in
+-f testcases/messages.awk
+-f testcases/minusstr.awk
+-f testcases/mpfrbigint.awk
+-f testcases/mpfrexprange.awk
+-f testcases/mpfrieee.awk
+-f testcases/mpfrnr.awk testcases/mpfrnr.in
+-f testcases/mpfrrnd.awk
+-f testcases/mpfrsort.awk
+-f testcases/mtchi18n.awk testcases/mtchi18n.in
+-f testcases/nasty2.awk
+-f testcases/nasty.awk
+-f testcases/nastyparm.awk
+-f testcases/negexp.awk
+-f testcases/negrange.awk
+-f testcases/nested.awk testcases/nested.in
+-f testcases/nfldstr.awk testcases/nfldstr.in
+-f testcases/nfneg.awk
+-f testcases/nfset.awk testcases/nfset.in
+-f testcases/nlfldsep.awk testcases/nlfldsep.in
+-f testcases/nlinstr.awk testcases/nlinstr.in
+-f testcases/nlstrina.awk
+-f testcases/noeffect.awk
+-f testcases/nofmtch.awk
+-f testcases/noloop1.awk testcases/noloop1.in
+-f testcases/noloop2.awk testcases/noloop2.in
+-f testcases/nondec2.awk
+-f testcases/nondec.awk
+-f testcases/nonl.awk
+-f testcases/noparms.awk
+-f testcases/nulrsend.awk testcases/nulrsend.in
+-f testcases/numindex.awk testcases/numindex.in
+-f testcases/numsubstr.awk testcases/numsubstr.in
+-f testcases/octsub.awk
+-f testcases/ofmta.awk
+-f testcases/ofmt.awk testcases/ofmt.in
+-f testcases/ofmtbig.awk testcases/ofmtbig.in
+-f testcases/ofmtfidl.awk testcases/ofmtfidl.in
+-f testcases/ofmts.awk testcases/ofmts.in
+-f testcases/ofs1.awk testcases/ofs1.in
+-f testcases/onlynl.awk testcases/onlynl.in
+-f testcases/opasnidx.awk
+-f testcases/opasnslf.awk
+-f testcases/ordchr.awk
+-f testcases/paramdup.awk
+-f testcases/paramres.awk
+-f testcases/paramtyp.awk
+-f testcases/paramuninitglobal.awk
+-f testcases/parse1.awk testcases/parse1.in
+-f testcases/parsefld.awk testcases/parsefld.in
+-f testcases/parseme.awk
+-f testcases/patsplit.awk
+-f testcases/pcntplus.awk
+-f testcases/pid.awk
+-f testcases/pipeio1.awk
+-f testcases/pipeio2.awk testcases/pipeio2.in
+-f testcases/posix2008sub.awk
+-f testcases/posix.awk testcases/posix.in
+-f testcases/poundbang.awk
+-f testcases/prdupval.awk testcases/prdupval.in
+-f testcases/prec.awk
+-f testcases/printf0.awk
+-f testcases/printf1.awk
+-f testcases/printfbad1.awk
+-f testcases/printfbad2.awk testcases/printfbad2.in
+-f testcases/printfbad3.awk
+-f testcases/printfloat.awk
+-f testcases/printlang.awk
+-f testcases/prmarscl.awk
+-f testcases/prmreuse.awk
+-f testcases/procinfs.awk
+-f testcases/profile3.awk
+-f testcases/prt1eval.awk
+-f testcases/prtoeval.awk
+-f testcases/pty1.awk
+-f testcases/rand.awk
+-f testcases/range1.awk testcases/range1.in
+-f testcases/readdir0.awk
+-f testcases/readdir.awk
+-f testcases/rebt8b1.awk
+-f testcases/rebt8b2.awk
+-f testcases/rebuf.awk testcases/rebuf.in
+-f testcases/redfilnm.awk testcases/redfilnm.in
+-f testcases/regeq.awk testcases/regeq.in
+-f testcases/regexprange.awk
+-f testcases/reginttrad.awk
+-f testcases/regrange.awk
+-f testcases/regx8bit.awk
+-f testcases/reindops.awk testcases/reindops.in
+-f testcases/reint2.awk testcases/reint2.in
+-f testcases/reint.awk testcases/reint.in
+-f testcases/reparse.awk testcases/reparse.in
+-f testcases/resplit.awk testcases/resplit.in
+-f testcases/revout.awk
+-f testcases/revtwoway.awk
+-f testcases/rri1.awk testcases/rri1.in
+-f testcases/rs.awk testcases/rs.in
+-f testcases/rsnul1nl.awk testcases/rsnul1nl.in
+-f testcases/rsstart1.awk testcases/rsstart1.in
+-f testcases/rsstart2.awk
+-f testcases/rstest1.awk
+-f testcases/rstest2.awk
+-f testcases/rstest3.awk
+-f testcases/rstest4.awk
+-f testcases/rstest5.awk
+-f testcases/rstest6.awk testcases/rstest6.in
+-f testcases/rswhite.awk testcases/rswhite.in
+-f testcases/rwarray.awk testcases/rwarray.in
+-f testcases/scalar.awk
+-f testcases/sclforin.awk
+-f testcases/sclifin.awk
+-f testcases/shadow.awk
+-f testcases/sort1.awk
+-f testcases/sortempty.awk
+-f testcases/sortfor.awk testcases/sortfor.in
+-f testcases/sortu.awk
+-f testcases/splitarg4.awk testcases/splitarg4.in
+-f testcases/splitargv.awk testcases/splitargv.in
+-f testcases/splitarr.awk
+-f testcases/splitdef.awk
+-f testcases/splitvar.awk testcases/splitvar.in
+-f testcases/splitwht.awk
+-f testcases/sprintfc.awk testcases/sprintfc.in
+-f testcases/strcat1.awk
+-f testcases/strftime.awk
+-f testcases/strftlng.awk
+-f testcases/strnum1.awk
+-f testcases/strtod.awk testcases/strtod.in
+-f testcases/strtonum.awk
+-f testcases/subamp.awk testcases/subamp.in
+-f testcases/subi18n.awk
+-f testcases/subsepnm.awk
+-f testcases/subslash.awk
+-f testcases/substr.awk
+-f testcases/swaplns.awk testcases/swaplns.in
+-f testcases/switch2.awk
+-f testcases/symtab1.awk
+-f testcases/symtab2.awk
+-f testcases/symtab3.awk
+-f testcases/symtab4.awk testcases/symtab4.in
+-f testcases/symtab5.awk testcases/symtab5.in
+-f testcases/symtab6.awk
+-f testcases/symtab7.awk testcases/symtab7.in
+-f testcases/symtab8.awk testcases/symtab8.in
+-f testcases/symtab9.awk
+-f testcases/synerr1.awk
+-f testcases/synerr2.awk
+-f testcases/time.awk
+-f testcases/tradanch.awk testcases/tradanch.in
+-f testcases/tweakfld.awk testcases/tweakfld.in
+-f testcases/uninit2.awk
+-f testcases/uninit3.awk
+-f testcases/uninit4.awk
+-f testcases/uninit5.awk
+-f testcases/uninitialized.awk
+-f testcases/unterm.awk
+-f testcases/uparrfs.awk testcases/uparrfs.in
+-f testcases/wideidx2.awk
+-f testcases/wideidx.awk testcases/wideidx.in
+-f testcases/widesub2.awk
+-f testcases/widesub3.awk testcases/widesub3.in
+-f testcases/widesub4.awk
+-f testcases/widesub.awk
+-f testcases/wjposer1.awk testcases/wjposer1.in
+-f testcases/xref.awk
+-f testcases/zero2.awk
+-f testcases/zeroe0.awk
+-f testcases/zeroflag.awk

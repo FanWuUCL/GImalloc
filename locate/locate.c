@@ -4,10 +4,12 @@
 #include<stdlib.h>
 
 #define FILENAME "fitness.txt"
-#define COMBINED_POPULATION_SIZE 1000
-#define NUMBER_DESIRED 13
+#define COMBINED_POPULATION_SIZE 5000
+#define NUMBER_DESIRED 50
 
-gint instrLine[]={4331, 4341, 4366, 4407, 4412, 4438, 4471, 4608, 4663, 4682, 4725, 5137, 4103, 4149};
+gint instrLine[]={4317, 4327, 4338, 4351, 4356, 4382, 4402, 4510, 4549, 4568, 4611, 4994, 4103, 4149};
+
+gint filter4335[]={936, 937, 935, 940, 911, 913};
 
 gint isInstr(gint l){
 	gint i;
@@ -19,12 +21,23 @@ gint isInstr(gint l){
 	return 0;
 }
 
+gint shouldFilter(gint lineNumber, gint mutantIndex){
+	gint i;
+	if(lineNumber==4335){
+		for(i=0; i<6; i++){
+			if(mutantIndex==filter4335[i])
+				return 1;
+		}
+	}
+	return 0;
+}
+
 typedef struct _individual{
 	gint line;
 	double time;
 	double memory;
 	gint nm;
-	gint m[50];
+	gint m[COMBINED_POPULATION_SIZE];
 	gint paretoLevel;
 	double crowdDistance;
 	struct _individual *dominateSet[COMBINED_POPULATION_SIZE];
@@ -175,18 +188,19 @@ void main(){
 		memory=memory-defaultMemory;
 		time=time-defaultTime;
 		// discard all mutants worse than the original either on memory or time consumption
-		if(memory>0 || time>0 || isInstr(lineNumber)){
+		if(memory<-0.5*defaultMemory || isInstr(lineNumber) || shouldFilter(lineNumber, mutantIndex)){
 			//i++;
 			continue;
 		}
-		p=combine;
+		/*p=combine;
 		while(p!=NULL){
 			ind=p->data;
 			if(ind->line==lineNumber){
 				break;
 			}
 			p=p->next;
-		}
+		}*/
+		p=NULL;
 		if(p!=NULL){
 			ind->m[ind->nm++]=mutantIndex;
 			ind->time+=time;
@@ -205,7 +219,7 @@ void main(){
 		//i++;
 	}
 	fclose(fp);
-	printf("Total %d entries recorded.\n", i);
+	fprintf(stderr, "Total %d entries recorded.\n", i);
 /*	checking whether reading file is successful.
 	p=combine;
 	while(p!=NULL){
@@ -218,7 +232,15 @@ void main(){
 		p=p->next;
 	}
 */
-
+/* average 
+	p=combine;
+	while(p!=NULL){
+		ind=p->data;
+		ind->time/=ind->nm;
+		ind->memory/=ind->nm;
+		p=p->next;
+	}
+*/
 	calculateFrontier(&combine);
 /*	check pareto level 
 	p=combine;
@@ -262,6 +284,7 @@ void main(){
 	// discard the most crowded individuals in the last frontier among the frontiers left
 	gint length=g_list_length(combine);
 	j--;
+	gint lastLevel=j;
 	individual* worst;
 	//g_printf("Removed all individuals whose Pareto level is bigger than %d, current size=%d\n", j, length);
 	while(length>populationSize){
@@ -281,16 +304,22 @@ void main(){
 	}
 
 	/* print out result */
-	p=combine;
-	while(p!=NULL){
-		ind=p->data;
-		printf("line %d, time %lf, memory %lf, ", ind->line, ind->time, ind->memory);
-		for(j=0; j<ind->nm; j++){
-			printf("%d ", ind->m[j]);
+	i=1;
+	while(i<=lastLevel){
+		p=combine;
+		while(p!=NULL){
+			ind=p->data;
+			if(ind->paretoLevel==i){
+				printf("line %d, time %lf, memory %lf, ", ind->line, ind->time, ind->memory);
+				for(j=0; j<ind->nm; j++){
+					printf("%d ", ind->m[j]);
+				}
+				printf(", pareto level %d, cd %lf", ind->paretoLevel, ind->crowdDistance);
+				printf("\n");
+			}
+			p=p->next;
 		}
-		printf(", pareto level %d, cd %lf", ind->paretoLevel, ind->crowdDistance);
-		printf("\n");
-		p=p->next;
+		i++;
 	}
 }
 

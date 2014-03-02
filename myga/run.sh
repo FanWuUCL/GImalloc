@@ -43,7 +43,7 @@ cd src
 make
 cp myga ../myga
 cd ..
-#./myga $*
+./myga $*
 	
 # store result
 if [ -d population/population999 ]; then

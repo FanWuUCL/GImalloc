@@ -222,7 +222,6 @@
 -f testcases/parseme.awk
 -f testcases/patsplit.awk
 -f testcases/pcntplus.awk
--f testcases/pid.awk
 -f testcases/pipeio1.awk
 -f testcases/pipeio2.awk testcases/pipeio2.in
 -f testcases/posix2008sub.awk

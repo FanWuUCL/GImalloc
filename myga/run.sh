@@ -43,6 +43,7 @@ cd src
 make
 cp myga ../myga
 cd ..
+echo "myga $*"
 ./myga $*
 	
 # store result

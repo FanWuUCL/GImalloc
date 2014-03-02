@@ -228,6 +228,7 @@ static void parseArgs(gint argc, gchar** argv){
 	}
 	else{
 		COMBINED_POPULATION_SIZE=populationSize*generationMax;
+		numberOfGenes=NUMBER_OF_SHALLOW_GENE;
 	}
 }
 

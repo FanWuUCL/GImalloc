@@ -37,16 +37,12 @@
 -f testcases/back89.awk testcases/back89.in
 -f testcases/backgsub.awk testcases/backgsub.in
 -f testcases/backw.awk testcases/backw.in
--f testcases/beginfile1.awk
 -f testcases/charasbytes.awk testcases/charasbytes.in
--f testcases/childin.awk testcases/childin.in
 -f testcases/clobber.awk
 -f testcases/clos1way.awk
 -f testcases/closebad.awk
 -f testcases/clsflnam.awk testcases/clsflnam.in
--f testcases/colonwarn.awk testcases/colonwarn.in
 -f testcases/compare2.awk
--f testcases/compare.awk testcases/compare.in
 -f testcases/concat1.awk testcases/concat1.in
 -f testcases/concat2.awk
 -f testcases/concat3.awk
@@ -113,7 +109,6 @@
 -f testcases/fwtest.awk testcases/fwtest.in
 -f testcases/gensub2.awk
 -f testcases/gensub.awk testcases/gensub.in
--f testcases/getline2.awk
 -f testcases/getline3.awk
 -f testcases/getline4.awk testcases/getline4.in
 -f testcases/getline5.awk
@@ -135,7 +130,6 @@
 -f testcases/gsubtst6.awk
 -f testcases/gsubtst7.awk testcases/gsubtst7.in
 -f testcases/gsubtst8.awk testcases/gsubtst8.in
--f testcases/gtlnbufv.awk
 -f testcases/hello.awk
 -f testcases/hex.awk
 -f testcases/hsprint.awk
@@ -163,12 +157,10 @@
 -f testcases/lint.awk
 -f testcases/lintold.awk testcases/lintold.in
 -f testcases/lintwarn.awk
--f testcases/litoct.awk
 -f testcases/longdbl.awk testcases/longdbl.in
 -f testcases/longsub.awk testcases/longsub.in
 -f testcases/longwrds.awk testcases/longwrds.in
 -f testcases/manglprm.awk testcases/manglprm.in
--f testcases/manyfiles.awk
 -f testcases/match1.awk
 -f testcases/match2.awk
 -f testcases/match3.awk testcases/match3.in
@@ -206,7 +198,6 @@
 -f testcases/noloop2.awk testcases/noloop2.in
 -f testcases/nondec2.awk
 -f testcases/nondec.awk
--f testcases/nonl.awk
 -f testcases/noparms.awk
 -f testcases/nulrsend.awk testcases/nulrsend.in
 -f testcases/numindex.awk testcases/numindex.in
@@ -236,7 +227,6 @@
 -f testcases/pipeio2.awk testcases/pipeio2.in
 -f testcases/posix2008sub.awk
 -f testcases/posix.awk testcases/posix.in
--f testcases/poundbang.awk
 -f testcases/prdupval.awk testcases/prdupval.in
 -f testcases/prec.awk
 -f testcases/printf0.awk
@@ -277,7 +267,6 @@
 -f testcases/rs.awk testcases/rs.in
 -f testcases/rsnul1nl.awk testcases/rsnul1nl.in
 -f testcases/rsstart1.awk testcases/rsstart1.in
--f testcases/rsstart2.awk
 -f testcases/rstest1.awk
 -f testcases/rstest2.awk
 -f testcases/rstest3.awk
@@ -302,7 +291,6 @@
 -f testcases/splitwht.awk
 -f testcases/sprintfc.awk testcases/sprintfc.in
 -f testcases/strcat1.awk
--f testcases/strftime.awk
 -f testcases/strftlng.awk
 -f testcases/strnum1.awk
 -f testcases/strtod.awk testcases/strtod.in
@@ -342,7 +330,6 @@
 -f testcases/widesub4.awk
 -f testcases/widesub.awk
 -f testcases/wjposer1.awk testcases/wjposer1.in
--f testcases/xref.awk
 -f testcases/zero2.awk
 -f testcases/zeroe0.awk
 -f testcases/zeroflag.awk

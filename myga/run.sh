@@ -47,7 +47,7 @@ cd ..
 	
 # store result
 if [ -d population/generation999 ]; then
-	opt=""
+	opt="exp"
 	for i in "$@"; do
 		opt=$opt$i
 	done

@@ -46,7 +46,7 @@ cd ..
 ./myga $*
 	
 # store result
-if [ -d population/population999 ]; then
+if [ -d population/generation999 ]; then
 	opt=""
 	for i in "$@"; do
 		opt=$opt$i

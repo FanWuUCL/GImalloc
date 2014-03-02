@@ -259,7 +259,7 @@ void main(int argc, char** argv){
 				savePopulation(population, i);
 			}
 			t2=time(NULL);
-			g_printf("Local time: %s", ctime(&t2));
+			g_printf("\nLocal time: %s", ctime(&t2));
 			t1=(t2-t1)*(generationMax-i-1)+t2;
 			g_printf("Estimated finish time: %s", ctime(&t1));
 		}

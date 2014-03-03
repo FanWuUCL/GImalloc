@@ -11,10 +11,13 @@ echo "Start experiment on >>>$subject<<<"
 
 echo "Preparing executable >>>$subject<<<"
 
-if [ ! -f libmalloc.so ]; then
+if [ ! $subject == "cfrac" ]; then
 	gcc -shared -fPIC -O3 -o libmalloc.so malloc.c
+else
+	gcc -m32 -shared -fPIC -O3 -o libmalloc.so malloc.c
 fi
 
+cp libmalloc.so $subject/src/libmalloc.so
 cd $subject/src
 ./configure
 make clean

@@ -8,7 +8,7 @@
 #define DEFAULT_COMPILE_CMD ""
 
 // # of times a testcase should be run against for
-#define REPEAT 10
+#define REPEAT 5
 
 #define DEEP_GCC_MALLOC "gcc %s -w -shared -fPIC -o %s -O3 malloc.c -D\'MALLOC_ALIGNMENT=((size_t)(%d*sizeof(void*)))\' -DFOOTERS=%d -DINSECURE=%d -DNO_SEGMENT_TRAVERSAL=%d -DMORECORE_CONTIGUOUS=%d -DDEFAULT_GRANULARITY=%d -DDEFAULT_TRIM_THRESHOLD=%d -DDEFAULT_MMAP_THRESHOLD=%d -DMAX_RELEASE_CHECK_RATE=%d -DSPACE_4301=%d -DSPACE_4547=%d -DSPACE_4316=%d -DSPACE_4865=%d -DSPACE_4399=%d -DSPACE_4428=%d -DSPACE_4449=%d -DSPACE_4537=%d -DSPACE_4334=%d"
 

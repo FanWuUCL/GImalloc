@@ -139,7 +139,7 @@ individual* copyIndividual(individual* ind){
 }
 
 void free_individual(individual* ind){
-	g_free(ind->dominateSet);
+	//g_free(ind->dominateSet);
 	g_free(ind);
 }
 

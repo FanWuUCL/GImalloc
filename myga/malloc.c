@@ -4013,7 +4013,7 @@ static void* mmap_alloc(mstate m, size_t nb) {
     char* mm = (char*)(CALL_DIRECT_MMAP((mmapSize=mmsize)));
     if (mm != CMFAIL) {
 //instrument
-fprintf(stderr, "memory: %zd\n", mmapSize);
+fprintf(stderr, "memory: %d\n", mmapSize);
       size_t offset = align_offset(chunk2mem(mm));
       size_t psize = mmsize - offset - MMAP_FOOT_PAD;
       mchunkptr p = (mchunkptr)(mm + offset);
@@ -4059,7 +4059,7 @@ static mchunkptr mmap_resize(mstate m, mchunkptr oldp, size_t nb, int flags) {
       chunk_plus_offset(newp, psize)->head = FENCEPOST_HEAD;
       chunk_plus_offset(newp, psize+SIZE_T_SIZE)->head = 0;
 // instrument
-fprintf(stderr, "memory: %zd\t%p\n", newmmsize-oldmmsize, NULL);
+fprintf(stderr, "memory: %zd\n", newmmsize-oldmmsize);
 
       if (cp < m->least_addr)
         m->least_addr = cp;
@@ -4358,7 +4358,7 @@ if(preAddr>0 && postAddr>0)
       tsize = asize;
       mmap_flag = USE_MMAP_BIT;
 // instrument
-fprintf(stderr, "memory: %zd\n", mmapSize);
+fprintf(stderr, "memory: %d\n", mmapSize);
     }
   }
 
@@ -4490,7 +4490,7 @@ static size_t release_unused_segments(mstate m) {
           released += size;
           m->footprint -= size;
 // instrument
-fprintf(stderr, "memory: %zd\n", -mmapSize);
+fprintf(stderr, "memory: %d\n", -mmapSize);
           /* unlink obsoleted record */
           sp = pred;
           sp->next = next;
@@ -4538,7 +4538,7 @@ static int sys_trim(mstate m, size_t pad) {
                 (CALL_MUNMAP(sp->base + newsize, (mmapSize=extra+EXPOSE_4547_2)) == 0)) {
               released = extra;
 // instrument
-fprintf(stderr, "memory: %zd\n", -mmapSize);
+fprintf(stderr, "memory: %d\n", -mmapSize);
             }
           }
         }
@@ -4598,7 +4598,7 @@ static void dispose_chunk(mstate m, mchunkptr p, size_t psize) {
       if (CALL_MUNMAP((char*)p - prevsize, (mmapSize=psize)) == 0){
         m->footprint -= psize;
 // instrument
-fprintf(stderr, "memory: %zd\n", -mmapSize);
+fprintf(stderr, "memory: %d\n", -mmapSize);
 	  }
       return;
     }
@@ -4944,7 +4944,7 @@ void dlfree(void* mem) {
             if (CALL_MUNMAP((char*)p - prevsize, (mmapSize=psize)) == 0){
               fm->footprint -= psize;
 // instrument
-fprintf(stderr, "memory: %zd\n", -mmapSize);
+fprintf(stderr, "memory: %d\n", -mmapSize);
 			}
             goto postaction;
           }
@@ -5672,7 +5672,7 @@ mspace create_mspace(size_t capacity, int locked) {
       m->seg.sflags = USE_MMAP_BIT;
       set_lock(m, locked);
 // instrument
-fprintf(stderr, "memory: %zd\n", mmapSize);
+fprintf(stderr, "memory: %d\n", mmapSize);
     }
   }
   return (mspace)m;
@@ -5725,7 +5725,7 @@ size_t destroy_mspace(mspace msp) {
           CALL_MUNMAP(base, (mmapSize=size)) == 0){
         freed += size;
 // instrument
-fprintf(stderr, "memory: %zd\n", -mmapSize);
+fprintf(stderr, "memory: %d\n", -mmapSize);
 	  }
     }
   }
@@ -5879,7 +5879,7 @@ void mspace_free(mspace msp, void* mem) {
             if (CALL_MUNMAP((char*)p - prevsize, (mmapSize=psize)) == 0){
               fm->footprint -= psize;
 // instrument
-fprintf(stderr, "memory: %zd\n", -mmapSize);
+fprintf(stderr, "memory: %d\n", -mmapSize);
 			}
             goto postaction;
           }

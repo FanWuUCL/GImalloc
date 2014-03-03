@@ -98,4 +98,4 @@ extern void dfawarn (const char *);
 /* dfaerror() is called by the regexp routines whenever an error occurs.  It
    takes a single argument, a NUL-terminated string describing the error.
    The user must supply a dfaerror.  */
-extern _Noreturn void dfaerror (const char *);
+extern void dfaerror (const char *);

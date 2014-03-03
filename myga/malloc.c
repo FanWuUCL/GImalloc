@@ -2731,8 +2731,8 @@ static int has_segment_link(mstate m, msegmentptr ss) {
 #endif	/* TOP_FOOT_SIZE */
 
 // cfrac
-#ifndef CFRAC_4547
-#define CFRAC_4547 0
+#ifndef CFRAC_4345
+#define CFRAC_4345 0
 #endif
 
 #ifndef CFRAC_4316
@@ -2886,6 +2886,7 @@ static int has_segment_link(mstate m, msegmentptr ss) {
 #define EXPOSE_4316 (CFRAC_4316)+(SPACE_4316)
 #define EXPOSE_4334 (CFRAC_4334)+(ESPRESSO_4334)+(SPACE_4334)
 #define EXPOSE_4335 (ESPRESSO_4335)
+#define EXPOSE_4345 (CFRAC_4345)
 #define EXPOSE_4346 (ESPRESSO_4346)
 #define EXPOSE_4399 (SPACE_4399)
 #define EXPOSE_4425 (ESPRESSO_4425)+(GAWK_4425)
@@ -2897,7 +2898,6 @@ static int has_segment_link(mstate m, msegmentptr ss) {
 #define EXPOSE_4540 (CFRAC_4540)+(GAWK_4540)
 #define EXPOSE_4542 (GAWK_4542)
 #define EXPOSE_4544 (GAWK_4544)
-#define EXPOSE_4547 (CFRAC_4547)
 #define EXPOSE_4547_2 (GAWK_4547)
 #define EXPOSE_4547_3 (SPACE_4547)
 #define EXPOSE_4557 (GAWK_4557)
@@ -2908,6 +2908,10 @@ static int has_segment_link(mstate m, msegmentptr ss) {
 #define EXPOSE_4865 (SPACE_4865)
 #define EXPOSE_4866 (CFRAC_4866)
 #define EXPOSE_4932 (ESPRESSO_4932)
+
+static char* preAddr;
+static char* postAddr;
+static int mmapSize;
 
 /* -------------------------------  Hooks -------------------------------- */
 
@@ -4006,10 +4010,10 @@ static void* mmap_alloc(mstate m, size_t nb) {
       return 0;
   }
   if (mmsize > nb) {     /* Check for wrap around 0 */
-    char* mm = (char*)(CALL_DIRECT_MMAP(mmsize));
+    char* mm = (char*)(CALL_DIRECT_MMAP((mmapSize=mmsize)));
     if (mm != CMFAIL) {
 //instrument
-fprintf(stderr, "memory: %zd\t%p\n", mmsize, NULL);
+fprintf(stderr, "memory: %zd\n", mmapSize);
       size_t offset = align_offset(chunk2mem(mm));
       size_t psize = mmsize - offset - MMAP_FOOT_PAD;
       mchunkptr p = (mchunkptr)(mm + offset);
@@ -4266,56 +4270,72 @@ static void* sys_alloc(mstate m, size_t nb) {
     ACQUIRE_MALLOC_GLOBAL_LOCK();
 
     if (ss == 0) {  /* First time through or recovery */
-      char* base = (char*)CALL_MORECORE(0+EXPOSE_4316);	// expose 4316
 // instrument
-fprintf(stderr, "start: %p\n", base);
+preAddr=(char*)CALL_MORECORE(0);
+      char* base = (char*)CALL_MORECORE(0+EXPOSE_4316);	// expose 4316
+postAddr=(char*)CALL_MORECORE(0);
+fprintf(stderr, "start\n");
+if(preAddr>0 && postAddr>0)
+	fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
       if (base != CMFAIL) {
         size_t fp;
         /* Adjust to end on a page boundary */
         if (!is_page_aligned(base))
           ssize += (page_align((size_t)base) - (size_t)base);
         fp = m->footprint + ssize; /* recheck limits */
+// instrument
+preAddr=(char*)CALL_MORECORE(0);
         if (ssize > nb && ssize < HALF_MAX_SIZE_T &&
             (m->footprint_limit == 0 ||
              (fp > m->footprint && fp <= m->footprint_limit)) &&
             (br = (char*)(CALL_MORECORE(ssize))) == base) {
           tbase = base;
           tsize = ssize;
-// instrument
-fprintf(stderr, "memory: %zd\t%p\n", ssize, CALL_MORECORE(0));
         }
+postAddr=(char*)CALL_MORECORE(0);
+if(preAddr>0 && postAddr>0)
+	fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
       }
     }
     else {
       /* Subtract out existing available top space from MORECORE request. */
       ssize = granularity_align(nb - m->topsize + SYS_ALLOC_PADDING+EXPOSE_4334);	// expose 4334
       /* Use mem here only if it did continuously extend old space */
+// instrument
+preAddr=(char*)CALL_MORECORE(0);
       if (ssize < HALF_MAX_SIZE_T+EXPOSE_4335 &&
           (br = (char*)(CALL_MORECORE(ssize))) == ss->base+ss->size) {	// expose 4335
         tbase = br;
         tsize = ssize;
-// instrument
-fprintf(stderr, "memory: %zd\t%p\n", ssize, CALL_MORECORE(0));
       }
+postAddr=(char*)CALL_MORECORE(0);
+if(preAddr>0 && postAddr>0)
+	fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
     }
 
     if (tbase == CMFAIL) {    /* Cope with partial failure */
       if (br != CMFAIL) {    /* Try to use/extend the space we did get */
         if (ssize < HALF_MAX_SIZE_T &&
-            ssize < nb + SYS_ALLOC_PADDING) {	// 4345
+            ssize < nb + SYS_ALLOC_PADDING+EXPOSE_4345) {	// expose 4345 
           size_t esize = granularity_align(nb + SYS_ALLOC_PADDING - ssize+EXPOSE_4346);	// expose 4346
           if (esize < HALF_MAX_SIZE_T) {	// 4347
+// instrument
+preAddr=(char*)CALL_MORECORE(0);
             char* end = (char*)CALL_MORECORE(esize);
+postAddr=(char*)CALL_MORECORE(0);
+if(preAddr>0 && postAddr>0)
+	fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
             if (end != CMFAIL){
               ssize += esize;
-// instrument
-fprintf(stderr, "memory: %zd\t%p\n", esize, CALL_MORECORE(0));
 			}
             else {            /* Can't use; try to release */
-              (void) CALL_MORECORE(-ssize);
-              br = CMFAIL;
 // instrument
-fprintf(stderr, "memory: %zd\t%p\n", -ssize, CALL_MORECORE(0));
+preAddr=(char*)CALL_MORECORE(0);
+              (void) CALL_MORECORE(-ssize);
+postAddr=(char*)CALL_MORECORE(0);
+if(preAddr>0 && postAddr>0)
+	fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
+              br = CMFAIL;
             }
           }
         }
@@ -4332,13 +4352,13 @@ fprintf(stderr, "memory: %zd\t%p\n", -ssize, CALL_MORECORE(0));
   }
 
   if (HAVE_MMAP && tbase == CMFAIL) {  /* Try MMAP */
-    char* mp = (char*)(CALL_MMAP(asize));
+    char* mp = (char*)(CALL_MMAP((mmapSize=asize)));
     if (mp != CMFAIL) {
       tbase = mp;
       tsize = asize;
       mmap_flag = USE_MMAP_BIT;
 // instrument
-fprintf(stderr, "memory: %zd\t%p\n", asize, NULL);
+fprintf(stderr, "memory: %zd\n", mmapSize);
     }
   }
 
@@ -4347,7 +4367,12 @@ fprintf(stderr, "memory: %zd\t%p\n", asize, NULL);
       char* br = CMFAIL;
       char* end = CMFAIL;
       ACQUIRE_MALLOC_GLOBAL_LOCK();
+// instrument
+preAddr=(char*)CALL_MORECORE(0);
       br = (char*)(CALL_MORECORE(asize));
+postAddr=(char*)CALL_MORECORE(0);
+if(preAddr>0 && postAddr>0)
+	fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
       end = (char*)(CALL_MORECORE(0));
       RELEASE_MALLOC_GLOBAL_LOCK();
       if (br != CMFAIL && end != CMFAIL && br < end) {
@@ -4355,8 +4380,6 @@ fprintf(stderr, "memory: %zd\t%p\n", asize, NULL);
         if (ssize > nb + TOP_FOOT_SIZE + EXPOSE_4399) {	//expose 4399
           tbase = br;
           tsize = ssize;
-// instrument
-fprintf(stderr, "memory: %zd\t%p\n", ssize, CALL_MORECORE(0));
         }
       }
     }
@@ -4463,11 +4486,11 @@ static size_t release_unused_segments(mstate m) {
         else {
           unlink_large_chunk(m, tp);
         }
-        if (CALL_MUNMAP(base, size) == 0) {
+        if (CALL_MUNMAP(base, (mmapSize=size)) == 0) {
           released += size;
           m->footprint -= size;
 // instrument
-fprintf(stderr, "memory: %zd\t%p\n", -size, NULL);
+fprintf(stderr, "memory: %zd\n", -mmapSize);
           /* unlink obsoleted record */
           sp = pred;
           sp->next = next;
@@ -4508,13 +4531,14 @@ static int sys_trim(mstate m, size_t pad) {
               sp->size >= extra &&
               !has_segment_link(m, sp)) { /* can't shrink if pinned */	// expose 4544
             size_t newsize = sp->size - extra;
+			mmapSize=extra;
             (void)newsize; /* placate people compiling -Wunused-variable */
             /* Prefer mremap, fall back to munmap */
-            if (((CALL_MREMAP(sp->base, sp->size, newsize, (0+EXPOSE_4547_3)) != MFAIL) ||	// expose 4547, expose 4547(2), expose 4547(3)
-                (CALL_MUNMAP(sp->base + newsize, (extra+EXPOSE_4547_2)) == 0)) ^ EXPOSE_4547) {
+            if ((CALL_MREMAP(sp->base, sp->size, newsize, (0+EXPOSE_4547_3)) != MFAIL) ||	// 4547, expose 4547(2), expose 4547(3)
+                (CALL_MUNMAP(sp->base + newsize, (mmapSize=extra+EXPOSE_4547_2)) == 0)) {
               released = extra;
 // instrument
-fprintf(stderr, "memory: %zd\t%p\n", -extra, NULL);
+fprintf(stderr, "memory: %zd\n", -mmapSize);
             }
           }
         }
@@ -4524,14 +4548,17 @@ fprintf(stderr, "memory: %zd\t%p\n", -extra, NULL);
           ACQUIRE_MALLOC_GLOBAL_LOCK();
           {
             /* Make sure end of memory is where we last set it. */
+// instrument
+preAddr=(char*)CALL_MORECORE(0);
             char* old_br = (char*)(CALL_MORECORE(0));
             if (old_br == sp->base + sp->size) {
               char* rel_br = (char*)(CALL_MORECORE(-extra));
               char* new_br = (char*)(CALL_MORECORE(0+EXPOSE_4564));	// expose 4564
+postAddr=(char*)CALL_MORECORE(0);
+if(preAddr>0 && postAddr>0)
+	fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
               if (rel_br != CMFAIL && new_br < old_br)
                 released = old_br - new_br;
-// instrument
-fprintf(stderr, "memory: %zd\t%p\n", -released, CALL_MORECORE(0));
             }
           }
           RELEASE_MALLOC_GLOBAL_LOCK();
@@ -4568,10 +4595,10 @@ static void dispose_chunk(mstate m, mchunkptr p, size_t psize) {
     size_t prevsize = p->prev_foot;
     if (is_mmapped(p)) {
       psize += prevsize + MMAP_FOOT_PAD;
-      if (CALL_MUNMAP((char*)p - prevsize, psize) == 0){
+      if (CALL_MUNMAP((char*)p - prevsize, (mmapSize=psize)) == 0){
         m->footprint -= psize;
 // instrument
-fprintf(stderr, "memory: %zd\t%p\n", -psize, NULL);
+fprintf(stderr, "memory: %zd\n", -mmapSize);
 	  }
       return;
     }
@@ -4772,9 +4799,8 @@ void* dlmalloc(size_t bytes) {
 #if USE_LOCKS
   ensure_initialization(); /* initialize in sys_alloc if not using locks */
 #endif
-// dlmalloc entrance
-	//fprintf(stderr, "This is my malloc. allocating %d bytes...\n", bytes);
-/*fprintf(stderr, "ALIGN=%lu, FLAG=%d, GRANULARITY=%d, TRIM=%lu, MMAP=%lu, RATE=%d, TOP_FOOT_SIZE=%lu\n", MALLOC_ALIGNMENT,
+/* dlmalloc entrance
+fprintf(stderr, "ALIGN=%lu, FLAG=%d, GRANULARITY=%d, TRIM=%lu, MMAP=%lu, RATE=%d, TOP_FOOT_SIZE=%lu\n", MALLOC_ALIGNMENT,
 	FOOTERS+INSECURE*2+NO_SEGMENT_TRAVERSAL*4+MORECORE_CONTIGUOUS*8, DEFAULT_GRANULARITY/1024, DEFAULT_TRIM_THRESHOLD/1024,
 	DEFAULT_MMAP_THRESHOLD/1024, MAX_RELEASE_CHECK_RATE, TOP_FOOT_SIZE);
 */
@@ -4915,10 +4941,10 @@ void dlfree(void* mem) {
           size_t prevsize = p->prev_foot;
           if (is_mmapped(p)) {
             psize += prevsize + MMAP_FOOT_PAD;
-            if (CALL_MUNMAP((char*)p - prevsize, psize) == 0){
+            if (CALL_MUNMAP((char*)p - prevsize, (mmapSize=psize)) == 0){
               fm->footprint -= psize;
 // instrument
-fprintf(stderr, "memory: %zd\t%p\n", -psize, NULL);
+fprintf(stderr, "memory: %zd\n", -mmapSize);
 			}
             goto postaction;
           }
@@ -5640,13 +5666,13 @@ mspace create_mspace(size_t capacity, int locked) {
     size_t rs = ((capacity == 0)? mparams.granularity :
                  (capacity + TOP_FOOT_SIZE + msize));
     size_t tsize = granularity_align(rs);
-    char* tbase = (char*)(CALL_MMAP(tsize));
+    char* tbase = (char*)(CALL_MMAP((mmapSize=tsize)));
     if (tbase != CMFAIL) {
       m = init_user_mstate(tbase, tsize);
       m->seg.sflags = USE_MMAP_BIT;
       set_lock(m, locked);
 // instrument
-fprintf(stderr, "memory: %zd\t%p\n", tsize, 0);
+fprintf(stderr, "memory: %zd\n", mmapSize);
     }
   }
   return (mspace)m;
@@ -5696,10 +5722,10 @@ size_t destroy_mspace(mspace msp) {
       (void)base; /* placate people compiling -Wunused-variable */
       sp = sp->next;
       if ((flag & USE_MMAP_BIT) && !(flag & EXTERN_BIT) &&
-          CALL_MUNMAP(base, size) == 0){
+          CALL_MUNMAP(base, (mmapSize=size)) == 0){
         freed += size;
 // instrument
-fprintf(stderr, "memory: %zd\t%p\n", -size, 0);
+fprintf(stderr, "memory: %zd\n", -mmapSize);
 	  }
     }
   }
@@ -5850,10 +5876,10 @@ void mspace_free(mspace msp, void* mem) {
           size_t prevsize = p->prev_foot;
           if (is_mmapped(p)) {
             psize += prevsize + MMAP_FOOT_PAD;
-            if (CALL_MUNMAP((char*)p - prevsize, psize) == 0){
+            if (CALL_MUNMAP((char*)p - prevsize, (mmapSize=psize)) == 0){
               fm->footprint -= psize;
 // instrument
-fprintf(stderr, "memory: %zd\t%p\n", -psize, 0);
+fprintf(stderr, "memory: %zd\n", -mmapSize);
 			}
             goto postaction;
           }

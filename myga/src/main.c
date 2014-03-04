@@ -252,7 +252,7 @@ void main(int argc, char** argv){
 		for(i=0; i<generationMax; i++){
 			t1=time(NULL);
 			g_printf("\n========================GENERATION %d=========================\n", i);
-			mutation(&population);
+			//mutation(&population);
 			crossover(&population);
 
 			selection(&population);

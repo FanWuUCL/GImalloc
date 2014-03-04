@@ -21,11 +21,7 @@ gint mutationGene(mutType mt, gint gene, gint lower, gint upper){
 		case mutation_random:		// mutation_random
 			gene=randomIntRange(lower, upper+1);
 			break;
-		case mutation_power2:		// mutation_power2
-			/*if(gene==lower) return gene*2;
-			if(gene==upper) return gene/2;
-			if(randomIntRange(0, 2)) gene*=2;
-			else gene/=2;*/
+		case mutation_power2_random:		// mutation_power2_random
 			maxGap=upper/lower;
 			index=0;
 			while(maxGap>1){
@@ -38,6 +34,21 @@ gint mutationGene(mutType mt, gint gene, gint lower, gint upper){
 			}
 			break;
 		case mutation_power2_allow0:		// mutation_power2_allow0
+			if(gene!=0 && randomOne()<0.1){
+				gene=0;
+				break;
+			}
+		case mutation_power2:		// mutation_power2
+			if(gene==lower) return gene*2;
+			if(gene==upper) return gene/2;
+			if(randomIntRange(0, 2)) gene*=2;
+			else gene/=2;
+			break;
+		case mutation_power2_allow0_random:		// mutation_power2_allow0_random
+			if(gene!=0 && randomOne()<0.1){
+				gene=0;
+				break;
+			}
 			maxGap=upper/lower;
 			index=0;
 			while(maxGap>1){
@@ -45,11 +56,7 @@ gint mutationGene(mutType mt, gint gene, gint lower, gint upper){
 				index++;
 			}
 			maxGap=index;
-			index=randomIntRange(0, maxGap+2);
-			if(index==maxGap+1){
-				gene=0;
-				break;
-			}
+			index=randomIntRange(0, maxGap+1);
 			for(gene=lower; index>0; index--){
 				gene*=2;
 			}

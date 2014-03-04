@@ -18,6 +18,6 @@
 
 #define UPPERBOUND_IND 16, 15, 512, 16*1024, 2048, 10000, 4096, 1024, 1024, 32, 1, 8, 32, 8, 1024
 
-#define MUTATIONTYPE_IND mutation_power2, mutation_random, mutation_power2_allow0, mutation_power2, mutation_random, mutation_random, mutation_random, mutation_random, mutation_random, mutation_random, mutation_random, mutation_random, mutation_random, mutation_random, mutation_random
+#define MUTATIONTYPE_IND mutation_power2, mutation_gap, mutation_power2_allow0, mutation_power2, mutation_gap, mutation_gap, mutation_gap, mutation_gap, mutation_gap, mutation_gap, mutation_one, mutation_one, mutation_gap, mutation_one, mutation_gap
 
 #endif // SETTING_H

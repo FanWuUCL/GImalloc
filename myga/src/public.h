@@ -10,8 +10,8 @@
 
 // user defines
 #define POPULATION_SIZE 50
-#define MUTATION_RATE 0.2
-#define CROSSOVER_RATE 0.8
+#define MUTATION_RATE 0.1
+#define CROSSOVER_RATE 0.9
 #define GENERATION_MAX 100
 // testcases dir, put in front of each test case and send it to the subject program in the cmd line
 #ifndef DEFAULT_TESTCASES_DIR
@@ -88,7 +88,9 @@ typedef enum _mutationType{
 	mutation_gap,
 	mutation_random,
 	mutation_power2,
+	mutation_power2_random,
 	mutation_power2_allow0,
+	mutation_power2_allow0_random,
 	mutation_boolean
 }mutType;
 

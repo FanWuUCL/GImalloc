@@ -52,9 +52,9 @@ echo "myga $*"
 # store result
 if [ -d population/generation999 ]; then
 	opt="exp"
-	for i in "$@"; do
-		opt=$opt$i
-	done
+	#for i in "$@"; do
+	#	opt=$opt$i
+	#done
 	mkdir $subject/$opt
 	cp -r population $subject/$opt/
 fi

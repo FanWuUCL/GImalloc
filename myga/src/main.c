@@ -91,7 +91,7 @@ gint prepare(gchar* originalFile){
 	ori=NULL;
 	profiler_debug=0;
 	profile_times=0;
-	logfp=fopen("log.txt", "w+");
+	logfp=fopen("population/log.txt", "w+");
 	ori=getOriginal();
 	randomUtility=g_rand_new();
 	if(!g_file_test(CURRDIR, G_FILE_TEST_IS_DIR)){
@@ -224,7 +224,7 @@ static void parseArgs(gint argc, gchar** argv){
 		}
 	}
 	if(randomSearch==0){
-		COMBINED_POPULATION_SIZE=(gint)(populationSize*(1+mutationRate+crossoverRate)+1);
+		COMBINED_POPULATION_SIZE=(gint)(populationSize*(1+crossoverRate)+1);
 	}
 	else{
 		COMBINED_POPULATION_SIZE=populationSize*generationMax;
@@ -261,6 +261,7 @@ void main(int argc, char** argv){
 			}
 			t2=time(NULL);
 			g_printf("\nLocal time: %s", ctime(&t2));
+			fprintf(logfp, "Local time: %s", ctime(&t2));
 			t1=(t2-t1)*(generationMax-i-1)+t2;
 			g_printf("Estimated finish time: %s", ctime(&t1));
 		}

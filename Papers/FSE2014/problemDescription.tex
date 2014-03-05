@@ -13,4 +13,12 @@ where the $binary-op$ can be a relational operator (>, <, >=, <=, ==, !=), a log
     (L + v) & \quad \text{if $L$ is an additive location}
   \end{array} \right.,
 \end{equation}
-in which $v$ is an exposed Deep Parameter. 
+in which $v$ is an exposed Deep Parameter. After we follow the rule and expose corresponding parameter, users can configure this parameter to take more control of the program.
+
+Apparently, exposing parameters from all possible locations will give users the maximum capacity to control the behaviour of the program. However, since we want to optimize these Deep Parameters as well as Shallow Parameters on a given test suite, it is impractical to expose and optimize all of possible Deep Parameters. So we firstly need to determine which locations to expose. In theory, we can expose parameter from each legible location and optimize the parameter on a given test suite, to understand how much better performance of the program under optimise we can achieve by tuning this parameter. Formally, $E_{LS}(L)$ is the best performance of a program after exposing and optimizing parameter $v$ from location $L$:
+\begin{equation}
+E_{LS}(L)=\max_{a} E_T(P(L)|_{v=a}),
+\end{equation}
+where $E_T()$ is a function which evaluate a program's performance on a given test suite $T$. However, it may needs infinitely large number of evaluations due to the infinite possible values for $v=a$. Instead, we propose a Mutation-based approach to analyse how likely we could achieve better performance by exposing one parameter than another.
+
+Mutation Operators are originally used in Mutation Testing to automatically insert artificial faults to a program under test, generating different versions, or mutants, of the original program. These mutants are later test under a given test suite trying to discover those artificial faults as a means of revealing how good the test suite is for detecting real faults. Here we only use Mutation Operators to generate mutants that slightly differ from the original program. According to the Mutation Operators we used, the mutated location $L_m$ can be a constant, a relational operator, a logical operator, an arithmetic operator or a predicate. Then we say a location $L$ involves a mutated location $L_m$ if $L_m$ is a substring of $L$. By this definition, we can approximate $E_{LS}(L)$ by evaluating the best performance of the mutants whose mutated location $L_m$ is involved by $L$. 

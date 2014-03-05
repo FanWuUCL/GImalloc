@@ -1,0 +1,16 @@
+\section{Deep Parameters}
+Besides the Shallow Parameters described in Section \ref{sec_dlmalloc_tunable_parameters}, we want to extend the ability of tuning a program's configuration parameters by exposing more parameters which were hard-coded in the program. In this section, we describe how we define a Deep Parameter and how we choose these Deep Parameters to expose that benefit us most. 
+
+We define a Deep Parameter by starting from defining a location from which a Deep Parameter is exposed. A location $L$ is an expression that meets:
+\begin{equation}
+L: \mbox{CONSTANT} | \mbox{IDENTIFIER} | L\ binary-op\ L | unary-op\ L
+\end{equation}
+where the $binary-op$ can be a relational operator (>, <, >=, <=, ==, !=), a logical operator (\&\&, ||, !) or an arithmetic operator (+, -, *, /, \%). So a location can be a constant, a variable or an expression derived from other location(s) with an operator. When a location is composed of other location(s) and an operator $op$, if the $op$ is a relational operator or a logical operator, we call it a logical location, otherwise it is an additive location. Then a Deep Parameter is exposed by following the rule:
+\begin{equation}
+ P(L) = \left\{
+  \begin{array}{l l}
+    (L) \ xor \ v & \quad \text{if $L$ is a logical location}\\
+    (L + v) & \quad \text{if $L$ is an additive location}
+  \end{array} \right.,
+\end{equation}
+in which $v$ is an exposed Deep Parameter. 

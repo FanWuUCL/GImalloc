@@ -40,13 +40,13 @@ NO\_SEGMENT\_TRAVERSAL & \emph{false} & \emph{true} or \emph{false} & boolean & 
 \hline
 MORECORE\_CONTIGUOUS & \emph{true} & \emph{true} or \emph{false} & boolean & Contiguous heap extension support\\
 \hline
-DEFAULT\_GRANULARITY & 0 & 4~512KB & $2^n$KB or 0 & Unit of heap extension\\
+DEFAULT\_GRANULARITY & 0 & 4KB - 512KB & $2^n$KB or 0 & Unit of heap extension\\
 \hline
-DEFAULT\_TRIM\_THRESHOLD & 2048KB & 64KB~16MB & $2^n$KB & Threshold of trimming\\
+DEFAULT\_TRIM\_THRESHOLD & 2048KB & 64KB - 16MB & $2^n$KB & Threshold of trimming\\
 \hline
-DEFAULT\_MMAP\_THRESHOLD & 256KB & 16KB~2MB & integer & Threshold of direct memory mapping\\
+DEFAULT\_MMAP\_THRESHOLD & 256KB & 16KB - 2MB & integer & Threshold of direct memory mapping\\
 \hline
-MAX\_RELEASE\_CHECK\_RATE & 4095 & 1000~10000 & integer & Frequency of coalescing\\
+MAX\_RELEASE\_CHECK\_RATE & 4095 & 1000 - 10000 & integer & Frequency of coalescing\\
 \hline
 \end{tabular}}
 \end{table*}

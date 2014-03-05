@@ -261,7 +261,7 @@ void main(int argc, char** argv){
 			}
 			t2=time(NULL);
 			g_printf("\nLocal time: %s", ctime(&t2));
-			fprintf(logfp, "Local time: %s", ctime(&t2));
+			fprintf(logfp, "\nLocal time: %s", ctime(&t2));
 			t1=(t2-t1)*(generationMax-i-1)+t2;
 			g_printf("Estimated finish time: %s", ctime(&t1));
 		}

@@ -11,6 +11,9 @@ GList* initializePopulation(individual* seed, gint number){
 	individual* ind;
 	ind=copyIndividual(seed);
 	evaluateIndividual(ind, 0);
+	memoryUsage* memoryU=stdMemoryAvg->data;
+	memoryU->timeUsr=ind->time;
+	memoryU->MEMORY_PROFILING_UNIT=ind->memory;
 	population=g_list_append(population, ind);
 	mutType mt;
 	for(i=1; i<number; i++){
@@ -40,6 +43,9 @@ GList* initializeRandPopulation(individual* seed, gint number){
 	individual* ind;
 	ind=copyIndividual(seed);
 	evaluateIndividual(ind, 0);
+	memoryUsage* memoryU=stdMemoryAvg->data;
+	memoryU->timeUsr=ind->time;
+	memoryU->MEMORY_PROFILING_UNIT=ind->memory;
 	population=g_list_append(population, ind);
 	//gint printGap=number/100==0?1:number/100;
 	mutType mt;
@@ -47,6 +53,7 @@ GList* initializeRandPopulation(individual* seed, gint number){
 		ind=copyIndividual(seed);
 		if(i%50==0){
 			g_printf("\n");
+			fprintf(logfp, "\n");
 		}
 		//random=randomIntRange(0, numberOfGenes);
 		for(j=0; j<numberOfGenes; j++){

@@ -633,7 +633,7 @@ configure:13906: $? = 0
 configure:13906: result: yes
 configure:13906: checking for GetSystemTimeAsFileTime
 configure:13906: gcc -o conftest -g -O2 -Wall -Wextra   conftest.c  >&5
-/tmp/cce10VjK.o: In function `main':
+/tmp/ccqQ9Y2U.o: In function `main':
 /home/localadmin/programs/GImalloc/myga/gawk/src/extension/conftest.c:76: undefined reference to `GetSystemTimeAsFileTime'
 collect2: error: ld returned 1 exit status
 configure:13906: $? = 1

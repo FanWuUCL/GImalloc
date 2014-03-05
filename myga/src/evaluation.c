@@ -31,10 +31,12 @@ double evaluateIndividual(individual* program, gint index){
 		program->time=1e10;
 		program->memory=1e10;
 		g_printf("#");
+		fprintf(logfp, "#");
 		fflush(stdout);
 	}
 	else{
 		g_printf(".");
+		fprintf(logfp, ".");
 		fflush(stdout);
 		for(i=1; i<REPEAT; i++){
 			profile(&time, &memory, &failNum, 0);

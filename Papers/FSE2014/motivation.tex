@@ -1,0 +1,35 @@
+
+\subsection{Motivating Example}
+
+We illustrate the idea of deep parameter with an example found by our approach for \emph{dlmalloc}.
+
+\begin{figure}[ht]
+\begin{lstlisting}
+1 static void* sys_alloc(mstate m,size_t nb) 
+2 {
+3 ...
+4 if (ss == 0) //check if first time through
+5 { 
+6     char* base = (char*)CALL_MORECORE(0);
+7 ...
+8 }
+
+\end{lstlisting}
+\label{exp}
+\caption{sys\_alloc function in \emph{dlmalloc}}
+\end{figure}
+
+Figure \ref{exp} shows a part of the sys\_alloc function in \emph{dlmalloc}. To efficiently manage memory, \emph{dlmalloc} maintains a internal heap for memory reuse. When \emph{dlmalloc} can not find a suitable chunk of memory for an allocation request, it calls $sys_alloc$ to extend the heap from operating system.
+
+After applying the mutation analysis, we found mutants generated from line 6 have a notable affect on the memory consumption and the execution time of \emph{dlmalloc}. We take a close took at line 6. It defines a new variable $base$ which is initialised from the $CALL\_MORECORE(0)$ function. The $CALL\_MORECORE()$ takes an integer as input, change the current heap and return the address of the heap. It extents the heap when input is a positive value and shirks the heap when negative. Because the input value for $CALL\_MORECORE()$ is $0$, the function will not change the heap size but simple return the current address of heap.  
+%In line 4, the $ss == 0$ return true if $sys_alloc$ is the first time being invoked, so line 6 can only be executed once at the beginning.
+
+Thus changing the input value for $CALL\_MORECORE()$ allow us to control how much memory to be pre-allocated. However, although \emph{dlmalloc} provides several tuneable parameters to programmers to adjust at compilation (see Section 5 for details), none of these shallow parameters can affect the $CALL\_MORECORE()$ function directly. To exposed a deep parameter $D$ we transform line 6 into the code below. Where $D$ is the deep parameter which is exposed for user to control the pre-allocated heap.
+
+\begin{lstlisting}
+char * base = (char*)CALL_MORECORE(0 + D);
+\end{lstlisting}
+
+
+The proper size of pre-allocated memory depends on the specific program using this memory allocator. If the pre-allocated memory is too large, it could be waste of memory. On the other hand, if it's too small, soon \emph{dlmalloc} will call $sys_alloc$ again to extend the heap, thus waste some time. By tuning the deep parameter $D$, users can adjust the value of it to balance the time and memory consumption to fit their needs. In our mutation analysis experiments,  we found that change the value of this deep parameter, we can reduce form 5\% and 23\% of memory consumption for two of our subjects.
+

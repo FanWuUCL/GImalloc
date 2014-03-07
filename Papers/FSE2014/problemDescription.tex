@@ -20,52 +20,6 @@ Thirdly, we apply SBSE approach to find the optimal values for both the existing
 \end{figure}
 
 
-\subsection{Discovering locations for deep parameters}
-
-The first step is to identify potential locations at which we could expose deep parameters. 
-In our approach, we represents the input program as an abstract syntax tree and a potential location $L$ is an expression node of the AST. 
-We want to find locations $L_D$ such that when we change the value of the expression at $L_D$, some non-functional properties of the program are improved while the program remains the same functional behaviour. 
-We use software testing to valid the functional behaviour of the program. 
-
-We use mutation analysis to automatically search for locations $L_D$. Mutant analysis deliberately makes simple syntactic changes to the input program, to create a set of various version programs called mutants, each contains a different syntactic change. A transformation rule that generates a mutant from the input program is know as a mutation operator. By carefully choosing mutation operators, we can use mutants to simulate the effect of making changes all potential location $L$ . Table \ref{tab:cmop} shows the operator we used to generate mutants, covering locations of a constants, relational, logical and arithmetic expressions. 
-To assess the quality of a mutant, we test each mutant against the input test set and record the values of the non-functional properties. 
-
-\begin{table} [htbp]
-\caption{Selected mutation operators}
-\label{tab:cmop} 
-\begin{center}
-\begin{tabular}{ | c | l |}
-  \hline
-  Mutation Operators & Description \\ 
-\hline
-  CRCR & Required constant replacement \\
-  OAAN & Arithmetic operator mutation \\
-  OAAA & Arithmetic assignment mutation \\
-  OCNG & Logical context negation \\
-  OIDO & Increment/decrement mutation  \\
-  OLLN & Logical operator mutation  \\ 
-  OLNG & Logical negation \\
-  ORRN & Relational operator mutation \\
-  OBBA & Bitwise assignment mutation \\
-  OBBN & Bitwise operator mutation \\
-\hline
-\end{tabular} 
-\end{center} 
-\end{table} 
-
-After the mutants are tested, we first filter out those mutants which fail to hold the functionality, thus only the equivalent mutants are preserved. Practically, we cannot expose parameters from all potential locations, which drives us to search for the locations which could have the greatest impact on the non-functional properties. We achieve this by looking at each mutant's non-functional properties, based on which we then sort them with respect to a non-dominated sorting approach used in NSGA II\cite{}. That is, assigning the Pareto Level and Crowd Distance to each mutant, where Pareto Level $n$ means a mutant will be on the Pareto Front after all the mutants with Pareto Level less than $n$ are removed, while Crowd Distance indicates how close a mutant is to its neighbors on the same Pareto Level. Then a mutant is better than another in terms of non-dominated sorting if its Pareto Level is smaller or their Pareto Level is the same but the former is less crowded (bigger Crowd Distance) than the latter. After sorting all the mutants in terms of their non-functional properties, we apply a greedy algorithm to pick $k$ locations that could best influence the non-functional properties of the original but don't cover each other, the algorithm is described in Figure ?.
-
-%\begin{algorithm}
-%	Sort the mutants in terms of their non-functional properties and non-dominated sorting: m1, m2, ..., mn\;
-%	$LS=\emptyset, i=1$\;
-%	While{$|LS|<k$}{
-%		$LS=LS \cup \{L\}, \text{if} L \text{involves} L_mi \&\& \forall L' \in LS, L' \text{doesn't cover} L$
-%		$i=i+1$
-%	}
-%	\caption{Greedy algorithm to choose locations to expose}
-%\end{algorithm}
-
-In the algorithm, $k$ is the desired number of Deep Parameters one wants to expose. 
 
 %
 %

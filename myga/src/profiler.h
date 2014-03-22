@@ -12,6 +12,6 @@ gint profile_times;
 	0:	no error happened, and the results should be stored in the parameters.
 	1:	opening testcases file failed.
 */
-gint profile(double*, double*, double*, int);
+gint profile(double*, double*, double*, double*, int);
 
 #endif

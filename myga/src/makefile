@@ -4,13 +4,16 @@ SOURCES=main.c crossover.c mutation.c selection.c evaluation.c original.c public
 OBJECTS=main.o crossover.o mutation.o selection.o evaluation.o original.o public.o utility.o initialization.o profiler.o
 PRO_OBJECTS=profiler_main.o profiler.o utility.o public.o
 
-all: myga profiler clean
+all: myga memory clean
 
 myga:	$(OBJECTS)
 	gcc -o myga $(OBJECTS) -lm $(GLIBLIBS)
 
 profiler: $(PRO_OBJECTS)
 	gcc -o profiler $(PRO_OBJECTS) $(GLIBLIBS)
+
+memory:	memory.o
+	gcc -o memory memory.o $(GLIBLIBS)
 
 %.o: %.c
 	gcc -c $(GLIBFLAGS) $< -o $@

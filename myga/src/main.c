@@ -59,14 +59,14 @@ void readStdMemory(){
 	}
 	memoryUsage *stdM=g_malloc0(sizeof(memoryUsage));
 	gint i;
-	double time, memory, failNum;
-	profile(&time, &memory, &failNum, 0);
-	stdM->timeUsr=time;
+	double time_usr, time_sys, memory, failNum;
+	profile(&time_usr, &time_sys, &memory, &failNum, 0);
+	stdM->timeUsr=time_usr+time_sys;
 	stdM->MEMORY_PROFILING_UNIT=memory;
 	stdM->failNum=failNum;
 	for(i=1; i<REPEAT; i++){
-		profile(&time, &memory, &failNum, 0);
-		stdM->timeUsr+=time;
+		profile(&time_usr, &time_sys, &memory, &failNum, 0);
+		stdM->timeUsr+=time_usr+time_sys;
 		if(stdM->MEMORY_PROFILING_UNIT<memory) stdM->MEMORY_PROFILING_UNIT=memory;
 	}
 	stdM->timeUsr/=REPEAT;
@@ -252,12 +252,11 @@ void main(int argc, char** argv){
 		for(i=0; i<generationMax; i++){
 			t1=time(NULL);
 			g_printf("\n========================GENERATION %d=========================\n", i);
-			//mutation(&population);
 			crossover(&population);
-
+savePopulation(population, i);
 			selection(&population);
 			if(1){
-				savePopulation(population, i);
+				//savePopulation(population, i);
 			}
 			t2=time(NULL);
 			g_printf("\nLocal time: %s", ctime(&t2));

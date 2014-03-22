@@ -30,8 +30,8 @@ void main(){
 	logfp=fopen("log.txt", "w+");
 	randomUtility=g_rand_new();
 	readTestcases();
-	double time, memory, correctness;
-	profile(&time, &memory, &correctness, 0);
+	double time, time_usr, time_sys, memory, correctness;
+	profile(&time_usr, &time_sys, &memory, &correctness, 0);
 	g_rand_free(randomUtility);
 	g_list_free(testcases);
 	fclose(logfp);

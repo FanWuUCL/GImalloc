@@ -96,7 +96,7 @@ void savePopulation(GList* population, gint generation){
 	FILE* fp=fopen(filename, "w+");
 	while(p){
 		ind=p->data;
-		fprintf(fp, "m%d\t%lf\t%lf\t%lf\t%d\t%lf", index, ind->time, ind->memory, ind->failNum, ind->paretoLevel, ind->crowdDistance);
+		fprintf(fp, "m%d\t%lf\t%lf\t%lf\t%d\t%lf\t%lf\t%lf", index, ind->time, ind->memory, ind->failNum, ind->paretoLevel, ind->crowdDistance, ind->time_usr, ind->time_sys);
 		for(i=0; i<numberOfGenes; i++){
 			fprintf(fp, "\t%d", ind->chrom[i]);
 		}
@@ -130,6 +130,8 @@ individual* copyIndividual(individual* ind){
 		copy->chrom[i]=ind->chrom[i];
 	}
 	copy->time=0;
+	copy->time_usr=0;
+	copy->time_sys=0;
 	copy->memory=0;
 	copy->failNum=0;
 	copy->paretoLevel=0;

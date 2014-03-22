@@ -55,7 +55,7 @@ gint numberOfGenes;
 double timeout_sec;
 gint randomSearch;
 
-// the times should be no less than (1+MUTATION_RATE+CROSSOVER_RATE)
+// the times should be no less than (1+CROSSOVER_RATE)
 gint COMBINED_POPULATION_SIZE;
 
 #define NUMBER_OF_SHALLOW_GENE 6
@@ -98,6 +98,8 @@ typedef struct _individual{
 	gint chrom[NUMBER_OF_GENE];
 	double fitness;
 	double time;
+	double time_usr;
+	double time_sys;
 	double memory;
 	double failNum;
 	double time_repeat[REPEAT];

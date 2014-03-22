@@ -44,7 +44,7 @@ gint crossover(GList** population){
 		child1=copyIndividual(parent1);
 		parent2=tournamentSelect(*population);
 		while(parent1==parent2) parent2=tournamentSelect(*population);
-		child2=copyIndividual(parent2);
+		child2=copyIndividual(parent2);/*
 		crossoverScattered(child1, child2);
 		if(randomOne()<mutationRate){
 			pos=randomIntRange(0, numberOfGenes);
@@ -73,7 +73,7 @@ gint crossover(GList** population){
 			}
 			else mt=default_mutation_type[pos];
 			child2->chrom[pos]=mutationGene(mt, child2->chrom[pos], default_lower_bound[pos], default_upper_bound[pos]);
-		}
+		}*/
 		child1->fitness=evaluateIndividual(child1, length+num);
 		child2->fitness=evaluateIndividual(child2, length+num+1);
 		*population=g_list_append(*population, child1);

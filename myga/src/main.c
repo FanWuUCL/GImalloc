@@ -53,19 +53,21 @@ void readTestcaseResults(){
 void readStdMemory(){
 	readTestcaseResults();
 	gchar* filename="libmalloc.so";
-	if(!saveIndividual(ori, filename)){
+	if(!saveIndividual(ori, filename, 1)){
 		g_printf("Compiling original .so failed.\n");
 		exit(0);
 	}
 	memoryUsage *stdM=g_malloc0(sizeof(memoryUsage));
 	gint i;
 	double time_usr, time_sys, memory, failNum;
-	profile(&time_usr, &time_sys, &memory, &failNum, 0);
+	//profile(&time_usr, &time_sys, &memory, &failNum, 0);
+	evaluate(&time_usr, &time_sys, &memory, &failNum);
 	stdM->timeUsr=time_usr+time_sys;
 	stdM->MEMORY_PROFILING_UNIT=memory;
 	stdM->failNum=failNum;
 	for(i=1; i<REPEAT; i++){
-		profile(&time_usr, &time_sys, &memory, &failNum, 0);
+		//profile(&time_usr, &time_sys, &memory, &failNum, 0);
+		evaluate(&time_usr, &time_sys, &memory, &failNum);
 		stdM->timeUsr+=time_usr+time_sys;
 		if(stdM->MEMORY_PROFILING_UNIT<memory) stdM->MEMORY_PROFILING_UNIT=memory;
 	}
@@ -74,6 +76,7 @@ void readStdMemory(){
 		timeout_sec=(gint)stdM->timeUsr*TIMEOUT_MULTIPLE;
 	}
 	stdMemoryAvg=g_list_append(stdMemoryAvg, stdM);
+	profile_times++;
 }
 
 void free_population(GList* population){
@@ -126,7 +129,7 @@ static void printStdComsumption(){
 	g_printf("Checking standard comsumpation List:\n");
 	for(i=0; i<length; i++){
 		m=g_list_nth_data(stdMemoryAvg, i);
-		g_printf("\tUsr:%lf, Memory:%lf, failNum:%lf\n", m->timeUsr, m->MEMORY_PROFILING_UNIT, m->failNum);
+		g_printf("\tTime:%lf, Memory:%lf, failNum:%lf\n", m->timeUsr, m->MEMORY_PROFILING_UNIT, m->failNum);
 	}
 }
 
@@ -264,6 +267,7 @@ savePopulation(population, i);
 			t1=(t2-t1)*(generationMax-i-1)+t2;
 			g_printf("Estimated finish time: %s", ctime(&t1));
 		}
+
 	}
 	savePopulation(population, 999);
 	free_population(population);

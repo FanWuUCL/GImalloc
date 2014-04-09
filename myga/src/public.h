@@ -42,9 +42,9 @@
 #define MEMORY_PROFILING_UNIT peak
 // user defines
 
-#define DEFAULT_GCC_MALLOC "gcc %s -shared -fPIC -o %s -O3 malloc.c"
+#define DEFAULT_GCC_MALLOC "gcc %s -shared -fPIC -o %s -O3 malloc.c %s"
 
-#define SHALLOW_GCC_MALLOC "gcc %s -w -shared -fPIC -o %s -O3 malloc.c -D\'MALLOC_ALIGNMENT=((size_t)(%d*sizeof(void*)))\' -DFOOTERS=%d -DINSECURE=%d -DNO_SEGMENT_TRAVERSAL=%d -DMORECORE_CONTIGUOUS=%d -DDEFAULT_GRANULARITY=%d -DDEFAULT_TRIM_THRESHOLD=%d -DDEFAULT_MMAP_THRESHOLD=%d -DMAX_RELEASE_CHECK_RATE=%d"
+#define SHALLOW_GCC_MALLOC "gcc %s -w -shared -fPIC -o %s -O3 malloc.c %s -D\'MALLOC_ALIGNMENT=((size_t)(%d*sizeof(void*)))\' -DFOOTERS=%d -DINSECURE=%d -DNO_SEGMENT_TRAVERSAL=%d -DMORECORE_CONTIGUOUS=%d -DDEFAULT_GRANULARITY=%d -DDEFAULT_TRIM_THRESHOLD=%d -DDEFAULT_MMAP_THRESHOLD=%d -DMAX_RELEASE_CHECK_RATE=%d"
 
 gint populationSize;
 gint generationMax;
@@ -96,14 +96,13 @@ typedef enum _mutationType{
 
 typedef struct _individual{
 	gint chrom[NUMBER_OF_GENE];
-	double fitness;
 	double time;
 	double time_usr;
 	double time_sys;
 	double memory;
 	double failNum;
+	gint evaluateTimes;
 	double time_repeat[REPEAT];
-	double memory_repeat[REPEAT];
 	gint paretoLevel;
 	double crowdDistance;
 	struct _individual** dominateSet;
@@ -145,7 +144,7 @@ extern const mutType default_mutation_type[];
 
 FILE* logfp;
 
-gint saveIndividual(individual*, gchar*);
+gint saveIndividual(individual*, gchar*, gint);
 
 void printIndividual(individual*);
 

@@ -18,7 +18,7 @@ const gint default_upper_bound[]={UPPERBOUND_IND};
 
 const mutType default_mutation_type[]={MUTATIONTYPE_IND};
 
-gint saveIndividual(individual* program, gchar* filename){
+gint saveIndividual(individual* program, gchar* filename, gint instrument){
 	if(!filename) g_printf("Function saveIndividual(): filename is not valid.\n");
 	//g_printf("Saving individual %s (address: %x)\n", filename, program);
 	if(!program){
@@ -31,12 +31,19 @@ gint saveIndividual(individual* program, gchar* filename){
 			return 0;
 		}
 	}
+	gchar* instrumentString;
+	if(instrument==0){
+		instrumentString="-DINSTRUMENT=0";
+	}
+	else{
+		instrumentString="-DINSTRUMENT=1";
+	}
 	gchar* cmd=g_malloc0(800*sizeof(gchar));
 	if(program==ori){
-		g_snprintf(cmd, 800, DEFAULT_GCC_MALLOC, GCC_M32, filename);
+		g_snprintf(cmd, 800, DEFAULT_GCC_MALLOC, GCC_M32, filename, instrumentString);
 	}
 	else if(numberOfGenes==NUMBER_OF_GENE){
-		g_snprintf(cmd, 800, DEEP_GCC_MALLOC, GCC_M32, filename,
+		g_snprintf(cmd, 800, DEEP_GCC_MALLOC, GCC_M32, filename, instrumentString,
 			program->chrom[0],
 			(program->chrom[1] & FOOTER_BIT)==0? 0:1,
 			(program->chrom[1] & INSECURE_BIT)==0? 0:1,
@@ -57,7 +64,7 @@ gint saveIndividual(individual* program, gchar* filename){
 			program->chrom[14]);
 	}
 	else{
-		g_snprintf(cmd, 800, SHALLOW_GCC_MALLOC, GCC_M32, filename,
+		g_snprintf(cmd, 800, SHALLOW_GCC_MALLOC, GCC_M32, filename, instrumentString,
 			program->chrom[0],
 			(program->chrom[1] & FOOTER_BIT)==0? 0:1,
 			(program->chrom[1] & INSECURE_BIT)==0? 0:1,
@@ -96,16 +103,12 @@ void savePopulation(GList* population, gint generation){
 	FILE* fp=fopen(filename, "w+");
 	while(p){
 		ind=p->data;
-		fprintf(fp, "m%d\t%lf\t%lf\t%lf\t%d\t%lf\t%lf\t%lf", index, ind->time, ind->memory, ind->failNum, ind->paretoLevel, ind->crowdDistance, ind->time_usr, ind->time_sys);
+		fprintf(fp, "m%d\t%lf\t%lf\t%lf\t%d\t%d\t%lf\t%lf\t%lf", index, ind->time, ind->memory, ind->failNum, ind->evaluateTimes, ind->paretoLevel, ind->crowdDistance, ind->time_usr, ind->time_sys);
 		for(i=0; i<numberOfGenes; i++){
 			fprintf(fp, "\t%d", ind->chrom[i]);
 		}
 		for(i=0; i<REPEAT; i++){
 			fprintf(fp, "\t%lf", ind->time_repeat[i]);
-		}
-		fprintf(fp, "\t");
-		for(i=0; i<REPEAT; i++){
-			fprintf(fp, "\t%lf", ind->memory_repeat[i]);
 		}
 		fprintf(fp, "\n");
 		p=p->next;
@@ -124,11 +127,11 @@ void savePopulation(GList* population, gint generation){
 
 individual* copyIndividual(individual* ind){
 	individual* copy=g_malloc0(sizeof(individual));
-	copy->fitness=0;
 	gint i;
 	for(i=0; i<numberOfGenes; i++){
 		copy->chrom[i]=ind->chrom[i];
 	}
+	copy->evaluateTimes=0;
 	copy->time=0;
 	copy->time_usr=0;
 	copy->time_sys=0;
@@ -159,7 +162,6 @@ void printIndividual(individual* ind){
 	for(i=0; i<numberOfGenes; i++){
 		g_printf("%d\t", ind->chrom[i]);
 	}
-	g_printf("\nfitness:\t%lf", ind->fitness);
 	g_printf("\ntime:\t%lf", ind->time);
 	g_printf("\nmemory:\t%lf", ind->memory);
 	g_printf("\nfail number:\t%lf", ind->failNum);

@@ -130,7 +130,7 @@ gint profile(double* time_usr, double* time_sys, double* memory, double* correct
 			if(g_freopen(filename, "w", stdout)==NULL) perror("redirect to file failed.");
 			g_snprintf(filename, 128, "%sprocMemory%d", CURRDIR, j);
 			if(g_freopen(filename, "w", stderr)==NULL) perror("redirect stderr to file failed.");
-			execv("./subject", cmdv);
+			execv("subject", cmdv);
 			fprintf(logfp, "execv() failed.\n");
 			fflush(logfp);
 			exit(0);
@@ -223,17 +223,39 @@ void freeTestcases(){
 }
 
 void main(int argc, char** argv){
-	if(argc<5){
-		g_printf("%d %d %d %d\n", 0, 0, 0, 0);
-		return;
+	gint isStd;
+	if(argc>=2){
+		CURRDIR=argv[1];
+		if(argc>=3){
+			TESTCASEDIR=argv[2];
+			if(argc>=4){
+				isStd=atoi(argv[3]);
+				if(argc>=5){
+					timeout_sec=atof(argv[4]);
+				}
+				else{
+					timeout_sec=5;
+				}
+			}
+			else{
+				isStd=1;
+				timeout_sec=5;
+			}
+		}
+		else{
+			TESTCASEDIR="testcases/";
+			isStd=1;
+			timeout_sec=5;
+		}
 	}
-	write(STDOUT_FILENO, "0 0 0 0\n", 9);
-	return;
+	else{
+		CURRDIR="curr/";
+		TESTCASEDIR="testcases/";
+		isStd=1;
+		timeout_sec=5;
+	}
+
 	logfp=fopen("population/memoryLog.txt", "w+");
-	CURRDIR=argv[1];
-	TESTCASEDIR=argv[2];
-	gint isStd=atoi(argv[3]);
-	timeout_sec=atof(argv[4]);
 	readTestcases();
 	double time, time_usr, time_sys, memory, correctness;
 	profile(&time_usr, &time_sys, &memory, &correctness, 0, isStd);

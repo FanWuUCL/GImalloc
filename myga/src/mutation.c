@@ -82,7 +82,7 @@ gint mutation(GList** population){
 		copy=copyIndividual(ind);
 		pos=randomIntRange(0, numberOfGenes);
 		copy->chrom[pos]=mutationGene(default_mutation_type[pos], copy->chrom[pos], default_lower_bound[pos], default_upper_bound[pos]);
-		copy->fitness=evaluateIndividual(copy, length+num);
+		evaluateIndividual(copy, length+num);
 		*population=g_list_append(*population, copy);
 	}
 	return 0;

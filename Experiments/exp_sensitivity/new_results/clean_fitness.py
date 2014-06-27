@@ -1,3 +1,5 @@
+#usage: python clean_fitness.py subject_fitness.txt mlines > subject.txt
+
 import sys
 
 f = open(sys.argv[1],"r")

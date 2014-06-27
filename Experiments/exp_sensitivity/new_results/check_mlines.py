@@ -1,3 +1,6 @@
+#usage: python check_mlines.py malloc.c ../cfrac/milu_output > mlines
+#	"cfrac" may need to be changed to the subject name under test
+
 import os
 import sys
 print ("Milu Utility: print out line")

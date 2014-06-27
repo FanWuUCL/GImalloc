@@ -6,8 +6,39 @@
 #define FILENAME "fitness.txt"
 #define COMBINED_POPULATION_SIZE 5000
 #define NUMBER_DESIRED 50
+#define MAX_LINE_NUMBER 10000
 
-gint instrLine[]={4317, 4327, 4338, 4351, 4356, 4382, 4402, 4510, 4549, 4568, 4611, 4994, 4103, 4149};
+gint instrLine[]={0, 3950, 
+3951, 
+4121, 
+4169, 
+4351, 
+4354, 
+4356, 
+4357, 
+4365, 
+4372, 
+4374, 
+4395, 
+4402, 
+4404, 
+4441, 
+4444, 
+4446, 
+4452, 
+4455, 
+4457, 
+4485, 
+4495, 
+4499, 
+4501, 
+4661, 
+4719, 
+4731, 
+4737, 
+4739, 
+4788, 
+5202};
 
 gint filter4335[]={936, 937, 935, 940, 911, 913};
 
@@ -168,7 +199,7 @@ gint cmpIndividual(individual* p, individual* q){
 void main(){
 	FILE* fp=fopen(FILENAME, "r");
 	if(!fp){
-		g_printf("Read Testcases fail.\n");
+		g_printf("Read fitness file failed.\n");
 		return;
 	}
 	double defaultTime;
@@ -179,6 +210,7 @@ void main(){
 	GList *combine=NULL, *p, *q;
 	double time, memory;
 	gint mutantIndex, lineNumber;
+	gint biggestLineNumber=0;
 	individual *ind;
 	i=0;
 	while(!feof(fp)){
@@ -187,11 +219,13 @@ void main(){
 		}
 		memory=memory-defaultMemory;
 		time=time-defaultTime;
-		// discard all mutants worse than the original either on memory or time consumption
-		if(memory<-0.5*defaultMemory || isInstr(lineNumber) || shouldFilter(lineNumber, mutantIndex)){
-			//i++;
+		if(memory<-0.5*defaultMemory){
 			continue;
 		}
+		if(isInstr(lineNumber)){
+			continue;
+		}
+		p=NULL;
 		/*p=combine;
 		while(p!=NULL){
 			ind=p->data;
@@ -200,7 +234,6 @@ void main(){
 			}
 			p=p->next;
 		}*/
-		p=NULL;
 		if(p!=NULL){
 			ind->m[ind->nm++]=mutantIndex;
 			ind->time+=time;
@@ -213,13 +246,24 @@ void main(){
 			ind->time=time;
 			ind->nm=1;
 			ind->m[0]=mutantIndex;
+			if(biggestLineNumber<lineNumber) biggestLineNumber=lineNumber;
 			combine=g_list_append(combine, ind);
 			i++;
 		}
 		//i++;
 	}
 	fclose(fp);
-	fprintf(stderr, "Total %d entries recorded.\n", i);
+	fprintf(stderr, "Total %d entries recorded with biggest line number of %d.\n", i, biggestLineNumber);
+	if(MAX_LINE_NUMBER<=biggestLineNumber){
+		fprintf(stderr, "not enough space for line recorder: %d > %d\n", biggestLineNumber, MAX_LINE_NUMBER);
+		return;
+	}
+
+	gint lineRecorder[MAX_LINE_NUMBER];
+	for(i=0; i<MAX_LINE_NUMBER; i++){
+		lineRecorder[i]=0;
+	}
+
 /*	checking whether reading file is successful.
 	p=combine;
 	while(p!=NULL){
@@ -257,6 +301,7 @@ void main(){
 */
 	i=0, j=1;
 	gint populationSize=NUMBER_DESIRED;
+/* get first NUMBER_DESIRED mutants regardless of duplicated line number
 	// determine the first how many frontiers suffice the population size
 	while(i<populationSize){
 		p=combine;
@@ -302,20 +347,27 @@ void main(){
 		free(worst);
 		length--;
 	}
+*/
+
+/* get first NUMBER_DESIRE mutants with distinct line number */
+
 
 	/* print out result */
 	i=1;
-	while(i<=lastLevel){
+	//while(i<=lastLevel){
+	while(populationSize>0){
 		p=combine;
 		while(p!=NULL){
 			ind=p->data;
-			if(ind->paretoLevel==i){
+			if(ind->paretoLevel==i && !lineRecorder[ind->line]){
+				lineRecorder[ind->line]=1;
 				printf("line %d, time %lf, memory %lf, ", ind->line, ind->time, ind->memory);
 				for(j=0; j<ind->nm; j++){
 					printf("%d ", ind->m[j]);
 				}
 				printf(", pareto level %d, cd %lf", ind->paretoLevel, ind->crowdDistance);
 				printf("\n");
+				populationSize--;
 			}
 			p=p->next;
 		}

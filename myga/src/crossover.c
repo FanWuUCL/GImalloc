@@ -54,10 +54,11 @@ gint crossover(GList** population){
 		while(parent1==parent2) parent2=tournamentSelect(*population);
 		child2=copyIndividual(parent2);
 		crossoverScattered(child1, child2);
-		if(randomOne()<mutationRate){
-			pos=randomIntRange(0, numberOfGenes);
-			if(randomOne()<0.9){
-				if(randomOne()<0.5){
+		//if(randomOne()<mutationRate){
+		for(pos=0; pos<numberOfGenes; pos++){
+			//pos=randomIntRange(0, numberOfGenes);
+			if(randomOne()<mutationRate){
+				if(randomOne()<0.9){
 					if(default_mutation_type[pos]==mutation_power2){
 						mt=mutation_power2_random;
 					}
@@ -69,14 +70,8 @@ gint crossover(GList** population){
 				else mt=default_mutation_type[pos];
 				child1->chrom[pos]=mutationGene(mt, child1->chrom[pos], default_lower_bound[pos], default_upper_bound[pos]);
 			}
-			else{
-				child1->chrom[pos]=default_individual[pos];
-			}
-		}
-		if(randomOne()<mutationRate){
-			pos=randomIntRange(0, numberOfGenes);
-			if(randomOne()<0.9){
-				if(randomOne()<0.5){
+			if(randomOne()<mutationRate){
+				if(randomOne()<0.9){
 					if(default_mutation_type[pos]==mutation_power2){
 						mt=mutation_power2_random;
 					}
@@ -87,9 +82,6 @@ gint crossover(GList** population){
 				}
 				else mt=default_mutation_type[pos];
 				child2->chrom[pos]=mutationGene(mt, child2->chrom[pos], default_lower_bound[pos], default_upper_bound[pos]);
-			}
-			else{
-				child2->chrom[pos]=default_individual[pos];
 			}
 		}
 		evaluateIndividual(child1, length+num);

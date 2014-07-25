@@ -72,6 +72,7 @@ gint mutationGene(mutType mt, gint gene, gint lower, gint upper){
 	return gene;
 }
 
+/* out of date
 gint mutation(GList** population){
 	gint num, length=g_list_length(*population);
 	individual* ind, *copy;
@@ -87,3 +88,4 @@ gint mutation(GList** population){
 	}
 	return 0;
 }
+*/

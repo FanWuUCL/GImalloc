@@ -5,7 +5,6 @@
 #include "mutation.h"
 #include "selection.h"
 #include "initialization.h"
-#include "profiler.h"
 #include<unistd.h>
 #include<fcntl.h>
 #include<errno.h>

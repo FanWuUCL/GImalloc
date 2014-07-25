@@ -1,6 +1,5 @@
 #include "evaluation.h"
 #include "utility.h"
-#include "profiler.h"
 #include<unistd.h>
 #include<stdio.h>
 #include<sys/types.h>
@@ -47,12 +46,14 @@ void evaluate(double* time_usr, double* time_sys, double* memory, double* failNu
 		//g_printf("read:%s", readbuffer);
 		sscanf(readbuffer, "%lf %lf %lf %lf", time_usr, time_sys, memory, failNum);
 	}
+	gint status;
+	wait(&status);
 }
 
 double evaluateIndividual(individual* program, gint index){
-	program->time=-1;
-	program->memory=-1;
-	program->failNum=-1;
+	program->time=10000;
+	program->memory=1e20;
+	program->failNum=10000;
 	gchar* filename=g_malloc0(32*sizeof(gchar));
 	g_snprintf(filename, 32, "libmalloc.so");
 	if(!saveIndividual(program, filename, 1)){
@@ -71,7 +72,7 @@ double evaluateIndividual(individual* program, gint index){
 	program->evaluateTimes++;
 	program->time_repeat[0]=program->time;
 	gint i;
-	if(program->failNum>0){
+	if(program->failNum>0 || program->time<=0 || program->memory<=0){
 		program->time_usr=1e10;
 		program->time_sys=1e10;
 		program->time=1e10;

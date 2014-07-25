@@ -6,7 +6,10 @@
 #include <string.h>
 #include <wait.h>
 #include <glib.h>
-#include<glib/gstdio.h>
+#include <glib/gstdio.h>
+#include <errno.h>
+#include <fcntl.h>
+#include "subjectSetting.h"
 
 // nanosleep() unit=10us
 #define SLEEP_UNIT 10
@@ -78,6 +81,65 @@ gint cmpOutput(gchar* filename1, gchar* filename2){
 	fclose(fp1);
 	fclose(fp2);
 	return flag;
+}
+
+gint mycp(const char *from, const char *to)
+{
+    int fd_to, fd_from;
+    char buf[4096];
+    ssize_t nread;
+    int saved_errno;
+
+    fd_from = open(from, O_RDONLY);
+    if (fd_from < 0)
+        return -1;
+
+    fd_to = open(to, O_WRONLY | O_CREAT | O_EXCL, 0666);
+    if (fd_to < 0)
+        goto out_error;
+
+    while (nread = read(fd_from, buf, sizeof buf), nread > 0)
+    {
+        char *out_ptr = buf;
+        ssize_t nwritten;
+
+        do {
+            nwritten = write(fd_to, out_ptr, nread);
+
+            if (nwritten >= 0)
+            {
+                nread -= nwritten;
+                out_ptr += nwritten;
+            }
+            else if (errno != EINTR)
+            {
+                goto out_error;
+            }
+        } while (nread > 0);
+    }
+
+    if (nread == 0)
+    {
+        if (close(fd_to) < 0)
+        {
+            fd_to = -1;
+            goto out_error;
+        }
+        close(fd_from);
+
+        /* Success! */
+        return 0;
+    }
+
+  out_error:
+    saved_errno = errno;
+
+    close(fd_from);
+    if (fd_to >= 0)
+        close(fd_to);
+
+    errno = saved_errno;
+    return -1;
 }
 
 gint profile(double* time_usr, double* time_sys, double* memory, double* correctness, gint suiteSize, gint isStd){
@@ -153,6 +215,9 @@ gint profile(double* time_usr, double* time_sys, double* memory, double* correct
 				break;
 			}
 		}
+#ifdef CUSTOM_EXTRA_SAVING
+		CUSTOM_EXTRA_SAVING;
+#endif
 		//g_spawn_close_pid(pid);
 		//fprintf(stderr, "%d samples for case %d.\n", sampleN, j);
 		memory_new_one=readProcMemory(j);
@@ -166,13 +231,16 @@ gint profile(double* time_usr, double* time_sys, double* memory, double* correct
 		correctness_t=suiteSize-i;
 	}
 	else{
-		correctness_t=0;
 		if(isStd==0){
+#ifdef CUSTOM_CORRECTNESS
+			CUSTOM_CORRECTNESS;
+#else
 			for(i=0; i<length; i++){
 				g_snprintf(filename, 128, "%sout%d", CURRDIR, i);
 				g_snprintf(line, 128, "%sout%d.s", CURRDIR, i);
 				correctness_t+=cmpOutput(filename, line);
 			}
+#endif
 		}
 	}
 	g_free(filename);
@@ -234,25 +302,25 @@ void main(int argc, char** argv){
 					timeout_sec=atof(argv[4]);
 				}
 				else{
-					timeout_sec=5;
+					timeout_sec=1;
 				}
 			}
 			else{
 				isStd=1;
-				timeout_sec=5;
+				timeout_sec=1;
 			}
 		}
 		else{
 			TESTCASEDIR="testcases/";
 			isStd=1;
-			timeout_sec=5;
+			timeout_sec=1;
 		}
 	}
 	else{
 		CURRDIR="curr/";
 		TESTCASEDIR="testcases/";
 		isStd=1;
-		timeout_sec=5;
+		timeout_sec=1;
 	}
 
 	logfp=fopen("population/memoryLog.txt", "w+");

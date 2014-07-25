@@ -1,7 +1,7 @@
 GLIBFLAGS=`pkg-config --cflags glib-2.0`
 GLIBLIBS=`pkg-config --libs glib-2.0`
-SOURCES=main.c crossover.c mutation.c selection.c evaluation.c original.c public.c utility.c initialization.c profiler.c
-OBJECTS=main.o crossover.o mutation.o selection.o evaluation.o original.o public.o utility.o initialization.o profiler.o
+SOURCES=main.c crossover.c mutation.c selection.c evaluation.c original.c public.c utility.c initialization.c
+OBJECTS=main.o crossover.o mutation.o selection.o evaluation.o original.o public.o utility.o initialization.o
 PRO_OBJECTS=profiler_main.o profiler.o utility.o public.o
 
 all: myga memory clean

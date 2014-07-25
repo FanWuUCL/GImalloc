@@ -1,5 +1,4 @@
-gawkfts.lo: gawkfts.c /usr/include/stdc-predef.h \
- /usr/include/x86_64-linux-gnu/bits/predefs.h config.h \
+gawkfts.lo: gawkfts.c /usr/include/stdc-predef.h config.h \
  /usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed/limits.h \
  /usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed/syslimits.h \
  /usr/include/limits.h /usr/include/features.h \
@@ -50,7 +49,9 @@ gawkfts.lo: gawkfts.c /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/fcntl2.h gawkfts.h \
  /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/xlocale.h \
- /usr/include/alloca.h /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+ /usr/include/alloca.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib.h /usr/include/string.h \
  /usr/include/x86_64-linux-gnu/bits/string.h \
  /usr/include/x86_64-linux-gnu/bits/string2.h \
@@ -61,8 +62,6 @@ gawkfts.lo: gawkfts.c /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/unistd.h gawkdirfd.h
 
 /usr/include/stdc-predef.h:
-
-/usr/include/x86_64-linux-gnu/bits/predefs.h:
 
 config.h:
 
@@ -195,6 +194,8 @@ gawkfts.h:
 /usr/include/xlocale.h:
 
 /usr/include/alloca.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 

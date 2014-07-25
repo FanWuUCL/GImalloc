@@ -10,7 +10,7 @@
 
 // user defines
 #define POPULATION_SIZE 50
-#define MUTATION_RATE 0.1
+#define MUTATION_RATE 0.01
 #define CROSSOVER_RATE 0.9
 #define GENERATION_MAX 100
 // testcases dir, put in front of each test case and send it to the subject program in the cmd line
@@ -54,6 +54,8 @@ double crossoverRate;
 gint numberOfGenes;
 double timeout_sec;
 gint randomSearch;
+
+gint profile_times;
 
 // the times should be no less than (1+CROSSOVER_RATE)
 gint COMBINED_POPULATION_SIZE;

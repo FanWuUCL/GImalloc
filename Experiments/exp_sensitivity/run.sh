@@ -49,6 +49,24 @@ SUBJECT_PATH_NAME="fat_memory"
 RUN_EXP="true"
 fi
 
+if [ "$1" == "flex" ]; then
+SUBJECT_NAME=$1
+SUBJECT_PATH_NAME="flex"
+RUN_EXP="true"
+fi
+
+if [ "$1" == "bash" ]; then
+SUBJECT_NAME=$1
+SUBJECT_PATH_NAME="bash"
+RUN_EXP="true"
+fi
+
+if [ "$1" == "sed" ]; then
+SUBJECT_NAME=$1
+SUBJECT_PATH_NAME="sed"
+RUN_EXP="true"
+fi
+
 if [ "true" == "$RUN_EXP" ]; then
 
 if [ ! -f "$SUBJECT_NAME"_fitness.txt ]; then

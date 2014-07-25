@@ -7,6 +7,8 @@ subject=$1
 shift
 
 # prepare environment
+./clean.sh
+
 echo "Start experiment on >>>$subject<<<"
 
 echo "Preparing executable >>>$subject<<<"
@@ -31,7 +33,11 @@ cp $subject/testcases.txt testcases.txt
 if [ -d testcases ]; then
 	rm -r testcases
 fi
-cp -r $subject/testcases .
+if [ $subject == "bash" ]; then
+	cp $subject/testcases/* .
+else
+	cp -r $subject/testcases .
+fi
 if [ -d population ]; then
 	rm -r population
 fi
@@ -45,6 +51,7 @@ echo "Running experiment on >>>$subject<<<"
 cd src
 make
 cp myga ../myga
+cp memory ../memory
 cd ..
 echo "myga $*"
 ./myga $*
@@ -52,9 +59,9 @@ echo "myga $*"
 # store result
 if [ -d population/generation999 ]; then
 	opt="exp"
-	#for i in "$@"; do
-	#	opt=$opt$i
-	#done
+	for i in "$@"; do
+		opt=$opt$i
+	done
 	mkdir $subject/$opt
 	cp -r population $subject/$opt/
 fi

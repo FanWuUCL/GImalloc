@@ -44,7 +44,7 @@ gint filter4335[]={936, 937, 935, 940, 911, 913};
 
 gint isInstr(gint l){
 	gint i;
-	for(i=0; i<14; i++){
+	for(i=0; i<32; i++){
 		if(l==instrLine[i]){
 			return 1;
 		}

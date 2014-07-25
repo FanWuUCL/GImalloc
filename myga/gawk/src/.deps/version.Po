@@ -1,9 +1,6 @@
-version.o: version.c /usr/include/stdc-predef.h \
- /usr/include/x86_64-linux-gnu/bits/predefs.h config.h custom.h
+version.o: version.c /usr/include/stdc-predef.h config.h custom.h
 
 /usr/include/stdc-predef.h:
-
-/usr/include/x86_64-linux-gnu/bits/predefs.h:
 
 config.h:
 

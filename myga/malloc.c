@@ -2730,6 +2730,10 @@ static int has_segment_link(mstate m, msegmentptr ss) {
   (align_offset(chunk2mem(0))+pad_request(sizeof(struct malloc_segment))+MIN_CHUNK_SIZE)
 #endif	/* TOP_FOOT_SIZE */
 
+#ifndef INSTRUMENT
+#define INSTRUMENT 1
+#endif
+
 // cfrac
 #ifndef CFRAC_4345
 #define CFRAC_4345 0
@@ -2765,6 +2769,34 @@ static int has_segment_link(mstate m, msegmentptr ss) {
 
 #ifndef CFRAC_4313
 #define CFRAC_4313 0
+#endif
+
+#ifndef CFRAC_4893
+#define CFRAC_4893 0
+#endif
+
+#ifndef CFRAC_4544
+#define CFRAC_4544 0
+#endif
+
+#ifndef CFRAC_4542
+#define CFRAC_4542 0
+#endif
+
+#ifndef CFRAC_4547
+#define CFRAC_4547 0
+#endif
+
+#ifndef CFRAC_4552
+#define CFRAC_4552 0
+#endif
+
+#ifndef CFRAC_4569
+#define CFRAC_4569 0
+#endif
+
+#ifndef CFRAC_4455
+#define CFRAC_4455 0
 #endif
 
 // espresso
@@ -2804,6 +2836,22 @@ static int has_segment_link(mstate m, msegmentptr ss) {
 #define ESPRESSO_4932 0
 #endif
 
+#ifndef ESPRESSO_4484
+#define ESPRESSO_4484 0
+#endif
+
+#ifndef ESPRESSO_4854
+#define ESPRESSO_4854 0
+#endif
+
+#ifndef ESPRESSO_4874
+#define ESPRESSO_4874 0
+#endif
+
+#ifndef ESPRESSO_4910
+#define ESPRESSO_4910 0
+#endif
+
 // space
 #ifndef SPACE_4301
 #define SPACE_4301 0
@@ -2839,6 +2887,22 @@ static int has_segment_link(mstate m, msegmentptr ss) {
 
 #ifndef SPACE_4334
 #define SPACE_4334 0
+#endif
+
+#ifndef SPACE_4425
+#define SPACE_4425 0
+#endif
+
+#ifndef SPACE_4866
+#define SPACE_4866 0
+#endif
+
+#ifndef SPACE_4346
+#define SPACE_4346 0
+#endif
+
+#ifndef SPACE_4854
+#define SPACE_4854 0
 #endif
 
 // gawk
@@ -2878,36 +2942,190 @@ static int has_segment_link(mstate m, msegmentptr ss) {
 #define GAWK_4540 0
 #endif
 
+#ifndef GAWK_4334
+#define GAWK_4334 0
+#endif
+
+#ifndef GAWK_4399
+#define GAWK_4399 0
+#endif
+
+#ifndef GAWK_4537
+#define GAWK_4537 0
+#endif
+
+#ifndef GAWK_4428
+#define GAWK_4428 0
+#endif
+
+#ifndef GAWK_4941
+#define GAWK_4941 0
+#endif
+
+#ifndef GAWK_4602
+#define GAWK_4602 0
+#endif
+
+//flex
+#ifndef FLEX_4334
+#define FLEX_4334 0
+#endif
+
+#ifndef FLEX_4547
+#define FLEX_4547 0
+#endif
+
+#ifndef FLEX_4932
+#define FLEX_4932 0
+#endif
+
+#ifndef FLEX_4301
+#define FLEX_4301 0
+#endif
+
+#ifndef FLEX_4425
+#define FLEX_4425 0
+#endif
+
+#ifndef FLEX_4794
+#define FLEX_4794 0
+#endif
+
+#ifndef FLEX_4854
+#define FLEX_4854 0
+#endif
+
+#ifndef FLEX_4346
+#define FLEX_4346 0
+#endif
+
+#ifndef FLEX_4910
+#define FLEX_4910 0
+#endif
+
+//bash
+#ifndef BASH_4369
+#define BASH_4369 0
+#endif
+
+#ifndef BASH_5039
+#define BASH_5039 0
+#endif
+
+#ifndef BASH_4334
+#define BASH_4334 0
+#endif
+
+#ifndef BASH_5026
+#define BASH_5026 0
+#endif
+
+#ifndef BASH_5083
+#define BASH_5083 0
+#endif
+
+#ifndef BASH_4345
+#define BASH_4345 0
+#endif
+
+#ifndef BASH_4932
+#define BASH_4932 0
+#endif
+
+#ifndef BASH_4910
+#define BASH_4910 0
+#endif
+
+#ifndef BASH_4471
+#define BASH_4471 0
+#endif
+
+//sed
+#ifndef SED_4425
+#define SED_4425 0
+#endif
+
+#ifndef SED_4932
+#define SED_4932 0
+#endif
+
+#ifndef SED_4334
+#define SED_4334 0
+#endif
+
+#ifndef SED_4369
+#define SED_4369 0
+#endif
+
+#ifndef SED_4941
+#define SED_4941 0
+#endif
+
+#ifndef SED_4471
+#define SED_4471 0
+#endif
+
+#ifndef SED_4297
+#define SED_4297 0
+#endif
+
+#ifndef SED_4942
+#define SED_4942 0
+#endif
+
+#ifndef SED_4470
+#define SED_4470 0
+#endif
+
 // combined exposed parameter
-#define EXPOSE_4297 (CFRAC_4297)
-#define EXPOSE_4301 (ESPRESSO_4301)
-#define EXPOSE_4301_2 (GAWK_4301)+(SPACE_4301)
+#define EXPOSE_4297 (CFRAC_4297+SED_4297)	// boolean
+#define EXPOSE_4301 (ESPRESSO_4301+SPACE_4301+FLEX_4301)	// -4096 4096 gap
+#define EXPOSE_4301_2 (GAWK_4301+SPACE_4301)
 #define EXPOSE_4313 (CFRAC_4313)
-#define EXPOSE_4316 (CFRAC_4316)+(SPACE_4316)
-#define EXPOSE_4334 (CFRAC_4334)+(ESPRESSO_4334)+(SPACE_4334)
+#define EXPOSE_4316 (CFRAC_4316+SPACE_4316)
+#define EXPOSE_4334 (CFRAC_4334+ESPRESSO_4334+SPACE_4334+GAWK_4334+FLEX_4334+BASH_4334+SED_4334)	// -32 256 gap
 #define EXPOSE_4335 (ESPRESSO_4335)
-#define EXPOSE_4345 (CFRAC_4345)
-#define EXPOSE_4346 (ESPRESSO_4346)
-#define EXPOSE_4399 (SPACE_4399)
-#define EXPOSE_4425 (ESPRESSO_4425)+(GAWK_4425)
-#define EXPOSE_4428 (SPACE_4428)
+#define EXPOSE_4345 (CFRAC_4345+BASH_4345)	// -1024 1024 gap
+#define EXPOSE_4346 (ESPRESSO_4346+SPACE_4346+FLEX_4346)	// -4096 4096 gap
+#define EXPOSE_4399 (SPACE_4399+GAWK_4399)
+#define EXPOSE_4425 (ESPRESSO_4425+GAWK_4425+SPACE_4425+FLEX_4425+SED_4425)	// -1024 1024 gap
+#define EXPOSE_4428 (SPACE_4428+GAWK_4428)
 #define EXPOSE_4442 (ESPRESSO_4442)
 #define EXPOSE_4449 (SPACE_4449)
 #define EXPOSE_4536 (GAWK_4536)
-#define EXPOSE_4537 (SPACE_4537)
-#define EXPOSE_4540 (CFRAC_4540)+(GAWK_4540)
-#define EXPOSE_4542 (GAWK_4542)
-#define EXPOSE_4544 (GAWK_4544)
-#define EXPOSE_4547_2 (GAWK_4547)
-#define EXPOSE_4547_3 (SPACE_4547)
+#define EXPOSE_4537 (SPACE_4537+GAWK_4537)
+#define EXPOSE_4540 (CFRAC_4540+GAWK_4540)
+#define EXPOSE_4542 (GAWK_4542+CFRAC_4542)
+#define EXPOSE_4544 (GAWK_4544+CFRAC_4544)
+#define EXPOSE_4547_2 (GAWK_4547+CFRAC_4547)
+#define EXPOSE_4547_3 (SPACE_4547+FLEX_4547)	// -4096 4096 gap
 #define EXPOSE_4557 (GAWK_4557)
 #define EXPOSE_4564 (ESPRESSO_4564)
 #define EXPOSE_4580 (GAWK_4580)
-#define EXPOSE_4794 (CFRAC_4794)+(ESPRESSO_4794)
+#define EXPOSE_4794 (CFRAC_4794+ESPRESSO_4794+FLEX_4794)	// -32 256 gap
 #define EXPOSE_4830 (CFRAC_4830)
 #define EXPOSE_4865 (SPACE_4865)
-#define EXPOSE_4866 (CFRAC_4866)
-#define EXPOSE_4932 (ESPRESSO_4932)
+#define EXPOSE_4866 (CFRAC_4866+SPACE_4866)
+#define EXPOSE_4932 (ESPRESSO_4932+FLEX_4932+BASH_4932+SED_4932)	// -32 256 gap
+
+#define EXPOSE_4893 (CFRAC_4893)
+#define EXPOSE_4552 (CFRAC_4552)
+#define EXPOSE_4569 (CFRAC_4569)
+#define EXPOSE_4455 (CFRAC_4455)
+#define EXPOSE_4484 (ESPRESSO_4484)
+#define EXPOSE_4854 (ESPRESSO_4854+SPACE_4854+FLEX_4854)	// -128 128 gap
+#define EXPOSE_4874 (ESPRESSO_4874)
+#define EXPOSE_4910 (ESPRESSO_4910+FLEX_4910+BASH_4910)	// -1024 1024 gap
+#define EXPOSE_4941 (GAWK_4941+SED_4941)	// -8 8 random
+#define EXPOSE_4602 (GAWK_4602)
+
+#define EXPOSE_4369 (BASH_4369+SED_4369)	// boolean
+#define EXPOSE_5039 (BASH_5039)	// -4096 4096 gap
+#define EXPOSE_5026 (BASH_5026)	// -1 63 gap
+#define EXPOSE_5083 (BASH_5083)	// -8 8 random
+#define EXPOSE_4471 (BASH_4471+SED_4471)	// -1024 1024 gap
+#define EXPOSE_4942 (SED_4942)	// -1 16 random
+#define EXPOSE_4470 (SED_4470)	// -32 32 random
 
 static char* preAddr;
 static char* postAddr;
@@ -4013,7 +4231,9 @@ static void* mmap_alloc(mstate m, size_t nb) {
     char* mm = (char*)(CALL_DIRECT_MMAP((mmapSize=mmsize)));
     if (mm != CMFAIL) {
 //instrument
+#if INSTRUMENT==1
 fprintf(stderr, "memory: %d\n", mmapSize);
+#endif
       size_t offset = align_offset(chunk2mem(mm));
       size_t psize = mmsize - offset - MMAP_FOOT_PAD;
       mchunkptr p = (mchunkptr)(mm + offset);
@@ -4059,7 +4279,9 @@ static mchunkptr mmap_resize(mstate m, mchunkptr oldp, size_t nb, int flags) {
       chunk_plus_offset(newp, psize)->head = FENCEPOST_HEAD;
       chunk_plus_offset(newp, psize+SIZE_T_SIZE)->head = 0;
 // instrument
+#if INSTRUMENT==1
 fprintf(stderr, "memory: %zd\n", newmmsize-oldmmsize);
+#endif
 
       if (cp < m->least_addr)
         m->least_addr = cp;
@@ -4226,7 +4448,7 @@ static void* sys_alloc(mstate m, size_t nb) {
   ensure_initialization();
 
   /* Directly map large chunks, but only if already initialized */
-  if (use_mmap(m) && nb >= mparams.mmap_threshold && m->topsize != 0) {
+  if (use_mmap(m) && nb >= mparams.mmap_threshold && (m->topsize != 0 ^ EXPOSE_4369)) {		// expose 4369
     void* mem = mmap_alloc(m, nb);
     if ((mem != 0) ^ EXPOSE_4297)	// expose 4297
       return mem;
@@ -4271,20 +4493,27 @@ static void* sys_alloc(mstate m, size_t nb) {
 
     if (ss == 0) {  /* First time through or recovery */
 // instrument
+#if INSTRUMENT==1
 preAddr=(char*)CALL_MORECORE(0);
+#endif
       char* base = (char*)CALL_MORECORE(0+EXPOSE_4316);	// expose 4316
+#if INSTRUMENT==1
 postAddr=(char*)CALL_MORECORE(0);
 fprintf(stderr, "start\n");
 if(preAddr>0 && postAddr>0)
 	fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
+#endif
       if (base != CMFAIL) {
         size_t fp;
         /* Adjust to end on a page boundary */
-        if (!is_page_aligned(base))
-          ssize += (page_align((size_t)base) - (size_t)base);
+        //if (!is_page_aligned(base))
+if ( ! ( ( (  size_t ) ( base ) & ( mparams . page_size - ( (  size_t ) 1+EXPOSE_4470 ) ) ) == 0 ) )	// expose 4470
+          ssize += (page_align((size_t)base) - (size_t)base)+EXPOSE_4471;	// expose 4471
         fp = m->footprint + ssize; /* recheck limits */
 // instrument
+#if INSTRUMENT==1
 preAddr=(char*)CALL_MORECORE(0);
+#endif
         if (ssize > nb && ssize < HALF_MAX_SIZE_T &&
             (m->footprint_limit == 0 ||
              (fp > m->footprint && fp <= m->footprint_limit)) &&
@@ -4292,9 +4521,11 @@ preAddr=(char*)CALL_MORECORE(0);
           tbase = base;
           tsize = ssize;
         }
+#if INSTRUMENT==1
 postAddr=(char*)CALL_MORECORE(0);
 if(preAddr>0 && postAddr>0)
 	fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
+#endif
       }
     }
     else {
@@ -4302,15 +4533,19 @@ if(preAddr>0 && postAddr>0)
       ssize = granularity_align(nb - m->topsize + SYS_ALLOC_PADDING+EXPOSE_4334);	// expose 4334
       /* Use mem here only if it did continuously extend old space */
 // instrument
+#if INSTRUMENT==1
 preAddr=(char*)CALL_MORECORE(0);
+#endif
       if (ssize < HALF_MAX_SIZE_T+EXPOSE_4335 &&
           (br = (char*)(CALL_MORECORE(ssize))) == ss->base+ss->size) {	// expose 4335
         tbase = br;
         tsize = ssize;
       }
+#if INSTRUMENT==1
 postAddr=(char*)CALL_MORECORE(0);
 if(preAddr>0 && postAddr>0)
 	fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
+#endif
     }
 
     if (tbase == CMFAIL) {    /* Cope with partial failure */
@@ -4320,21 +4555,29 @@ if(preAddr>0 && postAddr>0)
           size_t esize = granularity_align(nb + SYS_ALLOC_PADDING - ssize+EXPOSE_4346);	// expose 4346
           if (esize < HALF_MAX_SIZE_T) {	// 4347
 // instrument
+#if INSTRUMENT==1
 preAddr=(char*)CALL_MORECORE(0);
+#endif
             char* end = (char*)CALL_MORECORE(esize);
+#if INSTRUMENT==1
 postAddr=(char*)CALL_MORECORE(0);
 if(preAddr>0 && postAddr>0)
 	fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
+#endif
             if (end != CMFAIL){
               ssize += esize;
 			}
             else {            /* Can't use; try to release */
 // instrument
+#if INSTRUMENT==1
 preAddr=(char*)CALL_MORECORE(0);
+#endif
               (void) CALL_MORECORE(-ssize);
+#if INSTRUMENT==1
 postAddr=(char*)CALL_MORECORE(0);
 if(preAddr>0 && postAddr>0)
 	fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
+#endif
               br = CMFAIL;
             }
           }
@@ -4358,7 +4601,9 @@ if(preAddr>0 && postAddr>0)
       tsize = asize;
       mmap_flag = USE_MMAP_BIT;
 // instrument
+#if INSTRUMENT==1
 fprintf(stderr, "memory: %d\n", mmapSize);
+#endif
     }
   }
 
@@ -4368,11 +4613,15 @@ fprintf(stderr, "memory: %d\n", mmapSize);
       char* end = CMFAIL;
       ACQUIRE_MALLOC_GLOBAL_LOCK();
 // instrument
+#if INSTRUMENT==1
 preAddr=(char*)CALL_MORECORE(0);
+#endif
       br = (char*)(CALL_MORECORE(asize));
+#if INSTRUMENT==1
 postAddr=(char*)CALL_MORECORE(0);
 if(preAddr>0 && postAddr>0)
 	fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
+#endif
       end = (char*)(CALL_MORECORE(0));
       RELEASE_MALLOC_GLOBAL_LOCK();
       if (br != CMFAIL && end != CMFAIL && br < end) {
@@ -4418,7 +4667,7 @@ if(preAddr>0 && postAddr>0)
       while (sp != 0 && tbase != sp->base + sp->size)
         sp = (NO_SEGMENT_TRAVERSAL) ? 0 : sp->next;
       if (sp != 0 &&
-          !is_extern_segment(sp) &&
+          !is_extern_segment(sp) ^ EXPOSE_4455 &&	//expose 4455
           (sp->sflags & USE_MMAP_BIT) == mmap_flag &&
           segment_holds(sp, m->top)) { /* append */
         sp->size += tsize;
@@ -4447,7 +4696,7 @@ if(preAddr>0 && postAddr>0)
       size_t rsize = m->topsize -= nb;
       mchunkptr p = m->top;
       mchunkptr r = m->top = chunk_plus_offset(p, nb);
-      r->head = rsize | PINUSE_BIT;
+      r->head = rsize | (PINUSE_BIT+EXPOSE_4484);	// expose 4484
       set_size_and_pinuse_of_inuse_chunk(m, p, nb);
       check_top_chunk(m, m->top);
       check_malloced_chunk(m, chunk2mem(p), nb);
@@ -4490,7 +4739,9 @@ static size_t release_unused_segments(mstate m) {
           released += size;
           m->footprint -= size;
 // instrument
+#if INSTRUMENT==1
 fprintf(stderr, "memory: %d\n", -mmapSize);
+#endif
           /* unlink obsoleted record */
           sp = pred;
           sp->next = next;
@@ -4513,7 +4764,7 @@ fprintf(stderr, "memory: %d\n", -mmapSize);
 
 static int sys_trim(mstate m, size_t pad) {
   size_t released = 0;
-  ensure_initialization();
+  (  void ) ( mparams . magic != 0 ^ EXPOSE_4552 || init_mparams ( ) ) ;	// expose 4552
   if (pad < MAX_REQUEST+EXPOSE_4536 && is_initialized(m)) {		// expose 4536
     pad += TOP_FOOT_SIZE + EXPOSE_4537; /* ensure enough room for segment overhead */	// expose 4537
 
@@ -4530,7 +4781,7 @@ static int sys_trim(mstate m, size_t pad) {
           if (HAVE_MMAP+EXPOSE_4544 &&
               sp->size >= extra &&
               !has_segment_link(m, sp)) { /* can't shrink if pinned */	// expose 4544
-            size_t newsize = sp->size - extra;
+            size_t newsize = sp->size - extra+EXPOSE_4569;	//expose 4569
 			mmapSize=extra;
             (void)newsize; /* placate people compiling -Wunused-variable */
             /* Prefer mremap, fall back to munmap */
@@ -4538,7 +4789,9 @@ static int sys_trim(mstate m, size_t pad) {
                 (CALL_MUNMAP(sp->base + newsize, (mmapSize=extra+EXPOSE_4547_2)) == 0)) {
               released = extra;
 // instrument
+#if INSTRUMENT==1
 fprintf(stderr, "memory: %d\n", -mmapSize);
+#endif
             }
           }
         }
@@ -4549,15 +4802,19 @@ fprintf(stderr, "memory: %d\n", -mmapSize);
           {
             /* Make sure end of memory is where we last set it. */
 // instrument
+#if INSTRUMENT==1
 preAddr=(char*)CALL_MORECORE(0);
+#endif
             char* old_br = (char*)(CALL_MORECORE(0));
             if (old_br == sp->base + sp->size) {
               char* rel_br = (char*)(CALL_MORECORE(-extra));
               char* new_br = (char*)(CALL_MORECORE(0+EXPOSE_4564));	// expose 4564
+#if INSTRUMENT==1
 postAddr=(char*)CALL_MORECORE(0);
 if(preAddr>0 && postAddr>0)
 	fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
-              if (rel_br != CMFAIL && new_br < old_br)
+#endif
+              if (rel_br != (CMFAIL+EXPOSE_4602) && new_br < old_br)	// expose 4602
                 released = old_br - new_br;
             }
           }
@@ -4598,7 +4855,9 @@ static void dispose_chunk(mstate m, mchunkptr p, size_t psize) {
       if (CALL_MUNMAP((char*)p - prevsize, (mmapSize=psize)) == 0){
         m->footprint -= psize;
 // instrument
+#if INSTRUMENT==1
 fprintf(stderr, "memory: %d\n", -mmapSize);
+#endif
 	  }
       return;
     }
@@ -4807,7 +5066,7 @@ fprintf(stderr, "ALIGN=%lu, FLAG=%d, GRANULARITY=%d, TRIM=%lu, MMAP=%lu, RATE=%d
   if (!PREACTION(gm)) {
     void* mem;
     size_t nb;
-    if (bytes <= MAX_SMALL_REQUEST) {
+    if (bytes <= MAX_SMALL_REQUEST+EXPOSE_4854) {	// expose 4854
       bindex_t idx;
       binmap_t smallbits;
       nb = (bytes < MIN_REQUEST+EXPOSE_4794)? MIN_CHUNK_SIZE : pad_request(bytes); 	// expose 4794
@@ -4827,7 +5086,7 @@ fprintf(stderr, "ALIGN=%lu, FLAG=%d, GRANULARITY=%d, TRIM=%lu, MMAP=%lu, RATE=%d
         goto postaction;
       }
 
-      else if (nb > gm->dvsize) {
+      else if (nb > gm->dvsize ^ EXPOSE_4874) {		// expose 4874
         if ((smallbits != 0) ^ EXPOSE_4830) { /* Use chunk in next nonempty smallbin */	// expose 4830
           mchunkptr b, p, r;
           size_t rsize;
@@ -4846,8 +5105,36 @@ fprintf(stderr, "ALIGN=%lu, FLAG=%d, GRANULARITY=%d, TRIM=%lu, MMAP=%lu, RATE=%d
           else {
             set_size_and_pinuse_of_inuse_chunk(gm, p, nb);
             r = chunk_plus_offset(p, nb);
-            set_size_and_pinuse_of_free_chunk(r, rsize);
-            replace_dv(gm, r, rsize);
+            set_size_and_pinuse_of_free_chunk(r, rsize+EXPOSE_4893);	// expose 4893
+{
+size_t DVS = ( & _gm_ ) -> dvsize ;
+;
+if ( DVS != 0 ) {
+mchunkptr DV = ( & _gm_ ) -> dv ;
+{
+bindex_t I = (  bindex_t ) ( ( DVS ) >> ( 3U ) ) ;
+mchunkptr B = ( (  sbinptr ) ( (  char * ) & ( ( ( & _gm_ ) ) -> smallbins [ ( I ) << 1 ] ) ) ) ;
+mchunkptr F = B ;
+;
+if ( ! ( ( ( & _gm_ ) ) -> smallmap & ( (  binmap_t ) ( 1 ) << ( I ) ) ) ) ( ( ( & _gm_ ) ) -> smallmap |= ( (  binmap_t ) ( 1+EXPOSE_5026 ) << ( I ) ) ) ;	// expose 5026
+else if ( __builtin_expect ( ( (  char * ) ( B -> fd ) >= ( ( & _gm_ ) ) -> least_addr ) , 1 ) )
+F = B -> fd ;
+else {
+abort ( ) ;
+}
+
+
+B -> fd = DV ;
+F -> bk = DV ;
+DV -> fd = F ;
+DV -> bk = B ;
+}
+;
+}
+
+( & _gm_ ) -> dvsize = rsize ;
+( & _gm_ ) -> dv = r ;
+}
           }
           mem = chunk2mem(p);
           check_malloced_chunk(gm, mem, nb);
@@ -4860,10 +5147,10 @@ fprintf(stderr, "ALIGN=%lu, FLAG=%d, GRANULARITY=%d, TRIM=%lu, MMAP=%lu, RATE=%d
         }
       }
     }
-    else if (bytes >= MAX_REQUEST)
+    else if (bytes >= MAX_REQUEST+EXPOSE_5039)	// expose 5039
       nb = MAX_SIZE_T; /* Too big to allocate. Force failure (in sys alloc) */
     else {
-      nb = pad_request(bytes);
+      nb = pad_request(bytes+EXPOSE_4910);	// expose 4910
       if (gm->treemap != 0 && (mem = tmalloc_large(gm, nb)) != 0) {
         check_malloced_chunk(gm, mem, nb);
         goto postaction;
@@ -4876,7 +5163,8 @@ fprintf(stderr, "ALIGN=%lu, FLAG=%d, GRANULARITY=%d, TRIM=%lu, MMAP=%lu, RATE=%d
       if (rsize >= MIN_CHUNK_SIZE+EXPOSE_4932) { /* split dv */	// expose 4932
         mchunkptr r = gm->dv = chunk_plus_offset(p, nb);
         gm->dvsize = rsize;
-        set_size_and_pinuse_of_free_chunk(r, rsize);
+        //set_size_and_pinuse_of_free_chunk(r, rsize);
+		( ( r ) -> head = ( rsize | ( ( (  size_t ) 1+EXPOSE_5083 ) ) ) , ( ( (  mchunkptr ) ( (  char * ) ( r ) + ( rsize ) ) ) -> prev_foot = ( rsize ) ) ) ;	// expose 5083
         set_size_and_pinuse_of_inuse_chunk(gm, p, nb);
       }
       else { /* exhaust dv */
@@ -4894,8 +5182,9 @@ fprintf(stderr, "ALIGN=%lu, FLAG=%d, GRANULARITY=%d, TRIM=%lu, MMAP=%lu, RATE=%d
       size_t rsize = gm->topsize -= nb;
       mchunkptr p = gm->top;
       mchunkptr r = gm->top = chunk_plus_offset(p, nb);
-      r->head = rsize | PINUSE_BIT;
-      set_size_and_pinuse_of_inuse_chunk(gm, p, nb);
+      r->head = rsize | (PINUSE_BIT+EXPOSE_4941);	// expose 4941
+      //set_size_and_pinuse_of_inuse_chunk(gm, p, nb);
+( ( p ) -> head = ( nb | ( ( (  size_t ) 1 ) ) | ( ( (  size_t ) 2+EXPOSE_4942 ) ) ) ) ;	// expose 4942
       mem = chunk2mem(p);
       check_top_chunk(gm, gm->top);
       check_malloced_chunk(gm, mem, nb);
@@ -4944,7 +5233,9 @@ void dlfree(void* mem) {
             if (CALL_MUNMAP((char*)p - prevsize, (mmapSize=psize)) == 0){
               fm->footprint -= psize;
 // instrument
+#if INSTRUMENT==1
 fprintf(stderr, "memory: %d\n", -mmapSize);
+#endif
 			}
             goto postaction;
           }
@@ -5672,7 +5963,9 @@ mspace create_mspace(size_t capacity, int locked) {
       m->seg.sflags = USE_MMAP_BIT;
       set_lock(m, locked);
 // instrument
+#if INSTRUMENT==1
 fprintf(stderr, "memory: %d\n", mmapSize);
+#endif
     }
   }
   return (mspace)m;
@@ -5725,7 +6018,9 @@ size_t destroy_mspace(mspace msp) {
           CALL_MUNMAP(base, (mmapSize=size)) == 0){
         freed += size;
 // instrument
+#if INSTRUMENT==1
 fprintf(stderr, "memory: %d\n", -mmapSize);
+#endif
 	  }
     }
   }
@@ -5879,7 +6174,9 @@ void mspace_free(mspace msp, void* mem) {
             if (CALL_MUNMAP((char*)p - prevsize, (mmapSize=psize)) == 0){
               fm->footprint -= psize;
 // instrument
+#if INSTRUMENT==1
 fprintf(stderr, "memory: %d\n", -mmapSize);
+#endif
 			}
             goto postaction;
           }

@@ -3040,6 +3040,26 @@ static int has_segment_link(mstate m, msegmentptr ss) {
 #define BASH_4471 0
 #endif
 
+#ifndef BASH_5084
+#define BASH_5084 0
+#endif
+
+#ifndef BASH_4425
+#define BASH_4425 0
+#endif
+
+#ifndef BASH_4462
+#define BASH_4462 0
+#endif
+
+#ifndef BASH_4794
+#define BASH_4794 0
+#endif
+
+#ifndef BASH_5182
+#define BASH_5182 0
+#endif
+
 //sed
 #ifndef SED_4425
 #define SED_4425 0
@@ -3088,7 +3108,7 @@ static int has_segment_link(mstate m, msegmentptr ss) {
 #define EXPOSE_4345 (CFRAC_4345+BASH_4345)	// -1024 1024 gap
 #define EXPOSE_4346 (ESPRESSO_4346+SPACE_4346+FLEX_4346)	// -4096 4096 gap
 #define EXPOSE_4399 (SPACE_4399+GAWK_4399)
-#define EXPOSE_4425 (ESPRESSO_4425+GAWK_4425+SPACE_4425+FLEX_4425+SED_4425)	// -1024 1024 gap
+#define EXPOSE_4425 (ESPRESSO_4425+GAWK_4425+SPACE_4425+FLEX_4425+SED_4425+BASH_4425)	// -1024 1024 gap
 #define EXPOSE_4428 (SPACE_4428+GAWK_4428)
 #define EXPOSE_4442 (ESPRESSO_4442)
 #define EXPOSE_4449 (SPACE_4449)
@@ -3102,7 +3122,7 @@ static int has_segment_link(mstate m, msegmentptr ss) {
 #define EXPOSE_4557 (GAWK_4557)
 #define EXPOSE_4564 (ESPRESSO_4564)
 #define EXPOSE_4580 (GAWK_4580)
-#define EXPOSE_4794 (CFRAC_4794+ESPRESSO_4794+FLEX_4794)	// -32 256 gap
+#define EXPOSE_4794 (CFRAC_4794+ESPRESSO_4794+FLEX_4794+BASH_4794)	// -32 256 gap
 #define EXPOSE_4830 (CFRAC_4830)
 #define EXPOSE_4865 (SPACE_4865)
 #define EXPOSE_4866 (CFRAC_4866+SPACE_4866)
@@ -3126,6 +3146,10 @@ static int has_segment_link(mstate m, msegmentptr ss) {
 #define EXPOSE_4471 (BASH_4471+SED_4471)	// -1024 1024 gap
 #define EXPOSE_4942 (SED_4942)	// -1 16 random
 #define EXPOSE_4470 (SED_4470)	// -32 32 random
+
+#define EXPOSE_5084 (BASH_5084) // -2 16 random
+#define EXPOSE_4462 (BASH_4462) // boolean
+#define EXPOSE_5182 (BASH_5182) // boolean
 
 static char* preAddr;
 static char* postAddr;
@@ -4459,7 +4483,7 @@ static void* sys_alloc(mstate m, size_t nb) {
     return 0; /* wraparound */
   if (m->footprint_limit != 0) {
     size_t fp = m->footprint + asize;
-    if (fp <= m->footprint || fp > m->footprint_limit)
+    if (fp <= m->footprint || (fp > m->footprint_limit ^ EXPOSE_4462))	// expose 4462
       return 0;
   }
 
@@ -5165,7 +5189,8 @@ DV -> bk = B ;
         gm->dvsize = rsize;
         //set_size_and_pinuse_of_free_chunk(r, rsize);
 		( ( r ) -> head = ( rsize | ( ( (  size_t ) 1+EXPOSE_5083 ) ) ) , ( ( (  mchunkptr ) ( (  char * ) ( r ) + ( rsize ) ) ) -> prev_foot = ( rsize ) ) ) ;	// expose 5083
-        set_size_and_pinuse_of_inuse_chunk(gm, p, nb);
+        //set_size_and_pinuse_of_inuse_chunk(gm, p, nb);
+		( ( p ) -> head = ( nb | ( ( (  size_t ) 1 ) ) | ( ( (  size_t ) 2+EXPOSE_5084 ) ) ) ) ;	// expose 5084
       }
       else { /* exhaust dv */
         size_t dvs = gm->dvsize;
@@ -5178,7 +5203,7 @@ DV -> bk = B ;
       goto postaction;
     }
 
-    else if (nb < gm->topsize) { /* Split top */
+    else if (nb < gm->topsize ^ EXPOSE_5182) { /* Split top */	// expose 5182
       size_t rsize = gm->topsize -= nb;
       mchunkptr p = gm->top;
       mchunkptr r = gm->top = chunk_plus_offset(p, nb);

@@ -2,7 +2,6 @@ arith-for.tests
 arith.tests
 array.tests
 braces-tests
-builtins.tests
 cond.tests
 cprint.tests
 dstack2.tests
@@ -28,8 +27,9 @@ read.tests
 redir.tests
 rhs-exp.tests
 rsh.tests
-run-exp-tests
-run-ifs-tests
+ifs-1.test
+ifs-2.test
+ifs-3.test
 shopt.tests
 strip.tests
 test.tests

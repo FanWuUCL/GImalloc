@@ -9,24 +9,13 @@ shift
 # prepare environment
 ./clean.sh
 
-echo "Start experiment on >>>$subject<<<"
-
-echo "Preparing executable >>>$subject<<<"
-
 if [ ! $subject == "cfrac" ]; then
 	gcc -shared -fPIC -O3 -o libmalloc.so malloc.c
 else
 	gcc -m32 -shared -fPIC -O3 -o libmalloc.so malloc.c
 fi
 
-cp libmalloc.so $subject/src/libmalloc.so
-cd $subject/src
-./configure
-make clean
-make
-cd ../../
-
-echo "Prepareing experiment environment"
+echo "Prepareing experiment environment on $subject"
 cp $subject/src/$subject subject
 cp $subject/subjectSetting.h src/subjectSetting.h
 cp $subject/testcases.txt testcases.txt
@@ -40,30 +29,21 @@ elif [ $subject == "abc" ]; then
 else
 	cp -r $subject/testcases .
 fi
-if [ -d population ]; then
-	rm -r population
+if [ -d curr ]; then
+	rm -r curr
 fi
-mkdir population
-if [ ! -d curr ]; then
-	mkdir curr
-fi
+mkdir curr
 	
 # compile and run myga
-echo "Running experiment on >>>$subject<<<"
+echo "Running refinement on >>>$subject<<<"
 cd src
 make
 cp myga ../myga
 cp memory ../memory
 cd ..
-echo "myga $*"
-./myga $*
+echo "memory"
+./memory
 	
 # store result
-if [ -d population/generation999 ]; then
-	opt="exp"
-	for i in "$@"; do
-		opt=$opt$i
-	done
-	mkdir $subject/$opt
-	cp -r population $subject/$opt/
-fi
+
+cp -r curr $subject/

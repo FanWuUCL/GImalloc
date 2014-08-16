@@ -5220,6 +5220,9 @@ DV -> bk = B ;
 
   postaction:
     POSTACTION(gm);
+#if INSTRUMENT==1
+if(mem!=0) fprintf(stderr, "request: %d\t%p dlmalloc\n", (int)bytes, mem);
+#endif
     return mem;
   }
 
@@ -5236,6 +5239,9 @@ void dlfree(void* mem) {
   */
 
   if (mem != 0) {
+#if INSTRUMENT==1
+fprintf(stderr, "release: %p dlfree\n", mem);
+#endif
     mchunkptr p  = mem2chunk(mem);
 #if FOOTERS
     mstate fm = get_mstate_for(p);
@@ -5438,6 +5444,12 @@ static mchunkptr try_realloc_chunk(mstate m, mchunkptr p, size_t nb,
   else {
     USAGE_ERROR_ACTION(m, chunk2mem(p));
   }
+#if INSTRUMENT==1
+if(newp!=0){
+	fprintf(stderr, "release: %p try_realloc\n", chunk2mem(p));
+	fprintf(stderr, "request: %d\t%p try_realloc\n", (int)nb, chunk2mem(newp));
+}
+#endif
   return newp;
 }
 
@@ -5512,6 +5524,9 @@ static void* internal_memalign(mstate m, size_t alignment, size_t bytes) {
       POSTACTION(m);
     }
   }
+#if INSTRUMENT==1
+if(mem!=0) fprintf(stderr, "request: %d\t%p internal_memalign\n", (int)bytes, mem);
+#endif
   return mem;
 }
 
@@ -6168,6 +6183,9 @@ void* mspace_malloc(mspace msp, size_t bytes) {
 
   postaction:
     POSTACTION(ms);
+#if INSTRUMENT==1
+if(mem!=0) fprintf(stderr, "request: %d\t%p mspace_malloc\n", bytes, mem);
+#endif
     return mem;
   }
 
@@ -6176,6 +6194,9 @@ void* mspace_malloc(mspace msp, size_t bytes) {
 
 void mspace_free(mspace msp, void* mem) {
   if (mem != 0) {
+#if INSTRUMENT==1
+fprintf(stderr, "release: %p mspace_free\n", mem);
+#endif
     mchunkptr p  = mem2chunk(mem);
 #if FOOTERS
     mstate fm = get_mstate_for(p);

@@ -117,6 +117,17 @@ cd $curr_path/../memory/src/
 make
 cp ../bin/memory $curr_path/sed/
 
+# Prepare subject abc
+cd $curr_path
+echo "Prepare subject: abc"
+cd abc/src 
+make
+cp abc ../../bin
+cp $curr_path/abc/subjectSetting.h $curr_path/../memory/src/
+cd $curr_path/../memory/src/
+make
+cp ../bin/memory $curr_path/abc/
+
 # Prepare subject hashmap 
 #cd $curr_path
 #echo "Prepare subject: hashmap"

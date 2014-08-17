@@ -10,9 +10,9 @@ shift
 ./clean.sh
 
 if [ ! $subject == "cfrac" ]; then
-	gcc -shared -fPIC -O3 -o libmalloc.so malloc.c
+	gcc -shared -fPIC -O3 -o libmalloc.so malloc.c -DINSTRUMENT2=1
 else
-	gcc -m32 -shared -fPIC -O3 -o libmalloc.so malloc.c
+	gcc -m32 -shared -fPIC -O3 -o libmalloc.so malloc.c -DINSTRUMENT2=1
 fi
 
 echo "Prepareing experiment environment on $subject"

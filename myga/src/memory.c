@@ -24,6 +24,8 @@ FILE* logfp;
 
 double timeout_sec;
 
+int allRequestPeak;
+
 gint readProcMemory(gint i){
 	gchar* filename=g_malloc(128*sizeof(gchar));
 	gchar* line=g_malloc(128*sizeof(gchar));
@@ -33,20 +35,21 @@ gint readProcMemory(gint i){
 		return 0;
 	}
 	FILE* fp=fopen(filename, "r");
-	gint max=0, one=0, sum=0;
+	gint max=0, one=0, sum=0, requestSum=0, requestMax=0, j;
 	while(!feof(fp)){
 		if(!fgets(line, 128, fp)){
 			break;
 		}
 		if(g_str_has_prefix(line, "memory:")){
-			sscanf(line, "memory: %d", &one);
-			sum+=one;
+			sscanf(line, "memory: %d\t%d\t%d", &one, &sum, &requestSum);
 			if(sum>max) max=sum;
+			if(requestSum>requestMax) requestMax=requestSum;
 		}
 	}
 	g_free(filename);
 	g_free(line);
 	fclose(fp);
+	allRequestPeak+=requestMax;
 	return max;
 }
 
@@ -145,6 +148,7 @@ gint mycp(const char *from, const char *to)
 gint profile(double* time_usr, double* time_sys, double* memory, double* correctness, gint suiteSize, gint isStd){
 	double tusr=0, tsys=0, correctness_t=0;
 	gint memory_new=0, memory_new_one=0;
+	allRequestPeak=0;
 	gchar* line;
 	gchar* filename=g_malloc(128*sizeof(gchar));
 	gchar* append=g_malloc(8*sizeof(gchar));
@@ -248,6 +252,7 @@ gint profile(double* time_usr, double* time_sys, double* memory, double* correct
 	g_snprintf(line, 128, "%lf %lf %lf %lf\n", tusr, tsys, memory_new/(double)1024, correctness_t);
 	gint lineLength=strlen(line);
 	write(STDOUT_FILENO, line, lineLength);
+	//g_printf("%d\n", allRequestPeak);
 	g_free(line);
 	*time_usr=tusr;
 	*time_sys=tsys;
@@ -311,14 +316,14 @@ void main(int argc, char** argv){
 			}
 		}
 		else{
-			TESTCASEDIR="testcases/";
+			TESTCASEDIR=DEFAULT_TESTCASES_DIR;
 			isStd=1;
 			timeout_sec=1;
 		}
 	}
 	else{
-		CURRDIR="curr/";
-		TESTCASEDIR="testcases/";
+		CURRDIR=DEFAULT_CURR_DIR;
+		TESTCASEDIR=DEFAULT_TESTCASES_DIR;
 		isStd=1;
 		timeout_sec=1;
 	}

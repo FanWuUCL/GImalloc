@@ -1,0 +1,1 @@
+-c "r i10.aig; b; ps; b; rw -l; rw -lz; b; rw -lz; b; ps; cec"

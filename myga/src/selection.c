@@ -243,3 +243,41 @@ individual* tournamentSelect(GList* population){
 	}
 	return candidate;
 }
+
+// evaluate every individual VERIFY_TIMES times
+void verifyPopulation(GList** population){
+	gint num, j, length=g_list_length(*population), pos=0;
+	individual* ind;
+	double accTime=0, accMemory=0;
+	g_printf("Verifying original:\t");
+	for(j=0; j<VERIFY_TIMES; j++){
+		evaluateIndividual(ori, 0);
+		accTime+=ori->time;
+		accMemory+=ori->memory;
+	}
+	g_printf("\n");
+	ori->time=accTime/VERIFY_TIMES;
+	ori->memory=accMemory/VERIFY_TIMES;
+	gint failTimes;
+	for(num=0; num<length; num++){
+		accTime=0;	
+		accMemory=0;
+		failTimes=0;
+		ind=(individual*)g_list_nth_data(*population, num);
+		g_printf("Verifying %d/%d:\t", num+1, length);
+		for(j=0; j<VERIFY_TIMES; j++){
+			evaluateIndividual(ind, num);
+			if(ind->time>1000){
+				failTimes++;
+			}
+			else{
+				accTime+=ind->time;
+				accMemory+=ind->memory;
+			}
+		}
+		g_printf("\n");
+		ind->time=accTime/(VERIFY_TIMES-failTimes);
+		ind->memory=accMemory/(VERIFY_TIMES-failTimes);
+	}
+	calculateFrontier(population);
+}

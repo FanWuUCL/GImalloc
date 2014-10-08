@@ -1,27 +1,24 @@
 # 1 "malloc.c"
 # 1 "<command-line>"
 # 1 "/usr/include/stdc-predef.h" 1 3 4
-# 30 "/usr/include/stdc-predef.h" 3 4
-# 1 "/usr/include/x86_64-linux-gnu/bits/predefs.h" 1 3 4
-# 31 "/usr/include/stdc-predef.h" 2 3 4
 # 1 "<command-line>" 2
 # 1 "malloc.c"
 # 581 "malloc.c"
 # 1 "/usr/include/x86_64-linux-gnu/sys/types.h" 1 3 4
 # 25 "/usr/include/x86_64-linux-gnu/sys/types.h" 3 4
 # 1 "/usr/include/features.h" 1 3 4
-# 371 "/usr/include/features.h" 3 4
+# 374 "/usr/include/features.h" 3 4
 # 1 "/usr/include/x86_64-linux-gnu/sys/cdefs.h" 1 3 4
 # 385 "/usr/include/x86_64-linux-gnu/sys/cdefs.h" 3 4
 # 1 "/usr/include/x86_64-linux-gnu/bits/wordsize.h" 1 3 4
 # 386 "/usr/include/x86_64-linux-gnu/sys/cdefs.h" 2 3 4
-# 372 "/usr/include/features.h" 2 3 4
-# 395 "/usr/include/features.h" 3 4
+# 375 "/usr/include/features.h" 2 3 4
+# 398 "/usr/include/features.h" 3 4
 # 1 "/usr/include/x86_64-linux-gnu/gnu/stubs.h" 1 3 4
 # 10 "/usr/include/x86_64-linux-gnu/gnu/stubs.h" 3 4
 # 1 "/usr/include/x86_64-linux-gnu/gnu/stubs-64.h" 1 3 4
 # 11 "/usr/include/x86_64-linux-gnu/gnu/stubs.h" 2 3 4
-# 396 "/usr/include/features.h" 2 3 4
+# 399 "/usr/include/features.h" 2 3 4
 # 26 "/usr/include/x86_64-linux-gnu/sys/types.h" 2 3 4
 
 
@@ -56,9 +53,9 @@ typedef unsigned long int __uint64_t;
 
 typedef long int __quad_t;
 typedef unsigned long int __u_quad_t;
-# 130 "/usr/include/x86_64-linux-gnu/bits/types.h" 3 4
+# 121 "/usr/include/x86_64-linux-gnu/bits/types.h" 3 4
 # 1 "/usr/include/x86_64-linux-gnu/bits/typesizes.h" 1 3 4
-# 131 "/usr/include/x86_64-linux-gnu/bits/types.h" 2 3 4
+# 122 "/usr/include/x86_64-linux-gnu/bits/types.h" 2 3 4
 
 
 typedef unsigned long int __dev_t;
@@ -290,7 +287,7 @@ __bswap_64 (__uint64_t __bsx)
 
 
 # 1 "/usr/include/x86_64-linux-gnu/bits/sigset.h" 1 3 4
-# 23 "/usr/include/x86_64-linux-gnu/bits/sigset.h" 3 4
+# 22 "/usr/include/x86_64-linux-gnu/bits/sigset.h" 3 4
 typedef int __sig_atomic_t;
 
 
@@ -375,7 +372,7 @@ extern int pselect (int __nfds, fd_set *__restrict __readfds,
 
 
 # 1 "/usr/include/x86_64-linux-gnu/sys/sysmacros.h" 1 3 4
-# 29 "/usr/include/x86_64-linux-gnu/sys/sysmacros.h" 3 4
+# 24 "/usr/include/x86_64-linux-gnu/sys/sysmacros.h" 3 4
 
 
 __extension__
@@ -388,7 +385,7 @@ __extension__
 extern unsigned long long int gnu_dev_makedev (unsigned int __major,
             unsigned int __minor)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
-# 63 "/usr/include/x86_64-linux-gnu/sys/sysmacros.h" 3 4
+# 58 "/usr/include/x86_64-linux-gnu/sys/sysmacros.h" 3 4
 
 # 223 "/usr/include/x86_64-linux-gnu/sys/types.h" 2 3 4
 
@@ -453,9 +450,10 @@ typedef union
 
     int __kind;
 
-    int __spins;
+    short __spins;
+    short __elision;
     __pthread_list_t __list;
-# 115 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h" 3 4
+# 124 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h" 3 4
   } __data;
   char __size[40];
   long int __align;
@@ -525,7 +523,7 @@ typedef union
     unsigned int __flags;
 
   } __data;
-# 202 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h" 3 4
+# 211 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h" 3 4
   char __size[56];
   long int __align;
 } pthread_rwlock_t;
@@ -655,7 +653,7 @@ typedef struct _IO_FILE FILE;
 typedef struct _IO_FILE __FILE;
 # 74 "/usr/include/stdio.h" 3 4
 # 1 "/usr/include/libio.h" 1 3 4
-# 32 "/usr/include/libio.h" 3 4
+# 31 "/usr/include/libio.h" 3 4
 # 1 "/usr/include/_G_config.h" 1 3 4
 # 15 "/usr/include/_G_config.h" 3 4
 # 1 "/usr/lib/gcc/x86_64-linux-gnu/4.8/include/stddef.h" 1 3 4
@@ -690,15 +688,15 @@ typedef struct
   __off64_t __pos;
   __mbstate_t __state;
 } _G_fpos64_t;
-# 33 "/usr/include/libio.h" 2 3 4
-# 50 "/usr/include/libio.h" 3 4
+# 32 "/usr/include/libio.h" 2 3 4
+# 49 "/usr/include/libio.h" 3 4
 # 1 "/usr/lib/gcc/x86_64-linux-gnu/4.8/include/stdarg.h" 1 3 4
 # 40 "/usr/lib/gcc/x86_64-linux-gnu/4.8/include/stdarg.h" 3 4
 typedef __builtin_va_list __gnuc_va_list;
-# 51 "/usr/include/libio.h" 2 3 4
-# 145 "/usr/include/libio.h" 3 4
+# 50 "/usr/include/libio.h" 2 3 4
+# 144 "/usr/include/libio.h" 3 4
 struct _IO_jump_t; struct _IO_FILE;
-# 155 "/usr/include/libio.h" 3 4
+# 154 "/usr/include/libio.h" 3 4
 typedef void _IO_lock_t;
 
 
@@ -712,7 +710,7 @@ struct _IO_marker {
 
 
   int _pos;
-# 178 "/usr/include/libio.h" 3 4
+# 177 "/usr/include/libio.h" 3 4
 };
 
 
@@ -723,7 +721,7 @@ enum __codecvt_result
   __codecvt_error,
   __codecvt_noconv
 };
-# 246 "/usr/include/libio.h" 3 4
+# 245 "/usr/include/libio.h" 3 4
 struct _IO_FILE {
   int _flags;
 
@@ -764,9 +762,9 @@ struct _IO_FILE {
 
 
   _IO_lock_t *_lock;
-# 294 "/usr/include/libio.h" 3 4
+# 293 "/usr/include/libio.h" 3 4
   __off64_t _offset;
-# 303 "/usr/include/libio.h" 3 4
+# 302 "/usr/include/libio.h" 3 4
   void *__pad1;
   void *__pad2;
   void *__pad3;
@@ -788,7 +786,7 @@ struct _IO_FILE_plus;
 extern struct _IO_FILE_plus _IO_2_1_stdin_;
 extern struct _IO_FILE_plus _IO_2_1_stdout_;
 extern struct _IO_FILE_plus _IO_2_1_stderr_;
-# 339 "/usr/include/libio.h" 3 4
+# 338 "/usr/include/libio.h" 3 4
 typedef __ssize_t __io_read_fn (void *__cookie, char *__buf, size_t __nbytes);
 
 
@@ -844,7 +842,7 @@ extern void _IO_cookie_init (struct _IO_cookie_file *__cfile, int __read_write,
 extern int __underflow (_IO_FILE *);
 extern int __uflow (_IO_FILE *);
 extern int __overflow (_IO_FILE *, int);
-# 435 "/usr/include/libio.h" 3 4
+# 434 "/usr/include/libio.h" 3 4
 extern int _IO_getc (_IO_FILE *__fp);
 extern int _IO_putc (int __c, _IO_FILE *__fp);
 extern int _IO_feof (_IO_FILE *__fp) __attribute__ ((__nothrow__ , __leaf__));
@@ -859,7 +857,7 @@ extern int _IO_peekc_locked (_IO_FILE *__fp);
 extern void _IO_flockfile (_IO_FILE *) __attribute__ ((__nothrow__ , __leaf__));
 extern void _IO_funlockfile (_IO_FILE *) __attribute__ ((__nothrow__ , __leaf__));
 extern int _IO_ftrylockfile (_IO_FILE *) __attribute__ ((__nothrow__ , __leaf__));
-# 465 "/usr/include/libio.h" 3 4
+# 464 "/usr/include/libio.h" 3 4
 extern int _IO_vfscanf (_IO_FILE * __restrict, const char * __restrict,
    __gnuc_va_list, int *__restrict);
 extern int _IO_vfprintf (_IO_FILE *__restrict, const char *__restrict,
@@ -1644,6 +1642,13 @@ typedef int wchar_t;
 
 
 # 1 "/usr/include/x86_64-linux-gnu/bits/waitflags.h" 1 3 4
+# 50 "/usr/include/x86_64-linux-gnu/bits/waitflags.h" 3 4
+typedef enum
+{
+  P_ALL,
+  P_PID,
+  P_PGID
+} idtype_t;
 # 42 "/usr/include/stdlib.h" 2 3 4
 # 1 "/usr/include/x86_64-linux-gnu/bits/waitstatus.h" 1 3 4
 # 66 "/usr/include/x86_64-linux-gnu/bits/waitstatus.h" 3 4
@@ -1900,7 +1905,8 @@ struct drand48_data
     unsigned short int __old_x[3];
     unsigned short int __c;
     unsigned short int __init;
-    unsigned long long int __a;
+    __extension__ unsigned long long int __a;
+
   };
 
 
@@ -1991,7 +1997,7 @@ extern void *alloca (size_t __size) __attribute__ ((__nothrow__ , __leaf__));
 
 
 
-# 492 "/usr/include/stdlib.h" 2 3 4
+# 493 "/usr/include/stdlib.h" 2 3 4
 
 
 
@@ -2004,7 +2010,7 @@ extern void *valloc (size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __a
 
 extern int posix_memalign (void **__memptr, size_t __alignment, size_t __size)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) ;
-# 512 "/usr/include/stdlib.h" 3 4
+# 513 "/usr/include/stdlib.h" 3 4
 
 
 extern void abort (void) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
@@ -2012,7 +2018,7 @@ extern void abort (void) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ 
 
 
 extern int atexit (void (*__func) (void)) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
-# 529 "/usr/include/stdlib.h" 3 4
+# 530 "/usr/include/stdlib.h" 3 4
 
 
 
@@ -2049,7 +2055,7 @@ extern void _Exit (int __status) __attribute__ ((__nothrow__ , __leaf__)) __attr
 
 extern char *getenv (const char *__name) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) ;
 
-# 577 "/usr/include/stdlib.h" 3 4
+# 578 "/usr/include/stdlib.h" 3 4
 extern int putenv (char *__string) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 
 
@@ -2068,15 +2074,15 @@ extern int unsetenv (const char *__name) __attribute__ ((__nothrow__ , __leaf__)
 
 
 extern int clearenv (void) __attribute__ ((__nothrow__ , __leaf__));
-# 605 "/usr/include/stdlib.h" 3 4
+# 606 "/usr/include/stdlib.h" 3 4
 extern char *mktemp (char *__template) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
-# 619 "/usr/include/stdlib.h" 3 4
+# 620 "/usr/include/stdlib.h" 3 4
 extern int mkstemp (char *__template) __attribute__ ((__nonnull__ (1))) ;
-# 641 "/usr/include/stdlib.h" 3 4
+# 642 "/usr/include/stdlib.h" 3 4
 extern int mkstemps (char *__template, int __suffixlen) __attribute__ ((__nonnull__ (1))) ;
-# 662 "/usr/include/stdlib.h" 3 4
+# 663 "/usr/include/stdlib.h" 3 4
 extern char *mkdtemp (char *__template) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) ;
-# 711 "/usr/include/stdlib.h" 3 4
+# 712 "/usr/include/stdlib.h" 3 4
 
 
 
@@ -2084,7 +2090,7 @@ extern char *mkdtemp (char *__template) __attribute__ ((__nothrow__ , __leaf__))
 
 extern int system (const char *__command) ;
 
-# 733 "/usr/include/stdlib.h" 3 4
+# 734 "/usr/include/stdlib.h" 3 4
 extern char *realpath (const char *__restrict __name,
          char *__restrict __resolved) __attribute__ ((__nothrow__ , __leaf__)) ;
 
@@ -2094,7 +2100,7 @@ extern char *realpath (const char *__restrict __name,
 
 
 typedef int (*__compar_fn_t) (const void *, const void *);
-# 751 "/usr/include/stdlib.h" 3 4
+# 752 "/usr/include/stdlib.h" 3 4
 
 
 
@@ -2104,9 +2110,13 @@ extern void *bsearch (const void *__key, const void *__base,
 
 
 
+
+
+
+
 extern void qsort (void *__base, size_t __nmemb, size_t __size,
      __compar_fn_t __compar) __attribute__ ((__nonnull__ (1, 4)));
-# 770 "/usr/include/stdlib.h" 3 4
+# 775 "/usr/include/stdlib.h" 3 4
 extern int abs (int __x) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) ;
 extern long int labs (long int __x) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) ;
 
@@ -2133,7 +2143,7 @@ __extension__ extern lldiv_t lldiv (long long int __numer,
         long long int __denom)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) ;
 
-# 807 "/usr/include/stdlib.h" 3 4
+# 812 "/usr/include/stdlib.h" 3 4
 extern char *ecvt (double __value, int __ndigit, int *__restrict __decpt,
      int *__restrict __sign) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3, 4))) ;
 
@@ -2185,15 +2195,14 @@ extern int qfcvt_r (long double __value, int __ndigit,
 
 
 
-
-extern int mblen (const char *__s, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) ;
+extern int mblen (const char *__s, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
 
 
 extern int mbtowc (wchar_t *__restrict __pwc,
-     const char *__restrict __s, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) ;
+     const char *__restrict __s, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
 
 
-extern int wctomb (char *__s, wchar_t __wchar) __attribute__ ((__nothrow__ , __leaf__)) ;
+extern int wctomb (char *__s, wchar_t __wchar) __attribute__ ((__nothrow__ , __leaf__));
 
 
 
@@ -2212,19 +2221,19 @@ extern size_t wcstombs (char *__restrict __s,
 
 
 extern int rpmatch (const char *__response) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) ;
-# 895 "/usr/include/stdlib.h" 3 4
+# 899 "/usr/include/stdlib.h" 3 4
 extern int getsubopt (char **__restrict __optionp,
         char *const *__restrict __tokens,
         char **__restrict __valuep)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2, 3))) ;
-# 947 "/usr/include/stdlib.h" 3 4
+# 951 "/usr/include/stdlib.h" 3 4
 extern int getloadavg (double __loadavg[], int __nelem)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 
 
 # 1 "/usr/include/x86_64-linux-gnu/bits/stdlib-float.h" 1 3 4
-# 952 "/usr/include/stdlib.h" 2 3 4
-# 964 "/usr/include/stdlib.h" 3 4
+# 956 "/usr/include/stdlib.h" 2 3 4
+# 968 "/usr/include/stdlib.h" 3 4
 
 # 1459 "malloc.c" 2
 
@@ -2238,13 +2247,7 @@ extern int getloadavg (double __loadavg[], int __nelem)
 
 # 1 "/usr/lib/gcc/x86_64-linux-gnu/4.8/include/stddef.h" 1 3 4
 # 33 "/usr/include/string.h" 2 3 4
-
-
-
-
-
-
-
+# 44 "/usr/include/string.h" 3 4
 
 
 extern void *memcpy (void *__restrict __dest, const void *__restrict __src,
@@ -2272,12 +2275,12 @@ extern void *memset (void *__s, int __c, size_t __n) __attribute__ ((__nothrow__
 
 extern int memcmp (const void *__s1, const void *__s2, size_t __n)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-# 92 "/usr/include/string.h" 3 4
+# 96 "/usr/include/string.h" 3 4
 extern void *memchr (const void *__s, int __c, size_t __n)
       __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
 
 
-# 123 "/usr/include/string.h" 3 4
+# 127 "/usr/include/string.h" 3 4
 
 
 extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
@@ -2309,7 +2312,7 @@ extern size_t strxfrm (char *__restrict __dest,
          const char *__restrict __src, size_t __n)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
 
-# 162 "/usr/include/string.h" 3 4
+# 166 "/usr/include/string.h" 3 4
 extern int strcoll_l (const char *__s1, const char *__s2, __locale_t __l)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 3)));
 
@@ -2330,17 +2333,17 @@ extern char *strdup (const char *__s)
 
 extern char *strndup (const char *__string, size_t __n)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__nonnull__ (1)));
-# 207 "/usr/include/string.h" 3 4
+# 211 "/usr/include/string.h" 3 4
 
-# 232 "/usr/include/string.h" 3 4
+# 236 "/usr/include/string.h" 3 4
 extern char *strchr (const char *__s, int __c)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-# 259 "/usr/include/string.h" 3 4
+# 263 "/usr/include/string.h" 3 4
 extern char *strrchr (const char *__s, int __c)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
 
 
-# 278 "/usr/include/string.h" 3 4
+# 282 "/usr/include/string.h" 3 4
 
 
 
@@ -2350,10 +2353,10 @@ extern size_t strcspn (const char *__s, const char *__reject)
 
 extern size_t strspn (const char *__s, const char *__accept)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-# 311 "/usr/include/string.h" 3 4
+# 315 "/usr/include/string.h" 3 4
 extern char *strpbrk (const char *__s, const char *__accept)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-# 338 "/usr/include/string.h" 3 4
+# 342 "/usr/include/string.h" 3 4
 extern char *strstr (const char *__haystack, const char *__needle)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
 
@@ -2374,7 +2377,7 @@ extern char *__strtok_r (char *__restrict __s,
 extern char *strtok_r (char *__restrict __s, const char *__restrict __delim,
          char **__restrict __save_ptr)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 3)));
-# 393 "/usr/include/string.h" 3 4
+# 397 "/usr/include/string.h" 3 4
 
 
 extern size_t strlen (const char *__s)
@@ -2393,11 +2396,11 @@ extern size_t strnlen (const char *__string, size_t __maxlen)
 
 extern char *strerror (int __errnum) __attribute__ ((__nothrow__ , __leaf__));
 
-# 423 "/usr/include/string.h" 3 4
+# 427 "/usr/include/string.h" 3 4
 extern int strerror_r (int __errnum, char *__buf, size_t __buflen) __asm__ ("" "__xpg_strerror_r") __attribute__ ((__nothrow__ , __leaf__))
 
                         __attribute__ ((__nonnull__ (2)));
-# 441 "/usr/include/string.h" 3 4
+# 445 "/usr/include/string.h" 3 4
 extern char *strerror_l (int __errnum, __locale_t __l) __attribute__ ((__nothrow__ , __leaf__));
 
 
@@ -2417,10 +2420,10 @@ extern void bzero (void *__s, size_t __n) __attribute__ ((__nothrow__ , __leaf__
 
 extern int bcmp (const void *__s1, const void *__s2, size_t __n)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-# 485 "/usr/include/string.h" 3 4
+# 489 "/usr/include/string.h" 3 4
 extern char *index (const char *__s, int __c)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-# 513 "/usr/include/string.h" 3 4
+# 517 "/usr/include/string.h" 3 4
 extern char *rindex (const char *__s, int __c)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
 
@@ -2428,14 +2431,14 @@ extern char *rindex (const char *__s, int __c)
 
 
 extern int ffs (int __i) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
-# 532 "/usr/include/string.h" 3 4
+# 534 "/usr/include/string.h" 3 4
 extern int strcasecmp (const char *__s1, const char *__s2)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
 
 
 extern int strncasecmp (const char *__s1, const char *__s2, size_t __n)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-# 555 "/usr/include/string.h" 3 4
+# 557 "/usr/include/string.h" 3 4
 extern char *strsep (char **__restrict __stringp,
        const char *__restrict __delim)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
@@ -2459,7 +2462,7 @@ extern char *__stpncpy (char *__restrict __dest,
 extern char *stpncpy (char *__restrict __dest,
         const char *__restrict __src, size_t __n)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
-# 642 "/usr/include/string.h" 3 4
+# 644 "/usr/include/string.h" 3 4
 
 # 1462 "malloc.c" 2
 # 1473 "malloc.c"
@@ -2469,6 +2472,9 @@ extern char *stpncpy (char *__restrict __dest,
 # 26 "/usr/include/x86_64-linux-gnu/sys/mman.h" 2 3 4
 # 41 "/usr/include/x86_64-linux-gnu/sys/mman.h" 3 4
 # 1 "/usr/include/x86_64-linux-gnu/bits/mman.h" 1 3 4
+# 45 "/usr/include/x86_64-linux-gnu/bits/mman.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/mman-linux.h" 1 3 4
+# 45 "/usr/include/x86_64-linux-gnu/bits/mman.h" 2 3 4
 # 42 "/usr/include/x86_64-linux-gnu/sys/mman.h" 2 3 4
 
 
@@ -2579,9 +2585,9 @@ struct flock
   };
 # 61 "/usr/include/x86_64-linux-gnu/bits/fcntl.h" 3 4
 # 1 "/usr/include/x86_64-linux-gnu/bits/fcntl-linux.h" 1 3 4
-# 330 "/usr/include/x86_64-linux-gnu/bits/fcntl-linux.h" 3 4
+# 341 "/usr/include/x86_64-linux-gnu/bits/fcntl-linux.h" 3 4
 
-# 404 "/usr/include/x86_64-linux-gnu/bits/fcntl-linux.h" 3 4
+# 415 "/usr/include/x86_64-linux-gnu/bits/fcntl-linux.h" 3 4
 
 # 61 "/usr/include/x86_64-linux-gnu/bits/fcntl.h" 2 3 4
 # 36 "/usr/include/fcntl.h" 2 3 4
@@ -2628,7 +2634,7 @@ struct stat
     struct timespec st_mtim;
     struct timespec st_ctim;
 # 106 "/usr/include/x86_64-linux-gnu/bits/stat.h" 3 4
-    __syscall_slong_t __unused[3];
+    __syscall_slong_t __glibc_reserved[3];
 # 115 "/usr/include/x86_64-linux-gnu/bits/stat.h" 3 4
   };
 # 69 "/usr/include/fcntl.h" 2 3 4
@@ -2841,7 +2847,7 @@ extern void _exit (int __status) __attribute__ ((__noreturn__));
 
 
 # 1 "/usr/include/x86_64-linux-gnu/bits/confname.h" 1 3 4
-# 25 "/usr/include/x86_64-linux-gnu/bits/confname.h" 3 4
+# 24 "/usr/include/x86_64-linux-gnu/bits/confname.h" 3 4
 enum
   {
     _PC_LINK_MAX,
@@ -3519,10 +3525,9 @@ extern __pid_t getpid (void) __attribute__ ((__nothrow__ , __leaf__));
 extern __pid_t getppid (void) __attribute__ ((__nothrow__ , __leaf__));
 
 
-
-
 extern __pid_t getpgrp (void) __attribute__ ((__nothrow__ , __leaf__));
-# 646 "/usr/include/unistd.h" 3 4
+
+
 extern __pid_t __getpgid (__pid_t __pid) __attribute__ ((__nothrow__ , __leaf__));
 
 extern __pid_t getpgid (__pid_t __pid) __attribute__ ((__nothrow__ , __leaf__));
@@ -3533,9 +3538,14 @@ extern __pid_t getpgid (__pid_t __pid) __attribute__ ((__nothrow__ , __leaf__));
 
 
 extern int setpgid (__pid_t __pid, __pid_t __pgid) __attribute__ ((__nothrow__ , __leaf__));
-# 672 "/usr/include/unistd.h" 3 4
+# 660 "/usr/include/unistd.h" 3 4
 extern int setpgrp (void) __attribute__ ((__nothrow__ , __leaf__));
-# 689 "/usr/include/unistd.h" 3 4
+
+
+
+
+
+
 extern __pid_t setsid (void) __attribute__ ((__nothrow__ , __leaf__));
 
 
@@ -3559,7 +3569,7 @@ extern __gid_t getegid (void) __attribute__ ((__nothrow__ , __leaf__));
 
 
 extern int getgroups (int __size, __gid_t __list[]) __attribute__ ((__nothrow__ , __leaf__)) ;
-# 722 "/usr/include/unistd.h" 3 4
+# 700 "/usr/include/unistd.h" 3 4
 extern int setuid (__uid_t __uid) __attribute__ ((__nothrow__ , __leaf__)) ;
 
 
@@ -3588,7 +3598,7 @@ extern int setregid (__gid_t __rgid, __gid_t __egid) __attribute__ ((__nothrow__
 
 
 extern int setegid (__gid_t __gid) __attribute__ ((__nothrow__ , __leaf__)) ;
-# 778 "/usr/include/unistd.h" 3 4
+# 756 "/usr/include/unistd.h" 3 4
 extern __pid_t fork (void) __attribute__ ((__nothrow__));
 
 
@@ -3696,11 +3706,11 @@ extern int getlogin_r (char *__name, size_t __name_len) __attribute__ ((__nonnul
 
 
 extern int setlogin (const char *__name) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
-# 893 "/usr/include/unistd.h" 3 4
+# 871 "/usr/include/unistd.h" 3 4
 # 1 "/usr/include/getopt.h" 1 3 4
-# 58 "/usr/include/getopt.h" 3 4
+# 57 "/usr/include/getopt.h" 3 4
 extern char *optarg;
-# 72 "/usr/include/getopt.h" 3 4
+# 71 "/usr/include/getopt.h" 3 4
 extern int optind;
 
 
@@ -3711,10 +3721,10 @@ extern int opterr;
 
 
 extern int optopt;
-# 151 "/usr/include/getopt.h" 3 4
+# 150 "/usr/include/getopt.h" 3 4
 extern int getopt (int ___argc, char *const *___argv, const char *__shortopts)
        __attribute__ ((__nothrow__ , __leaf__));
-# 894 "/usr/include/unistd.h" 2 3 4
+# 872 "/usr/include/unistd.h" 2 3 4
 
 
 
@@ -3800,7 +3810,7 @@ extern char *getpass (const char *__prompt) __attribute__ ((__nonnull__ (1)));
 
 
 extern int fsync (int __fd);
-# 991 "/usr/include/unistd.h" 3 4
+# 969 "/usr/include/unistd.h" 3 4
 extern long int gethostid (void);
 
 
@@ -3816,12 +3826,12 @@ extern int getpagesize (void) __attribute__ ((__nothrow__ , __leaf__)) __attribu
 
 
 extern int getdtablesize (void) __attribute__ ((__nothrow__ , __leaf__));
-# 1015 "/usr/include/unistd.h" 3 4
+# 993 "/usr/include/unistd.h" 3 4
 extern int truncate (const char *__file, __off_t __length)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) ;
-# 1038 "/usr/include/unistd.h" 3 4
+# 1016 "/usr/include/unistd.h" 3 4
 extern int ftruncate (int __fd, __off_t __length) __attribute__ ((__nothrow__ , __leaf__)) ;
-# 1059 "/usr/include/unistd.h" 3 4
+# 1037 "/usr/include/unistd.h" 3 4
 extern int brk (void *__addr) __attribute__ ((__nothrow__ , __leaf__)) ;
 
 
@@ -3829,11 +3839,11 @@ extern int brk (void *__addr) __attribute__ ((__nothrow__ , __leaf__)) ;
 
 
 extern void *sbrk (intptr_t __delta) __attribute__ ((__nothrow__ , __leaf__));
-# 1080 "/usr/include/unistd.h" 3 4
+# 1058 "/usr/include/unistd.h" 3 4
 extern long int syscall (long int __sysno, ...) __attribute__ ((__nothrow__ , __leaf__));
-# 1134 "/usr/include/unistd.h" 3 4
+# 1112 "/usr/include/unistd.h" 3 4
 extern int fdatasync (int __fildes);
-# 1172 "/usr/include/unistd.h" 3 4
+# 1151 "/usr/include/unistd.h" 3 4
 
 # 1485 "malloc.c" 2
 # 2182 "malloc.c"
@@ -3946,11 +3956,15 @@ static int has_segment_link(mstate m, msegmentptr ss) {
       return 0;
   }
 }
-# 2916 "malloc.c"
+# 2741 "malloc.c"
+int allocount;
+int virtualMemory;
+int mandatoryMemory;
+# 3262 "malloc.c"
 static char* preAddr;
 static char* postAddr;
 static int mmapSize;
-# 3285 "malloc.c"
+# 3631 "malloc.c"
 static int init_mparams(void) {
 
 
@@ -3966,7 +3980,7 @@ static int init_mparams(void) {
 
     psize = sysconf(_SC_PAGESIZE);
     gsize = (((0) != 0)? (0) : psize);
-# 3316 "malloc.c"
+# 3662 "malloc.c"
     if ((sizeof(size_t) != sizeof(char*)) ||
         ((~(size_t)0) < (((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) ||
         (sizeof(int) < 4) ||
@@ -3996,7 +4010,7 @@ static int init_mparams(void) {
 
 
     {
-# 3361 "malloc.c"
+# 3707 "malloc.c"
       magic = (size_t)(time(0) ^ (size_t)0x55555555U);
 
       magic |= (size_t)8U;
@@ -4033,7 +4047,7 @@ static int change_mparam(int param_number, int value) {
     return 0;
   }
 }
-# 3670 "malloc.c"
+# 4016 "malloc.c"
 static struct mallinfo internal_mallinfo(mstate m) {
   struct mallinfo nm = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
   (void)(mparams.magic != 0 || init_mparams());
@@ -4105,7 +4119,7 @@ static void internal_malloc_stats(mstate m) {
     fprintf(stderr, "in use bytes     = %10lu\n", (unsigned long)(used));
   }
 }
-# 4009 "malloc.c"
+# 4355 "malloc.c"
 static void* mmap_alloc(mstate m, size_t nb) {
   size_t mmsize = (((nb + (((sizeof(size_t))<<2)+((sizeof(size_t))<<1)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) + (mparams.page_size - ((size_t)1))) & ~(mparams.page_size - ((size_t)1)));
   if (m->footprint_limit != 0) {
@@ -4118,7 +4132,9 @@ static void* mmap_alloc(mstate m, size_t nb) {
     if (mm != ((char*)(((void*)((~(size_t)0)))))) {
 
 
-fprintf(stderr, "memory: %d\n", mmapSize);
+virtualMemory+=(int)mmapSize;
+fprintf(stderr, "memory: %d\t%d\t%d mmap_alloc\n", ++allocount, mmapSize, mandatoryMemory);
+
 
       size_t offset = ((((size_t)(((void*)((char*)(mm) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(mm) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))));
       size_t psize = mmsize - offset - (((sizeof(size_t))<<2));
@@ -4166,7 +4182,9 @@ static mchunkptr mmap_resize(mstate m, mchunkptr oldp, size_t nb, int flags) {
       ((mchunkptr)(((char*)(newp)) + (psize+(sizeof(size_t)))))->head = 0;
 
 
-fprintf(stderr, "memory: %zd\n", newmmsize-oldmmsize);
+virtualMemory+=(int)(newmmsize-oldmmsize);
+fprintf(stderr, "memory: %d\t%d\t%d mmap_resize\n", ++allocount, (int)(newmmsize-oldmmsize), mandatoryMemory);
+
 
 
       if (cp < m->least_addr)
@@ -4207,7 +4225,7 @@ static void init_bins(mstate m) {
     bin->fd = bin->bk = bin;
   }
 }
-# 4131 "malloc.c"
+# 4481 "malloc.c"
 static void* prepend_alloc(mstate m, char* newbase, char* oldbase,
                            size_t nb) {
   mchunkptr p = (mchunkptr)((newbase) + ((((size_t)(((void*)((char*)(newbase) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(newbase) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))));
@@ -4314,21 +4332,21 @@ static void* sys_alloc(mstate m, size_t nb) {
   (void)(mparams.magic != 0 || init_mparams());
 
 
-  if (((m)->mflags & (((size_t)1))) && nb >= mparams.mmap_threshold && m->topsize != 0) {
+  if (((m)->mflags & (((size_t)1))) && nb >= mparams.mmap_threshold && (m->topsize != 0 ^ (0 +0 +0))) {
     void* mem = mmap_alloc(m, nb);
-    if ((mem != 0) ^ (0))
+    if ((mem != 0) ^ (0 +0))
       return mem;
   }
 
-  asize = (((nb + ((((((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(((sizeof(struct malloc_segment)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) + ((size_t)(2 * sizeof(void *))))+(0)) + (mparams.granularity - ((size_t)1))) & ~(mparams.granularity - ((size_t)1))) + (0)+(0);
+  asize = (((nb + ((((((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(((sizeof(struct malloc_segment)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) + ((size_t)(2 * sizeof(void *))))+(0 +0 +0 +0)) + (mparams.granularity - ((size_t)1))) & ~(mparams.granularity - ((size_t)1))) + (0 +0);
   if (asize <= nb)
     return 0;
   if (m->footprint_limit != 0) {
     size_t fp = m->footprint + asize;
-    if (fp <= m->footprint || fp > m->footprint_limit)
+    if (fp <= m->footprint || (fp > m->footprint_limit ^ (0)))
       return 0;
   }
-# 4274 "malloc.c"
+# 4624 "malloc.c"
   if (1 && !((m)->mflags & (4U))) {
     char* br = ((char*)(((void*)((~(size_t)0)))));
     size_t ssize = asize;
@@ -4340,18 +4358,28 @@ static void* sys_alloc(mstate m, size_t nb) {
 
 preAddr=(char*)sbrk(0);
 
-      char* base = (char*)sbrk(0+(0)+(0));
+      char* base = (char*)sbrk(0+(0 +0));
 
 postAddr=(char*)sbrk(0);
 fprintf(stderr, "start\n");
-if(preAddr>0 && postAddr>0)
- fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
+allocount=1;
+virtualMemory=0;
+mandatoryMemory=0;
+
+
+
+if(preAddr>0 && postAddr>0){
+ virtualMemory+=(int)(postAddr-preAddr);
+ fprintf(stderr, "memory: %d\t%d\t%d\n", allocount, (int)(postAddr-preAddr), mandatoryMemory);
+
+}
 
       if (base != ((char*)(((void*)((~(size_t)0)))))) {
         size_t fp;
 
-        if (!(((size_t)(base) & (mparams.page_size - ((size_t)1))) == 0))
-          ssize += (((((size_t)base) + (mparams.page_size - ((size_t)1))) & ~(mparams.page_size - ((size_t)1))) - (size_t)base);
+
+if ( ! ( ( ( size_t ) ( base ) & ( mparams . page_size - ( ( size_t ) 1+(0) ) ) ) == 0 ) )
+          ssize += (((((size_t)base) + (mparams.page_size - ((size_t)1))) & ~(mparams.page_size - ((size_t)1))) - (size_t)base)+(0 +0);
         fp = m->footprint + ssize;
 
 
@@ -4366,36 +4394,42 @@ preAddr=(char*)sbrk(0);
         }
 
 postAddr=(char*)sbrk(0);
-if(preAddr>0 && postAddr>0)
- fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
+if(preAddr>0 && postAddr>0){
+ virtualMemory+=(int)(postAddr-preAddr);
+ fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, (int)(postAddr-preAddr), mandatoryMemory);
+
+}
 
       }
     }
     else {
 
-      ssize = (((nb - m->topsize + ((((((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(((sizeof(struct malloc_segment)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) + ((size_t)(2 * sizeof(void *))))+(0)+(0)+(0)) + (mparams.granularity - ((size_t)1))) & ~(mparams.granularity - ((size_t)1)));
+      ssize = (((nb - m->topsize + ((((((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(((sizeof(struct malloc_segment)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) + ((size_t)(2 * sizeof(void *))))+(0 +0 +0 +0 +0 +0 +0 +0)) + (mparams.granularity - ((size_t)1))) & ~(mparams.granularity - ((size_t)1)));
 
 
 
 preAddr=(char*)sbrk(0);
 
-      if (ssize < ((~(size_t)0) / 2U)+(0) &&
+      if (ssize < ((~(size_t)0) / 2U)+(0 +0) &&
           (br = (char*)(sbrk(ssize))) == ss->base+ss->size) {
         tbase = br;
         tsize = ssize;
       }
 
 postAddr=(char*)sbrk(0);
-if(preAddr>0 && postAddr>0)
- fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
+if(preAddr>0 && postAddr>0){
+ virtualMemory+=(int)(postAddr-preAddr);
+ fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, (int)(postAddr-preAddr), mandatoryMemory);
+
+}
 
     }
 
     if (tbase == ((char*)(((void*)((~(size_t)0)))))) {
       if (br != ((char*)(((void*)((~(size_t)0)))))) {
         if (ssize < ((~(size_t)0) / 2U) &&
-            ssize < nb + ((((((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(((sizeof(struct malloc_segment)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) + ((size_t)(2 * sizeof(void *))))+(0)) {
-          size_t esize = (((nb + ((((((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(((sizeof(struct malloc_segment)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) + ((size_t)(2 * sizeof(void *)))) - ssize+(0)) + (mparams.granularity - ((size_t)1))) & ~(mparams.granularity - ((size_t)1)));
+            ssize < nb + ((((((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(((sizeof(struct malloc_segment)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) + ((size_t)(2 * sizeof(void *))))+(0 +0 +0)) {
+          size_t esize = (((nb + ((((((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(((sizeof(struct malloc_segment)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) + ((size_t)(2 * sizeof(void *)))) - ssize+(0 +0 +0)) + (mparams.granularity - ((size_t)1))) & ~(mparams.granularity - ((size_t)1)));
           if (esize < ((~(size_t)0) / 2U)) {
 
 
@@ -4404,8 +4438,11 @@ preAddr=(char*)sbrk(0);
             char* end = (char*)sbrk(esize);
 
 postAddr=(char*)sbrk(0);
-if(preAddr>0 && postAddr>0)
- fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
+if(preAddr>0 && postAddr>0){
+ virtualMemory+=(int)(postAddr-preAddr);
+ fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, (int)(postAddr-preAddr), mandatoryMemory);
+
+}
 
             if (end != ((char*)(((void*)((~(size_t)0)))))){
               ssize += esize;
@@ -4418,8 +4455,11 @@ preAddr=(char*)sbrk(0);
               (void) sbrk(-ssize);
 
 postAddr=(char*)sbrk(0);
-if(preAddr>0 && postAddr>0)
- fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
+if(preAddr>0 && postAddr>0){
+ virtualMemory+=(int)(postAddr-preAddr);
+ fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, (int)(postAddr-preAddr), mandatoryMemory);
+
+}
 
               br = ((char*)(((void*)((~(size_t)0)))));
             }
@@ -4445,7 +4485,9 @@ if(preAddr>0 && postAddr>0)
       mmap_flag = (((size_t)1));
 
 
-fprintf(stderr, "memory: %d\n", mmapSize);
+virtualMemory+=(int)mmapSize;
+fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, mmapSize, mandatoryMemory);
+
 
     }
   }
@@ -4462,14 +4504,17 @@ preAddr=(char*)sbrk(0);
       br = (char*)(sbrk(asize));
 
 postAddr=(char*)sbrk(0);
-if(preAddr>0 && postAddr>0)
- fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
+if(preAddr>0 && postAddr>0){
+ virtualMemory+=(int)(postAddr-preAddr);
+ fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, (int)(postAddr-preAddr), mandatoryMemory);
+
+}
 
       end = (char*)(sbrk(0));
       ;
       if (br != ((char*)(((void*)((~(size_t)0))))) && end != ((char*)(((void*)((~(size_t)0))))) && br < end) {
         size_t ssize = end - br;
-        if (ssize > nb + (((((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(((sizeof(struct malloc_segment)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) + (0)) {
+        if (ssize > nb + (((((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(((sizeof(struct malloc_segment)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) + (0 +0)) {
           tbase = br;
           tsize = ssize;
         }
@@ -4493,13 +4538,13 @@ if(preAddr>0 && postAddr>0)
       init_bins(m);
 
       if (((m) == &_gm_))
-        init_top(m, (mchunkptr)tbase, tsize - (((((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(((sizeof(struct malloc_segment)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(0)+(0));
+        init_top(m, (mchunkptr)tbase, tsize - (((((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(((sizeof(struct malloc_segment)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(0 +0 +0 +0 +0 +0));
       else
 
       {
 
         mchunkptr mn = ((mchunkptr)( ((char*)(((mchunkptr)((char*)(m) - ((sizeof(size_t))<<1))))) + ((((mchunkptr)((char*)(m) - ((sizeof(size_t))<<1))))->head & ~((((size_t)1))|(((size_t)2))|(((size_t)4))))));
-        init_top(m, mn, (size_t)((tbase + tsize) - (char*)mn) -(((((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(((sizeof(struct malloc_segment)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) + (0));
+        init_top(m, mn, (size_t)((tbase + tsize) - (char*)mn) -(((((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(((sizeof(struct malloc_segment)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) + (0 +0));
       }
     }
 
@@ -4510,7 +4555,7 @@ if(preAddr>0 && postAddr>0)
       while (sp != 0 && tbase != sp->base + sp->size)
         sp = (0) ? 0 : sp->next;
       if (sp != 0 &&
-          !((sp)->sflags & (8U)) &&
+          !((sp)->sflags & (8U)) ^ (0) &&
           (sp->sflags & (((size_t)1))) == mmap_flag &&
           ((char*)(m->top) >= sp->base && (char*)(m->top) < sp->base + sp->size)) {
         sp->size += tsize;
@@ -4539,7 +4584,7 @@ if(preAddr>0 && postAddr>0)
       size_t rsize = m->topsize -= nb;
       mchunkptr p = m->top;
       mchunkptr r = m->top = ((mchunkptr)(((char*)(p)) + (nb)));
-      r->head = rsize | (((size_t)1));
+      r->head = rsize | ((((size_t)1))+(0));
       ((p)->head = (nb|(((size_t)1))|(((size_t)2))));
       ;
       ;
@@ -4583,7 +4628,9 @@ static size_t release_unused_segments(mstate m) {
           m->footprint -= size;
 
 
-fprintf(stderr, "memory: %d\n", -mmapSize);
+virtualMemory-=(int)mmapSize;
+fprintf(stderr, "memory: %d\t%d\t%d release_unused_segments\n", ++allocount, -mmapSize, mandatoryMemory);
+
 
 
           sp = pred;
@@ -4607,33 +4654,35 @@ fprintf(stderr, "memory: %d\n", -mmapSize);
 
 static int sys_trim(mstate m, size_t pad) {
   size_t released = 0;
-  (void)(mparams.magic != 0 || init_mparams());
-  if (pad < ((-(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) << 2)+(0) && ((m)->top != 0)) {
-    pad += (((((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(((sizeof(struct malloc_segment)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) + (0);
+  ( void ) ( mparams . magic != 0 ^ (0) || init_mparams ( ) ) ;
+  if (pad < ((-(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) << 2)+(0 +0) && ((m)->top != 0)) {
+    pad += (((((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))) == 0)? 0 : ((((size_t)(2 * sizeof(void *))) - ((size_t)(((void*)((char*)(0) + ((sizeof(size_t))<<1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1)))) & (((size_t)(2 * sizeof(void *))) - ((size_t)1))))+(((sizeof(struct malloc_segment)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) + (0 +0 +0);
 
     if (m->topsize > pad) {
 
       size_t unit = mparams.granularity;
 
-      size_t extra = ((m->topsize - pad + (unit - ((size_t)1))) / unit +(0)+(0) -
+      size_t extra = ((m->topsize - pad + (unit - ((size_t)1))) / unit +(0 +0 +0) -
                       ((size_t)1)) * unit;
       msegmentptr sp = segment_holding(m, (char*)m->top);
 
-      if (!((sp)->sflags & ((8U)+(0)))) {
+      if (!((sp)->sflags & ((8U)+(0 +0)))) {
         if (((sp)->sflags & (((size_t)1)))) {
-          if (1 +(0) &&
+          if (1 +(0 +0) &&
               sp->size >= extra &&
               !has_segment_link(m, sp)) {
-            size_t newsize = sp->size - extra;
+            size_t newsize = sp->size - extra+(0);
    mmapSize=extra;
             (void)newsize;
 
-            if ((mremap(((sp->base)), ((sp->size)), ((newsize)), (((0+(0))))) != ((void*)((~(size_t)0)))) ||
-                (munmap(((sp->base + newsize)), (((mmapSize=extra+(0))))) == 0)) {
+            if ((mremap(((sp->base)), ((sp->size)), ((newsize)), (((0+(0 +0))))) != ((void*)((~(size_t)0)))) ||
+                (munmap(((sp->base + newsize)), (((mmapSize=extra+(0 +0))))) == 0)) {
               released = extra;
 
 
-fprintf(stderr, "memory: %d\n", -mmapSize);
+virtualMemory-=(int)mmapSize;
+fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, -mmapSize, mandatoryMemory);
+
 
             }
           }
@@ -4654,10 +4703,13 @@ preAddr=(char*)sbrk(0);
               char* new_br = (char*)(sbrk(0+(0)));
 
 postAddr=(char*)sbrk(0);
-if(preAddr>0 && postAddr>0)
- fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
+if(preAddr>0 && postAddr>0){
+ virtualMemory+=(int)(postAddr-preAddr);
+ fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, (int)(postAddr-preAddr), mandatoryMemory);
 
-              if (rel_br != ((char*)(((void*)((~(size_t)0))))) && new_br < old_br)
+}
+
+              if (rel_br != (((char*)(((void*)((~(size_t)0)))))+(0)) && new_br < old_br)
                 released = old_br - new_br;
             }
           }
@@ -4699,7 +4751,9 @@ static void dispose_chunk(mstate m, mchunkptr p, size_t psize) {
         m->footprint -= psize;
 
 
-fprintf(stderr, "memory: %d\n", -mmapSize);
+virtualMemory-=(int)mmapSize;
+fprintf(stderr, "memory: %d\t%d\t%d dispose_chunk\n", ++allocount, -mmapSize, mandatoryMemory);
+
 
    }
       return;
@@ -4875,14 +4929,14 @@ static void* tmalloc_small(mstate m, size_t nb) {
 
 
 void* malloc(size_t bytes) {
-# 4851 "malloc.c"
+# 5237 "malloc.c"
   if (!(0)) {
     void* mem;
     size_t nb;
-    if (bytes <= (((((size_t)1) << (8U)) - ((size_t)1)) - (((size_t)(2 * sizeof(void *))) - ((size_t)1)) - ((sizeof(size_t))))) {
+    if (bytes <= (((((size_t)1) << (8U)) - ((size_t)1)) - (((size_t)(2 * sizeof(void *))) - ((size_t)1)) - ((sizeof(size_t))))+(0 +0 +0)) {
       bindex_t idx;
       binmap_t smallbits;
-      nb = (bytes < ((((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1))) - ((sizeof(size_t))) - ((size_t)1))+(0)+(0))? (((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1))) : (((bytes) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)));
+      nb = (bytes < ((((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1))) - ((sizeof(size_t))) - ((size_t)1))+(0 +0 +0 +0))? (((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1))) : (((bytes) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)));
       idx = (bindex_t)((nb) >> (3U));
       smallbits = (&_gm_)->smallmap >> idx;
 
@@ -4899,7 +4953,7 @@ void* malloc(size_t bytes) {
         goto postaction;
       }
 
-      else if (nb > (&_gm_)->dvsize) {
+      else if (nb > (&_gm_)->dvsize ^ (0 +0)) {
         if ((smallbits != 0) ^ (0)) {
           mchunkptr b, p, r;
           size_t rsize;
@@ -4913,13 +4967,41 @@ void* malloc(size_t bytes) {
           { mchunkptr F = p->fd; ; ; ; if (b == F) { (((&_gm_))->smallmap &= ~((binmap_t)(1) << (i))); } else if (__builtin_expect(((char*)(F) >= ((&_gm_))->least_addr) && F->bk == p, 1)) { F->bk = b; b->fd = F; } else { abort(); }};
           rsize = ((i) << (3U)) - nb + (0);
 
-          if ((sizeof(size_t)) != 4 && rsize < (((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(0))
+          if ((sizeof(size_t)) != 4 && rsize < (((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(0 +0))
             ((p)->head = (((i) << (3U))|(((size_t)1))|(((size_t)2))), ((mchunkptr)(((char*)(p)) + (((i) << (3U)))))->head |= (((size_t)1)));
           else {
             ((p)->head = (nb|(((size_t)1))|(((size_t)2))));
             r = ((mchunkptr)(((char*)(p)) + (nb)));
-            ((r)->head = (rsize|(((size_t)1))), (((mchunkptr)((char*)(r) + (rsize)))->prev_foot = (rsize)));
-            { size_t DVS = (&_gm_)->dvsize; ; if (DVS != 0) { mchunkptr DV = (&_gm_)->dv; { bindex_t I = (bindex_t)((DVS) >> (3U)); mchunkptr B = ((sbinptr)((char*)&(((&_gm_))->smallbins[(I)<<1]))); mchunkptr F = B; ; if (!(((&_gm_))->smallmap & ((binmap_t)(1) << (I)))) (((&_gm_))->smallmap |= ((binmap_t)(1) << (I))); else if (__builtin_expect(((char*)(B->fd) >= ((&_gm_))->least_addr), 1)) F = B->fd; else { abort(); } B->fd = DV; F->bk = DV; DV->fd = F; DV->bk = B;}; } (&_gm_)->dvsize = rsize; (&_gm_)->dv = r;};
+            ((r)->head = (rsize+(0)|(((size_t)1))), (((mchunkptr)((char*)(r) + (rsize+(0))))->prev_foot = (rsize+(0))));
+{
+size_t DVS = ( & _gm_ ) -> dvsize ;
+;
+if ( DVS != 0 ) {
+mchunkptr DV = ( & _gm_ ) -> dv ;
+{
+bindex_t I = ( bindex_t ) ( ( DVS ) >> ( 3U ) ) ;
+mchunkptr B = ( ( sbinptr ) ( ( char * ) & ( ( ( & _gm_ ) ) -> smallbins [ ( I ) << 1 ] ) ) ) ;
+mchunkptr F = B ;
+;
+if ( ! ( ( ( & _gm_ ) ) -> smallmap & ( ( binmap_t ) ( 1 ) << ( I ) ) ) ) ( ( ( & _gm_ ) ) -> smallmap |= ( ( binmap_t ) ( 1+(0) ) << ( I ) ) ) ;
+else if ( __builtin_expect ( ( ( char * ) ( B -> fd ) >= ( ( & _gm_ ) ) -> least_addr ) , 1 ) )
+F = B -> fd ;
+else {
+abort ( ) ;
+}
+
+
+B -> fd = DV ;
+F -> bk = DV ;
+DV -> fd = F ;
+DV -> bk = B ;
+}
+;
+}
+
+( & _gm_ ) -> dvsize = rsize ;
+( & _gm_ ) -> dv = r ;
+}
           }
           mem = ((void*)((char*)(p) + ((sizeof(size_t))<<1)));
           ;
@@ -4932,10 +5014,10 @@ void* malloc(size_t bytes) {
         }
       }
     }
-    else if (bytes >= ((-(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) << 2))
+    else if (bytes >= ((-(((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))) << 2)+(0))
       nb = (~(size_t)0);
     else {
-      nb = (((bytes) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)));
+      nb = (((bytes+(0 +0 +0)) + ((sizeof(size_t))) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)));
       if ((&_gm_)->treemap != 0 && (mem = tmalloc_large((&_gm_), nb)) != 0) {
         ;
         goto postaction;
@@ -4945,11 +5027,13 @@ void* malloc(size_t bytes) {
     if (nb <= (&_gm_)->dvsize) {
       size_t rsize = (&_gm_)->dvsize - nb;
       mchunkptr p = (&_gm_)->dv;
-      if (rsize >= (((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(0)) {
+      if (rsize >= (((sizeof(mchunk)) + (((size_t)(2 * sizeof(void *))) - ((size_t)1))) & ~(((size_t)(2 * sizeof(void *))) - ((size_t)1)))+(0 +0 +0 +0)) {
         mchunkptr r = (&_gm_)->dv = ((mchunkptr)(((char*)(p)) + (nb)));
         (&_gm_)->dvsize = rsize;
-        ((r)->head = (rsize|(((size_t)1))), (((mchunkptr)((char*)(r) + (rsize)))->prev_foot = (rsize)));
-        ((p)->head = (nb|(((size_t)1))|(((size_t)2))));
+
+  ( ( r ) -> head = ( rsize | ( ( ( size_t ) 1+(0) ) ) ) , ( ( ( mchunkptr ) ( ( char * ) ( r ) + ( rsize ) ) ) -> prev_foot = ( rsize ) ) ) ;
+
+  ( ( p ) -> head = ( nb | ( ( ( size_t ) 1 ) ) | ( ( ( size_t ) 2+(0) ) ) ) ) ;
       }
       else {
         size_t dvs = (&_gm_)->dvsize;
@@ -4962,12 +5046,13 @@ void* malloc(size_t bytes) {
       goto postaction;
     }
 
-    else if (nb < (&_gm_)->topsize) {
+    else if (nb < (&_gm_)->topsize ^ (0)) {
       size_t rsize = (&_gm_)->topsize -= nb;
       mchunkptr p = (&_gm_)->top;
       mchunkptr r = (&_gm_)->top = ((mchunkptr)(((char*)(p)) + (nb)));
-      r->head = rsize | (((size_t)1));
-      ((p)->head = (nb|(((size_t)1))|(((size_t)2))));
+      r->head = rsize | ((((size_t)1))+(0 +0));
+
+( ( p ) -> head = ( nb | ( ( ( size_t ) 1 ) ) | ( ( ( size_t ) 2+(0) ) ) ) ) ;
       mem = ((void*)((char*)(p) + ((sizeof(size_t))<<1)));
       ;
       ;
@@ -4978,6 +5063,7 @@ void* malloc(size_t bytes) {
 
   postaction:
     ;
+# 5379 "malloc.c"
     return mem;
   }
 
@@ -4994,8 +5080,14 @@ void free(void* mem) {
 
 
   if (mem != 0) {
+
+
+
+
+
+
     mchunkptr p = ((mchunkptr)((char*)(mem) - ((sizeof(size_t))<<1)));
-# 4979 "malloc.c"
+# 5411 "malloc.c"
     if (!(0)) {
       ;
       if (__builtin_expect(((char*)(p) >= ((&_gm_))->least_addr) && (((p)->head & ((((size_t)1))|(((size_t)2)))) != (((size_t)1))), 1)) {
@@ -5009,7 +5101,9 @@ void free(void* mem) {
               (&_gm_)->footprint -= psize;
 
 
-fprintf(stderr, "memory: %d\n", -mmapSize);
+virtualMemory-=(int)mmapSize;
+fprintf(stderr, "memory: %d\t%d\t%d dlfree\n", ++allocount, -mmapSize, mandatoryMemory);
+
 
    }
             goto postaction;
@@ -5188,6 +5282,7 @@ static mchunkptr try_realloc_chunk(mstate m, mchunkptr p, size_t nb,
   else {
     abort();
   }
+# 5616 "malloc.c"
   return newp;
 }
 
@@ -5214,7 +5309,7 @@ static void* internal_memalign(mstate m, size_t alignment, size_t bytes) {
       if ((0))
         return 0;
       if ((((size_t)(mem)) & (alignment - 1)) != 0) {
-# 5205 "malloc.c"
+# 5650 "malloc.c"
         char* br = (char*)((mchunkptr)((char*)((size_t)(((size_t)((char*)mem + alignment - ((size_t)1))) & -alignment)) - ((sizeof(size_t))<<1)))
 
                                                          ;
@@ -5255,9 +5350,10 @@ static void* internal_memalign(mstate m, size_t alignment, size_t bytes) {
       ;
     }
   }
+# 5699 "malloc.c"
   return mem;
 }
-# 5255 "malloc.c"
+# 5709 "malloc.c"
 static void** ialloc(mstate m,
                      size_t n_elements,
                      size_t* sizes,
@@ -5356,11 +5452,11 @@ static void** ialloc(mstate m,
       break;
     }
   }
-# 5370 "malloc.c"
+# 5824 "malloc.c"
   ;
   return marray;
 }
-# 5381 "malloc.c"
+# 5835 "malloc.c"
 static size_t internal_bulk_free(mstate m, void* array[], size_t nelem) {
   size_t unfreed = 0;
   if (!(0)) {
@@ -5402,7 +5498,7 @@ static size_t internal_bulk_free(mstate m, void* array[], size_t nelem) {
   }
   return unfreed;
 }
-# 5469 "malloc.c"
+# 5923 "malloc.c"
 void* realloc(void* oldmem, size_t bytes) {
   void* mem = 0;
   if (oldmem == 0) {
@@ -5537,7 +5633,7 @@ void** independent_comalloc(size_t n_elements, size_t sizes[],
 size_t bulk_free(void* array[], size_t nelem) {
   return internal_bulk_free((&_gm_), array, nelem);
 }
-# 5618 "malloc.c"
+# 6072 "malloc.c"
 int malloc_trim(size_t pad) {
   int result = 0;
   (void)(mparams.magic != 0 || init_mparams());

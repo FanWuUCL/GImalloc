@@ -13,6 +13,12 @@ memory_path="$SUBJECT_PATH_NAME/memory"
 CONTINUE=1
 CONTINUE_FROM=1
 
+if [ "$SUBJECT_NAME" == "mencoder" ]; then
+	compare_file="out11.avi"
+else
+	compare_file="results.txt"
+fi
+
 if [ $CONTINUE == 1 ]; then
 	export LD_LIBRARY_PATH="/usr/lib/llvm-3.2/lib/"
 	echo $MILU
@@ -72,7 +78,7 @@ do
 		cp $memory_path memory
 		./memory > fitness.txt
 		cat *.s > results.txt
-		if diff results.txt $ORIGINAL_PATH/results.txt >/dev/null ; then
+		if diff $compare_file $ORIGINAL_PATH/$compare_file >/dev/null ; then
 		      #echo "tests: 1" >> fitness.txt
 		      echo "1" >> fitness.txt
 		      else

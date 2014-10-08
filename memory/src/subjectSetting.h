@@ -10,14 +10,23 @@
 // # of times a testcase should be run against for
 #define REPEAT 1
 
-#define DEEP_GCC_MALLOC "gcc %s -w -shared -fPIC -o %s -O3 malloc.c %s -D\'MALLOC_ALIGNMENT=((size_t)(%d*sizeof(void*)))\' -DFOOTERS=%d -DINSECURE=%d -DNO_SEGMENT_TRAVERSAL=%d -DMORECORE_CONTIGUOUS=%d -DDEFAULT_GRANULARITY=%d -DDEFAULT_TRIM_THRESHOLD=%d -DDEFAULT_MMAP_THRESHOLD=%d -DMAX_RELEASE_CHECK_RATE=%d -DBASH_4369=%d -DBASH_5084=%d -DBASH_4334=%d -DBASH_4425=%d -DBASH_4462=%d -DBASH_4794=%d -DBASH_4932=%d -DBASH_4910=%d -DBASH_5182=%d"
+#define DEEP_GCC_MALLOC "gcc %s -w -shared -fPIC -o %s -O3 malloc.c %s -D\'MALLOC_ALIGNMENT=((size_t)(%d*sizeof(void*)))\' -DFOOTERS=%d -DINSECURE=%d -DNO_SEGMENT_TRAVERSAL=%d -DMORECORE_CONTIGUOUS=%d -DDEFAULT_GRANULARITY=%d -DDEFAULT_TRIM_THRESHOLD=%d -DDEFAULT_MMAP_THRESHOLD=%d -DMAX_RELEASE_CHECK_RATE=%d -DSPACE_4301=%d -DSPACE_4547=%d -DSPACE_4425=%d -DSPACE_4866=%d -DSPACE_4399=%d -DSPACE_4346=%d -DSPACE_4854=%d -DSPACE_4537=%d -DSPACE_4334=%d"
 
 #define DEFAULT_IND 2, 8, 0, 2048, 256, 4095, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
-#define LOWERBOUND_IND 1, 0, 4, 64, 16, 1000, 0, -2, -32, -1024, 0, -32, -32, -1024, 0
+#define LOWERBOUND_IND 1, 0, 4, 64, 16, 1000, 0, -4096, -1024, -32, -64, -4096, -128, -32, -32
 
-#define UPPERBOUND_IND 16, 15, 512, 16*1024, 2048, 10000, 1, 16, 256, 1024, 1, 256, 256, 1024, 1
+#define UPPERBOUND_IND 16, 15, 512, 16*1024, 2048, 10000, 1, 4096, 1024, 32, 64, 4096, 128, 32, 256
 
-#define MUTATIONTYPE_IND mutation_power2, mutation_gap, mutation_power2_allow0, mutation_power2, mutation_gap, mutation_gap, mutation_boolean, mutation_random, mutation_gap, mutation_gap, mutation_boolean, mutation_gap, mutation_gap, mutation_gap, mutation_boolean
+#define MUTATIONTYPE_IND mutation_power2, mutation_gap, mutation_power2_allow0, mutation_power2, mutation_gap, mutation_gap, mutation_boolean, mutation_gap, mutation_gap, mutation_gap, mutation_gap, mutation_gap, mutation_gap, mutation_gap, mutation_gap
+
+#define CUSTOM_EXTRA_SAVING g_snprintf(filename, 128, "%sout11.avi%d%s", CURRDIR, j, append);\
+	if(g_file_test("out11.avi", G_FILE_TEST_EXISTS)) mycp("out11.avi", filename);\
+
+#define CUSTOM_CORRECTNESS for(i=0; i<length; i++){\
+				g_snprintf(filename, 128, "%sout11.avi%d", CURRDIR, i);\
+				g_snprintf(line, 128, "%sout11.avi%d.s", CURRDIR, i);\
+				correctness_t+=cmpOutput(filename, line);\
+			}
 
 #endif // SETTING_H

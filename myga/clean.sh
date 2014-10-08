@@ -6,7 +6,7 @@ fi
 
 containsElement () {
   local e
-  for e in "run.sh" "runall.sh" "callgrind.sh" "clean.sh" "malloc.c" "refine.sh" "refineall.sh"; do [[ "$e" == "$1" ]] && return 0; done
+  for e in "run.sh" "runall.sh" "callgrind.sh" "clean.sh" "malloc.c" "refine.sh" "refineall.sh" "verify.sh"; do [[ "$e" == "$1" ]] && return 0; done
   return 1
 }
 

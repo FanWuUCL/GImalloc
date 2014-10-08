@@ -2800,7 +2800,7 @@ void instrumentPrint(){
 	if(diff<0) diff=diff*(-1);
 	if(diff>REPORT_RATIO*lastReport || allocount%10000==0){
 		lastReport=mandatoryMemory;
-		fprintf(stderr, "memory: %d\t%d\t%d\n", allocount, virtualMemory, mandatoryMemory);
+		fprintf(stderr, "memory: %d\t%d\t%d\n", allocount, 0, mandatoryMemory);
 	}
 }
 #endif // INSTRUMENT2
@@ -3205,22 +3205,59 @@ void instrumentPrint(){
 #define ABC_4874 0
 #endif
 
+//mencoder
+#ifndef MENCODER_4866
+#define MENCODER_4866 0
+#endif
+
+#ifndef MENCODER_4428
+#define MENCODER_4428 0
+#endif
+
+#ifndef MENCODER_4301
+#define MENCODER_4301 0
+#endif
+
+#ifndef MENCODER_4425
+#define MENCODER_4425 0
+#endif
+
+#ifndef MENCODER_4346
+#define MENCODER_4346 0
+#endif
+
+#ifndef MENCODER_4536
+#define MENCODER_4536 0
+#endif
+
+#ifndef MENCODER_4449
+#define MENCODER_4449 0
+#endif
+
+#ifndef MENCODER_4854
+#define MENCODER_4854 0
+#endif
+
+#ifndef MENCODER_4334
+#define MENCODER_4334 0
+#endif
+
 // combined exposed parameter
 #define EXPOSE_4297 (CFRAC_4297+SED_4297)	// boolean
-#define EXPOSE_4301 (ESPRESSO_4301+SPACE_4301+FLEX_4301+ABC_4301)	// -4096 4096 gap
+#define EXPOSE_4301 (ESPRESSO_4301+SPACE_4301+FLEX_4301+ABC_4301+MENCODER_4301)	// -4096 4096 gap
 #define EXPOSE_4301_2 (GAWK_4301+SPACE_4301)
 #define EXPOSE_4313 (CFRAC_4313)
 #define EXPOSE_4316 (CFRAC_4316+SPACE_4316)
-#define EXPOSE_4334 (CFRAC_4334+ESPRESSO_4334+SPACE_4334+GAWK_4334+FLEX_4334+BASH_4334+SED_4334+ABC_4334)	// -32 256 gap
+#define EXPOSE_4334 (CFRAC_4334+ESPRESSO_4334+SPACE_4334+GAWK_4334+FLEX_4334+BASH_4334+SED_4334+ABC_4334+MENCODER_4334)	// -32 256 gap
 #define EXPOSE_4335 (ESPRESSO_4335+ABC_4335)	// -4096 4096 gap
 #define EXPOSE_4345 (CFRAC_4345+BASH_4345+ABC_4345)	// -1024 1024 gap
-#define EXPOSE_4346 (ESPRESSO_4346+SPACE_4346+FLEX_4346)	// -4096 4096 gap
+#define EXPOSE_4346 (ESPRESSO_4346+SPACE_4346+FLEX_4346+MENCODER_4346)	// -4096 4096 gap
 #define EXPOSE_4399 (SPACE_4399+GAWK_4399)
-#define EXPOSE_4425 (ESPRESSO_4425+GAWK_4425+SPACE_4425+FLEX_4425+SED_4425+BASH_4425)	// -1024 1024 gap
-#define EXPOSE_4428 (SPACE_4428+GAWK_4428)
+#define EXPOSE_4425 (ESPRESSO_4425+GAWK_4425+SPACE_4425+FLEX_4425+SED_4425+BASH_4425+MENCODER_4425)	// -1024 1024 gap
+#define EXPOSE_4428 (SPACE_4428+GAWK_4428+MENCODER_4428)	// -1024 4096 gap
 #define EXPOSE_4442 (ESPRESSO_4442)
-#define EXPOSE_4449 (SPACE_4449)
-#define EXPOSE_4536 (GAWK_4536+ABC_4536)	// -1024 1024 gap
+#define EXPOSE_4449 (SPACE_4449+MENCODER_4449)	// -8 32 random
+#define EXPOSE_4536 (GAWK_4536+ABC_4536+MENCODER_4536)	// -1024 1024 gap
 #define EXPOSE_4537 (SPACE_4537+GAWK_4537+ABC_4537)	// -80 1024 gap
 #define EXPOSE_4540 (CFRAC_4540+GAWK_4540+ABC_4540)	// -256 256 gap
 #define EXPOSE_4542 (GAWK_4542+CFRAC_4542)
@@ -3233,7 +3270,7 @@ void instrumentPrint(){
 #define EXPOSE_4794 (CFRAC_4794+ESPRESSO_4794+FLEX_4794+BASH_4794)	// -32 256 gap
 #define EXPOSE_4830 (CFRAC_4830)
 #define EXPOSE_4865 (SPACE_4865)
-#define EXPOSE_4866 (CFRAC_4866+SPACE_4866)
+#define EXPOSE_4866 (CFRAC_4866+SPACE_4866+MENCODER_4866)	// -32 64 gap
 #define EXPOSE_4932 (ESPRESSO_4932+FLEX_4932+BASH_4932+SED_4932)	// -32 256 gap
 
 #define EXPOSE_4893 (CFRAC_4893)
@@ -3241,7 +3278,7 @@ void instrumentPrint(){
 #define EXPOSE_4569 (CFRAC_4569)
 #define EXPOSE_4455 (CFRAC_4455)
 #define EXPOSE_4484 (ESPRESSO_4484)
-#define EXPOSE_4854 (ESPRESSO_4854+SPACE_4854+FLEX_4854)	// -128 128 gap
+#define EXPOSE_4854 (ESPRESSO_4854+SPACE_4854+FLEX_4854+MENCODER_4854)	// -128 128 gap
 #define EXPOSE_4874 (ESPRESSO_4874+ABC_4874)	// boolean
 #define EXPOSE_4910 (ESPRESSO_4910+FLEX_4910+BASH_4910)	// -1024 1024 gap
 #define EXPOSE_4941 (GAWK_4941+SED_4941)	// -8 8 random
@@ -4365,7 +4402,7 @@ static void* mmap_alloc(mstate m, size_t nb) {
 //instrument
 #if INSTRUMENT==1
 virtualMemory+=(int)mmapSize;
-fprintf(stderr, "memory: %d\t%d\t%d mmap_alloc\n", ++allocount, virtualMemory, mandatoryMemory);
+fprintf(stderr, "memory: %d\t%d\t%d mmap_alloc\n", ++allocount, mmapSize, mandatoryMemory);
 //fprintf(stderr, "memory: %d\n", mmapSize);
 #endif
       size_t offset = align_offset(chunk2mem(mm));
@@ -4415,7 +4452,7 @@ static mchunkptr mmap_resize(mstate m, mchunkptr oldp, size_t nb, int flags) {
 // instrument
 #if INSTRUMENT==1
 virtualMemory+=(int)(newmmsize-oldmmsize);
-fprintf(stderr, "memory: %d\t%d\t%d mmap_resize\n", ++allocount, virtualMemory, mandatoryMemory);
+fprintf(stderr, "memory: %d\t%d\t%d mmap_resize\n", ++allocount, (int)(newmmsize-oldmmsize), mandatoryMemory);
 //fprintf(stderr, "memory: %zd\n", newmmsize-oldmmsize);
 #endif
 
@@ -4644,7 +4681,7 @@ initInstrument2();
 #endif
 if(preAddr>0 && postAddr>0){
 	virtualMemory+=(int)(postAddr-preAddr);
-	fprintf(stderr, "memory: %d\t%d\t%d\n", allocount, virtualMemory, mandatoryMemory);
+	fprintf(stderr, "memory: %d\t%d\t%d\n", allocount, (int)(postAddr-preAddr), mandatoryMemory);
 	//fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
 }
 #endif
@@ -4670,7 +4707,7 @@ preAddr=(char*)CALL_MORECORE(0);
 postAddr=(char*)CALL_MORECORE(0);
 if(preAddr>0 && postAddr>0){
 	virtualMemory+=(int)(postAddr-preAddr);
-	fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, virtualMemory, mandatoryMemory);
+	fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, (int)(postAddr-preAddr), mandatoryMemory);
 	//fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
 }
 #endif
@@ -4693,7 +4730,7 @@ preAddr=(char*)CALL_MORECORE(0);
 postAddr=(char*)CALL_MORECORE(0);
 if(preAddr>0 && postAddr>0){
 	virtualMemory+=(int)(postAddr-preAddr);
-	fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, virtualMemory, mandatoryMemory);
+	fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, (int)(postAddr-preAddr), mandatoryMemory);
 	//fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
 }
 #endif
@@ -4714,7 +4751,7 @@ preAddr=(char*)CALL_MORECORE(0);
 postAddr=(char*)CALL_MORECORE(0);
 if(preAddr>0 && postAddr>0){
 	virtualMemory+=(int)(postAddr-preAddr);
-	fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, virtualMemory, mandatoryMemory);
+	fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, (int)(postAddr-preAddr), mandatoryMemory);
 	//fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
 }
 #endif
@@ -4731,7 +4768,7 @@ preAddr=(char*)CALL_MORECORE(0);
 postAddr=(char*)CALL_MORECORE(0);
 if(preAddr>0 && postAddr>0){
 	virtualMemory+=(int)(postAddr-preAddr);
-	fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, virtualMemory, mandatoryMemory);
+	fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, (int)(postAddr-preAddr), mandatoryMemory);
 	//fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
 }
 #endif
@@ -4760,7 +4797,7 @@ if(preAddr>0 && postAddr>0){
 // instrument
 #if INSTRUMENT==1
 virtualMemory+=(int)mmapSize;
-fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, virtualMemory, mandatoryMemory);
+fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, mmapSize, mandatoryMemory);
 //fprintf(stderr, "memory: %d\n", mmapSize);
 #endif
     }
@@ -4780,7 +4817,7 @@ preAddr=(char*)CALL_MORECORE(0);
 postAddr=(char*)CALL_MORECORE(0);
 if(preAddr>0 && postAddr>0){
 	virtualMemory+=(int)(postAddr-preAddr);
-	fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, virtualMemory, mandatoryMemory);
+	fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, (int)(postAddr-preAddr), mandatoryMemory);
 	//fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
 }
 #endif
@@ -4903,7 +4940,7 @@ static size_t release_unused_segments(mstate m) {
 // instrument
 #if INSTRUMENT==1
 virtualMemory-=(int)mmapSize;
-fprintf(stderr, "memory: %d\t%d\t%d release_unused_segments\n", ++allocount, virtualMemory, mandatoryMemory);
+fprintf(stderr, "memory: %d\t%d\t%d release_unused_segments\n", ++allocount, -mmapSize, mandatoryMemory);
 //fprintf(stderr, "memory: %d\n", -mmapSize);
 #endif
           /* unlink obsoleted record */
@@ -4955,7 +4992,7 @@ static int sys_trim(mstate m, size_t pad) {
 // instrument
 #if INSTRUMENT==1
 virtualMemory-=(int)mmapSize;
-fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, virtualMemory, mandatoryMemory);
+fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, -mmapSize, mandatoryMemory);
 //fprintf(stderr, "memory: %d\n", -mmapSize);
 #endif
             }
@@ -4979,7 +5016,7 @@ preAddr=(char*)CALL_MORECORE(0);
 postAddr=(char*)CALL_MORECORE(0);
 if(preAddr>0 && postAddr>0){
 	virtualMemory+=(int)(postAddr-preAddr);
-	fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, virtualMemory, mandatoryMemory);
+	fprintf(stderr, "memory: %d\t%d\t%d\n", ++allocount, (int)(postAddr-preAddr), mandatoryMemory);
 	//fprintf(stderr, "memory: %d\t%p\t%p\n", (int)(postAddr-preAddr), postAddr, preAddr);
 }
 #endif
@@ -5026,7 +5063,7 @@ static void dispose_chunk(mstate m, mchunkptr p, size_t psize) {
 // instrument
 #if INSTRUMENT==1
 virtualMemory-=(int)mmapSize;
-fprintf(stderr, "memory: %d\t%d\t%d dispose_chunk\n", ++allocount, virtualMemory, mandatoryMemory);
+fprintf(stderr, "memory: %d\t%d\t%d dispose_chunk\n", ++allocount, -mmapSize, mandatoryMemory);
 //fprintf(stderr, "memory: %d\n", -mmapSize);
 #endif
 	  }
@@ -5422,7 +5459,7 @@ instrumentPrint();
 // instrument
 #if INSTRUMENT==1
 virtualMemory-=(int)mmapSize;
-fprintf(stderr, "memory: %d\t%d\t%d dlfree\n", ++allocount, virtualMemory, mandatoryMemory);
+fprintf(stderr, "memory: %d\t%d\t%d dlfree\n", ++allocount, -mmapSize, mandatoryMemory);
 //fprintf(stderr, "memory: %d\n", -mmapSize);
 #endif
 			}
@@ -6174,7 +6211,7 @@ mspace create_mspace(size_t capacity, int locked) {
 // instrument
 #if INSTRUMENT==1
 virtualMemory+=(int)mmapSize;
-fprintf(stderr, "memory: %d\t%d\t%d create_mspace\n", ++allocount, virtualMemory, mandatoryMemory);
+fprintf(stderr, "memory: %d\t%d\t%d create_mspace\n", ++allocount, mmapSize, mandatoryMemory);
 //fprintf(stderr, "memory: %d\n", mmapSize);
 #endif
     }
@@ -6231,7 +6268,7 @@ size_t destroy_mspace(mspace msp) {
 // instrument
 #if INSTRUMENT==1
 virtualMemory-=(int)mmapSize;
-fprintf(stderr, "memory: %d\t%d\t%d destroy_mspace\n", ++allocount, virtualMemory, mandatoryMemory);
+fprintf(stderr, "memory: %d\t%d\t%d destroy_mspace\n", ++allocount, -mmapSize, mandatoryMemory);
 //fprintf(stderr, "memory: %d\n", -mmapSize);
 #endif
 	  }
@@ -6404,7 +6441,7 @@ instrumentPrint();
 // instrument
 #if INSTRUMENT==1
 virtualMemory-=(int)mmapSize;
-fprintf(stderr, "memory: %d\t%d\t%d mspace_free\n", ++allocount, virtualMemory, mandatoryMemory);
+fprintf(stderr, "memory: %d\t%d\t%d mspace_free\n", ++allocount, -mmapSize, mandatoryMemory);
 //fprintf(stderr, "memory: %d\n", -mmapSize);
 #endif
 			}

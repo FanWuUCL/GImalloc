@@ -40,19 +40,27 @@ void evaluate(double* time_usr, double* time_sys, double* memory, double* failNu
 		close(fd[1]);
 
 		/* Read in a string from the pipe */
+fprintf(logfp, "e0");
+fflush(logfp);
 		nbytes = read(fd[0], readbuffer, sizeof(readbuffer));
+fprintf(logfp, "e1");
+fflush(logfp);
 		readbuffer[nbytes]='\0';
 		close(fd[0]);
 		//g_printf("read:%s", readbuffer);
 		sscanf(readbuffer, "%lf %lf %lf %lf", time_usr, time_sys, memory, failNum);
 	}
 	gint status;
+fprintf(logfp, "e2");
+fflush(logfp);
 	wait(&status);
+fprintf(logfp, "e3\n");
+fflush(logfp);
 }
 
 double evaluateIndividual(individual* program, gint index){
 	program->time=10000;
-	program->memory=1e20;
+	//program->memory=1e20;
 	program->failNum=10000;
 	gchar* filename=g_malloc0(32*sizeof(gchar));
 	g_snprintf(filename, 32, "libmalloc.so");
@@ -62,17 +70,19 @@ double evaluateIndividual(individual* program, gint index){
 		return 0;
 	}
 	double time_usr, time_sys, memory, failNum;
-	evaluate(&(time_usr), &(time_sys), &(program->memory), &(program->failNum));
+	if(program==ori || randomSearch!=2){
+		evaluate(&(time_usr), &(time_sys), &(program->memory), &(program->failNum));
 
-	//program->time_usr=program->evaluateTimes/(double)(program->evaluateTimes+1)*program->time_usr+1/(double)(program->evaluateTimes+1)*time_usr;
-	//program->time_sys=program->evaluateTimes/(double)(program->evaluateTimes+1)*program->time_sys+1/(double)(program->evaluateTimes+1)*time_sys;
-	program->time_usr=time_usr;
-	program->time_sys=time_sys;
-	program->time=program->time_usr+program->time_sys;
-	program->evaluateTimes++;
-	program->time_repeat[0]=program->time;
+		//program->time_usr=program->evaluateTimes/(double)(program->evaluateTimes+1)*program->time_usr+1/(double)(program->evaluateTimes+1)*time_usr;
+		//program->time_sys=program->evaluateTimes/(double)(program->evaluateTimes+1)*program->time_sys+1/(double)(program->evaluateTimes+1)*time_sys;
+		program->time_usr=time_usr;
+		program->time_sys=time_sys;
+		program->time=program->time_usr+program->time_sys;
+		program->evaluateTimes++;
+		program->time_repeat[0]=program->time;
+	}
 	gint i;
-	if(program->failNum>0 || program->time<=0 || program->memory<=0){
+	if((program==ori || randomSearch!=2) && (program->failNum>0 || program->time<=0 || program->memory<=0)){
 		program->time_usr=1e10;
 		program->time_sys=1e10;
 		program->time=1e10;
@@ -82,9 +92,6 @@ double evaluateIndividual(individual* program, gint index){
 		fflush(stdout);
 	}
 	else{
-		g_printf(".");
-		fprintf(logfp, ".");
-		fflush(stdout);
 /**/
 		program->time=0;
 		saveIndividual(program, filename, 0);
@@ -92,12 +99,20 @@ double evaluateIndividual(individual* program, gint index){
 			evaluate(&time_usr, &time_sys, &memory, &failNum);
 			program->time_repeat[i]=time_usr+time_sys;
 			program->time+=program->time_repeat[i];
-			if(program->time_repeat[i]>ori->time+1){
+			if(program->time_repeat[i]>ori->time+2){
 				break;
 			}
 		}
 		if(i<REPEAT){
 			i++;
+			g_printf("&");
+			fprintf(logfp, "&");
+			fflush(stdout);
+		}
+		else{
+			g_printf(".");
+			fprintf(logfp, ".");
+			fflush(stdout);
 		}
 		program->time/=i;
 

@@ -73,6 +73,12 @@ SUBJECT_PATH_NAME="abc"
 RUN_EXP="true"
 fi
 
+if [ "$1" == "mencoder" ]; then
+SUBJECT_NAME=$1
+SUBJECT_PATH_NAME="mencoder"
+RUN_EXP="true"
+fi
+
 if [ "true" == "$RUN_EXP" ]; then
 
 if [ ! -f "$SUBJECT_NAME"_fitness.txt ]; then

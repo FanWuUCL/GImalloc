@@ -125,6 +125,31 @@ void savePopulation(GList* population, gint generation){
 	g_free(filename);
 }
 
+void saveSelectivePopulation(GList* population, gchar* file){
+	GList* p;
+	individual* ind;
+	p=population;
+	gint index=0, i;
+	FILE* fp=fopen(file, "w+");
+	while(p){
+		ind=p->data;
+		if(ind->paretoLevel==1){
+			fprintf(fp, "m%d\t%lf\t%lf\t%lf\t%d\t%d\t%lf\t%lf\t%lf", index, ind->time, ind->memory, ind->failNum, ind->evaluateTimes, ind->paretoLevel, ind->crowdDistance, ind->time_usr, ind->time_sys);
+			for(i=0; i<numberOfGenes; i++){
+				fprintf(fp, "\t%d", ind->chrom[i]);
+			}
+			for(i=0; i<REPEAT; i++){
+				fprintf(fp, "\t%lf", ind->time_repeat[i]);
+			}
+			fprintf(fp, "\n");
+		}
+		p=p->next;
+		index++;
+	}
+	fprintf(fp, "ori\t%lf\t%lf\n", ori->time, ori->memory);
+	fclose(fp);
+}
+
 individual* copyIndividual(individual* ind){
 	individual* copy=g_malloc0(sizeof(individual));
 	gint i;

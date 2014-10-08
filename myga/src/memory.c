@@ -11,8 +11,11 @@
 #include <fcntl.h>
 #include "subjectSetting.h"
 
-// nanosleep() unit=10us
-#define SLEEP_UNIT 10
+// nanosleep() unit=SLEEP_UNI us
+#define SLEEP_UNIT 100
+#ifndef TIMEOUT
+#define TIMEOUT 1
+#endif
 
 GList* testcases;
 
@@ -41,7 +44,8 @@ gint readProcMemory(gint i){
 			break;
 		}
 		if(g_str_has_prefix(line, "memory:")){
-			sscanf(line, "memory: %d\t%d\t%d", &one, &sum, &requestSum);
+			sscanf(line, "memory: %d\t%d\t%d", &j, &one, &requestSum);
+			sum+=one;
 			if(sum>max) max=sum;
 			if(requestSum>requestMax) requestMax=requestSum;
 		}
@@ -182,6 +186,8 @@ gint profile(double* time_usr, double* time_sys, double* memory, double* correct
 	sleepUnit.tv_sec=0;
 	sleepUnit.tv_nsec=SLEEP_UNIT*1000;
 	for(i=0; i<suiteSize; i++){
+fprintf(logfp, ".");
+fflush(logfp);
 		//j=fullTest? i: randomIntRange(0, length);
 		j=i;
 		g_snprintf(filename, 128, "%sout%d%s", CURRDIR, j, append);
@@ -222,6 +228,8 @@ gint profile(double* time_usr, double* time_sys, double* memory, double* correct
 #ifdef CUSTOM_EXTRA_SAVING
 		CUSTOM_EXTRA_SAVING;
 #endif
+fprintf(logfp, "-");
+fflush(logfp);
 		//g_spawn_close_pid(pid);
 		//fprintf(stderr, "%d samples for case %d.\n", sampleN, j);
 		memory_new_one=readProcMemory(j);
@@ -229,7 +237,13 @@ gint profile(double* time_usr, double* time_sys, double* memory, double* correct
 		memory_new+=memory_new_one;
 		tusr+=usage.ru_utime.tv_sec+(usage.ru_utime.tv_usec)/(double)1000000;
 		tsys+=usage.ru_stime.tv_sec+(usage.ru_stime.tv_usec)/(double)1000000;
+if(i%10==9){
+	fprintf(logfp, "\n");
+	fflush(logfp);
+}
 	}
+fprintf(logfp, "\ncomparison\n");
+fflush(logfp);
 	// cmp the output and summarise the correctness
 	if(timeout<=0){
 		correctness_t=suiteSize-i;
@@ -247,6 +261,8 @@ gint profile(double* time_usr, double* time_sys, double* memory, double* correct
 #endif
 		}
 	}
+fprintf(logfp, "finish\n");
+fflush(logfp);
 	g_free(filename);
 	g_free(append);
 	g_snprintf(line, 128, "%lf %lf %lf %lf\n", tusr, tsys, memory_new/(double)1024, correctness_t);
@@ -307,25 +323,25 @@ void main(int argc, char** argv){
 					timeout_sec=atof(argv[4]);
 				}
 				else{
-					timeout_sec=1;
+					timeout_sec=TIMEOUT;
 				}
 			}
 			else{
 				isStd=1;
-				timeout_sec=1;
+				timeout_sec=TIMEOUT;
 			}
 		}
 		else{
 			TESTCASEDIR=DEFAULT_TESTCASES_DIR;
 			isStd=1;
-			timeout_sec=1;
+			timeout_sec=TIMEOUT;
 		}
 	}
 	else{
 		CURRDIR=DEFAULT_CURR_DIR;
 		TESTCASEDIR=DEFAULT_TESTCASES_DIR;
 		isStd=1;
-		timeout_sec=1;
+		timeout_sec=TIMEOUT;
 	}
 
 	logfp=fopen("population/memoryLog.txt", "w+");

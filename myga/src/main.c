@@ -210,9 +210,7 @@ static void parseArgs(gint argc, gchar** argv){
 				g_printf("Lack of value for %s\n", argv[i]);
 				exit(0);
 			}
-			if(atoi(argv[i+1])==1){
-				randomSearch=1;
-			}
+			randomSearch=atoi(argv[i+1]);
 			i+=2;
 		}
 		else if(g_strcmp0(argv[i], "-h")==0){
@@ -228,9 +226,12 @@ static void parseArgs(gint argc, gchar** argv){
 	if(randomSearch==0){
 		COMBINED_POPULATION_SIZE=(gint)(populationSize*(1+crossoverRate)+1);
 	}
-	else{
+	else if(randomSearch==1){
 		COMBINED_POPULATION_SIZE=populationSize*generationMax;
 		numberOfGenes=NUMBER_OF_SHALLOW_GENE;
+	}
+	else{
+		COMBINED_POPULATION_SIZE=(gint)(populationSize*(1+crossoverRate)+1);
 	}
 }
 
@@ -244,6 +245,12 @@ void main(int argc, char** argv){
 	if(randomSearch==1){
 		g_printf("Random search with %d evaluations.\n", populationSize*generationMax);
 		population=initializeRandPopulation(ori, populationSize*generationMax);
+		savePopulation(population, 999);
+	}
+	else if(randomSearch==2){
+		population=initializePopulationFromFile(ori, populationSize, "sum.txt");
+		verifyPopulation(&population);
+		saveSelectivePopulation(population, "selective.txt");
 	}
 	else{
 		population=initializePopulation(ori, populationSize);
@@ -266,9 +273,8 @@ savePopulation(population, i);
 			t1=(t2-t1)*(generationMax-i-1)+t2;
 			g_printf("Estimated finish time: %s", ctime(&t1));
 		}
-
+		savePopulation(population, 999);
 	}
-	savePopulation(population, 999);
 	free_population(population);
 
 	wrapup();

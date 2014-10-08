@@ -11,4 +11,6 @@ individual* tournamentSelect(GList*);
 
 void calculateFrontier(GList**);
 
+void verifyPopulation(GList** population);
+
 #endif

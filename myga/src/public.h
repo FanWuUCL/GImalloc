@@ -40,6 +40,10 @@
 #define FITNESS_TRANSIT_RATIO 0.5
 // memory profiling unit, out of date
 #define MEMORY_PROFILING_UNIT peak
+// verify times
+#ifndef VERIFY_TIMES
+#define VERIFY_TIMES 10
+#endif
 // user defines
 
 #define DEFAULT_GCC_MALLOC "gcc %s -shared -fPIC -o %s -O3 malloc.c %s"
@@ -151,6 +155,8 @@ gint saveIndividual(individual*, gchar*, gint);
 void printIndividual(individual*);
 
 void savePopulation(GList* , gint);
+
+void saveSelectivePopulation(GList*, gchar*);
 
 individual* copyIndividual(individual*);
 

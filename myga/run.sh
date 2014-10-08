@@ -37,6 +37,8 @@ if [ $subject == "bash" ]; then
 	cp $subject/testcases/* .
 elif [ $subject == "abc" ]; then
 	cp $subject/testcases/* .
+elif [ $subject == "mencoder" ]; then
+	cp $subject/testcases/* .
 else
 	cp -r $subject/testcases .
 fi

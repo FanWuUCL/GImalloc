@@ -128,6 +128,17 @@ cd $curr_path/../memory/src/
 make
 cp ../bin/memory $curr_path/abc/
 
+# Prepare subject mencoder
+cd $curr_path
+echo "Prepare subject: mencoder"
+cd mencoder/src 
+make
+cp mencoder ../../bin
+cp $curr_path/mencoder/subjectSetting.h $curr_path/../memory/src/
+cd $curr_path/../memory/src/
+make
+cp ../bin/memory $curr_path/mencoder/
+
 # Prepare subject hashmap 
 #cd $curr_path
 #echo "Prepare subject: hashmap"

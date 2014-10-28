@@ -1,0 +1,10 @@
+After we profile the non-functional properties of each mutants on a given test suite, we rank these mutants based on an NSGA II-style comparison. That is, assigning the Pareto Level to each mutant so that it doesn't dominate those mutants which have less or equal Pareto Level, then calculating the Crowd Distance within each Pareto Level which indicates how close a mutant is to its neighbors. A mutant is better than another in terms of Pareto Level and Crowd Distance if its Pareto Level is smaller or their Pareto Level is the same but the former is less crowded (bigger Crowd Distance) than the latter. Then we apply a greedy algorithm to pick $k$ locations that could best influence the non-functional properties of the original but don't cover each other, the algorithm is described in Figure ?.
+
+Sort the mutants in terms of their non-functional properties and NSGA II-style comparison: m1, m2, ..., mn.
+$LS=\emptyset, i=1$
+While $|LS|<k$; do
+\t$LS=LS \unite {L}, \text{if} L \text{involves} L_mi \&\& \forall L' \in LS, L' \text{doesn't cover} L$
+\t$i=i+1$
+done while
+
+In the algorithm, $k$ is the desired number of Deep Parameters one wants to expose. 

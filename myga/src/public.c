@@ -146,7 +146,7 @@ void saveSelectivePopulation(GList* population, gchar* file){
 		p=p->next;
 		index++;
 	}
-	fprintf(fp, "ori\t%lf\t%lf\n", ori->time, ori->memory);
+	fprintf(fp, "ori\t%lf\t%lf\t%lf\n", ori->time, ori->memory, ori->failNum);
 	fclose(fp);
 }
 

@@ -29,6 +29,8 @@ double timeout_sec;
 
 int allRequestPeak;
 
+int noe;
+
 gint readProcMemory(gint i){
 	gchar* filename=g_malloc(128*sizeof(gchar));
 	gchar* line=g_malloc(128*sizeof(gchar));
@@ -45,6 +47,7 @@ gint readProcMemory(gint i){
 		}
 		if(g_str_has_prefix(line, "memory:")){
 			sscanf(line, "memory: %d\t%d\t%d", &j, &one, &requestSum);
+			noe++;
 			sum+=one;
 			if(sum>max) max=sum;
 			if(requestSum>requestMax) requestMax=requestSum;
@@ -153,6 +156,7 @@ gint profile(double* time_usr, double* time_sys, double* memory, double* correct
 	double tusr=0, tsys=0, correctness_t=0;
 	gint memory_new=0, memory_new_one=0;
 	allRequestPeak=0;
+	noe=0;
 	gchar* line;
 	gchar* filename=g_malloc(128*sizeof(gchar));
 	gchar* append=g_malloc(8*sizeof(gchar));
@@ -237,6 +241,17 @@ fflush(logfp);
 		memory_new+=memory_new_one;
 		tusr+=usage.ru_utime.tv_sec+(usage.ru_utime.tv_usec)/(double)1000000;
 		tsys+=usage.ru_stime.tv_sec+(usage.ru_stime.tv_usec)/(double)1000000;
+		// when the total execution time exceeds time limit, directly return
+//fprintf(logfp, "<%lf>", tusr+tsys);
+//fflush(logfp);
+		if(isStd==0){
+			g_snprintf(filename, 128, "%sout%d", CURRDIR, j);
+			g_snprintf(line, 128, "%sout%d.s", CURRDIR, j);
+			if(cmpOutput(filename, line) || tusr+tsys>timeout_sec){
+				timeout=-1;
+				break;
+			}
+		}
 if(i%10==9){
 	fprintf(logfp, "\n");
 	fflush(logfp);
@@ -346,6 +361,8 @@ void main(int argc, char** argv){
 
 	logfp=fopen("population/memoryLog.txt", "w+");
 	readTestcases();
+fprintf(logfp, "timeout_sec=%lf\n", timeout_sec);
+fflush(logfp);
 	double time, time_usr, time_sys, memory, correctness;
 	profile(&time_usr, &time_sys, &memory, &correctness, 0, isStd);
 	freeTestcases();

@@ -73,8 +73,6 @@ double evaluateIndividual(individual* program, gint index){
 	if(program==ori || randomSearch!=2){
 		evaluate(&(time_usr), &(time_sys), &(program->memory), &(program->failNum));
 
-		//program->time_usr=program->evaluateTimes/(double)(program->evaluateTimes+1)*program->time_usr+1/(double)(program->evaluateTimes+1)*time_usr;
-		//program->time_sys=program->evaluateTimes/(double)(program->evaluateTimes+1)*program->time_sys+1/(double)(program->evaluateTimes+1)*time_sys;
 		program->time_usr=time_usr;
 		program->time_sys=time_sys;
 		program->time=program->time_usr+program->time_sys;
@@ -83,6 +81,7 @@ double evaluateIndividual(individual* program, gint index){
 	}
 	gint i;
 	if((program==ori || randomSearch!=2) && (program->failNum>0 || program->time<=0 || program->memory<=0)){
+	//if((program->time<=0 || program->memory<=0)){
 		program->time_usr=1e10;
 		program->time_sys=1e10;
 		program->time=1e10;
@@ -97,9 +96,10 @@ double evaluateIndividual(individual* program, gint index){
 		saveIndividual(program, filename, 0);
 		for(i=0; i<REPEAT; i++){
 			evaluate(&time_usr, &time_sys, &memory, &failNum);
+			program->evaluateTimes++;
 			program->time_repeat[i]=time_usr+time_sys;
 			program->time+=program->time_repeat[i];
-			if(program->time_repeat[i]>ori->time+2){
+			if(program->time_repeat[i]>ori->time*TIMEOUT_MULTIPLE){
 				break;
 			}
 		}

@@ -160,6 +160,7 @@ void calculateFrontier(GList** population){
 		crowding_distance_assignment(front, tmpint);
 		frontLevel--;
 	}
+	g_free(front);
 }
 
 void selection(GList** population){

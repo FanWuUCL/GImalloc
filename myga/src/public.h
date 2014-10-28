@@ -27,9 +27,13 @@
 // nanosleep() unit=10us
 #define SLEEP_UNIT 10
 // default timeout in sec
-#define DEFAULT_TIMEOUT_SEC 5
+#ifdef TIMEOUT
+#define DEFAULT_TIMEOUT_SEC TIMEOUT
+#else
+#define DEFAULT_TIMEOUT_SEC 2
+#endif
 // timeout in multiple of original time consumption
-#define TIMEOUT_MULTIPLE 2
+#define TIMEOUT_MULTIPLE 1.2
 // sample number for testcases
 #define CASES_PER_PROG 20
 // # of times a testcase should be run against for
@@ -58,6 +62,7 @@ double crossoverRate;
 gint numberOfGenes;
 double timeout_sec;
 gint randomSearch;
+gint extraEvaluation;
 
 gint profile_times;
 

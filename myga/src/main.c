@@ -59,20 +59,19 @@ void readStdMemory(){
 	memoryUsage *stdM=g_malloc0(sizeof(memoryUsage));
 	gint i;
 	double time_usr, time_sys, memory, failNum;
-	//profile(&time_usr, &time_sys, &memory, &failNum, 0);
 	evaluate(&time_usr, &time_sys, &memory, &failNum);
 	stdM->timeUsr=time_usr+time_sys;
 	stdM->MEMORY_PROFILING_UNIT=memory;
 	stdM->failNum=failNum;
 	for(i=1; i<REPEAT; i++){
-		//profile(&time_usr, &time_sys, &memory, &failNum, 0);
 		evaluate(&time_usr, &time_sys, &memory, &failNum);
 		stdM->timeUsr+=time_usr+time_sys;
 		if(stdM->MEMORY_PROFILING_UNIT<memory) stdM->MEMORY_PROFILING_UNIT=memory;
 	}
 	stdM->timeUsr/=REPEAT;
+	ori->time=stdM->timeUsr;
 	if(stdM->timeUsr*TIMEOUT_MULTIPLE>timeout_sec){
-		timeout_sec=(gint)stdM->timeUsr*TIMEOUT_MULTIPLE;
+		timeout_sec=stdM->timeUsr*TIMEOUT_MULTIPLE;
 	}
 	stdMemoryAvg=g_list_append(stdMemoryAvg, stdM);
 	profile_times++;
@@ -142,6 +141,7 @@ static void printManual(){
 	g_printf("\t-c\tcrossover rate, not necessary equals to (1-m), default 0.8\n");
 	g_printf("\t-d\twhether include deep parameters, 0 means don't include whilst 1 include, default 1\n");
 	g_printf("\t-r\truning random search, 1 means using random search whilst 0 using NSGA II, default 0\n");
+	g_printf("\t-e\textra evalutions, number of randomly generated individuals as seeds before any algorithm, default 0\n");
 	g_printf("\t-h\tprint this manual\n");
 }
 
@@ -153,6 +153,7 @@ static void parseArgs(gint argc, gchar** argv){
 	numberOfGenes=NUMBER_OF_GENE;
 	timeout_sec=DEFAULT_TIMEOUT_SEC;
 	randomSearch=0;
+	extraEvaluation=0;
 	gint i=1;
 	while(i<argc){
 		if(g_strcmp0(argv[i], "-p")==0){
@@ -213,6 +214,14 @@ static void parseArgs(gint argc, gchar** argv){
 			randomSearch=atoi(argv[i+1]);
 			i+=2;
 		}
+		else if(g_strcmp0(argv[i], "-e")==0){
+			if(i+1>=argc){
+				g_printf("Lack of value for %s\n", argv[i]);
+				exit(0);
+			}
+			extraEvaluation=atoi(argv[i+1]);
+			i+=2;
+		}
 		else if(g_strcmp0(argv[i], "-h")==0){
 			printManual();
 			exit(0);
@@ -224,11 +233,10 @@ static void parseArgs(gint argc, gchar** argv){
 		}
 	}
 	if(randomSearch==0){
-		COMBINED_POPULATION_SIZE=(gint)(populationSize*(1+crossoverRate)+1);
+		COMBINED_POPULATION_SIZE=extraEvaluation>populationSize?extraEvaluation:populationSize;
 	}
 	else if(randomSearch==1){
-		COMBINED_POPULATION_SIZE=populationSize*generationMax;
-		numberOfGenes=NUMBER_OF_SHALLOW_GENE;
+		COMBINED_POPULATION_SIZE=populationSize*generationMax+extraEvaluation;
 	}
 	else{
 		COMBINED_POPULATION_SIZE=(gint)(populationSize*(1+crossoverRate)+1);
@@ -244,7 +252,7 @@ void main(int argc, char** argv){
 
 	if(randomSearch==1){
 		g_printf("Random search with %d evaluations.\n", populationSize*generationMax);
-		population=initializeRandPopulation(ori, populationSize*generationMax);
+		population=initializeRandPopulation(ori, populationSize*generationMax+extraEvaluation);
 		savePopulation(population, 999);
 	}
 	else if(randomSearch==2){
@@ -253,8 +261,8 @@ void main(int argc, char** argv){
 		saveSelectivePopulation(population, "selective.txt");
 	}
 	else{
-		population=initializePopulation(ori, populationSize);
-	
+		population=initializeRandPopulation(ori, extraEvaluation>populationSize?extraEvaluation:populationSize);
+		COMBINED_POPULATION_SIZE=(gint)(populationSize*(1+crossoverRate)+1);
 		int i;
 		int j;
 		time_t t1, t2;

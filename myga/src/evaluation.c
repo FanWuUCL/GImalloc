@@ -15,7 +15,9 @@ void evaluate(double* time_usr, double* time_sys, double* memory, double* failNu
 	gint fd[2], nbytes;
 	pid_t   childpid;
 	gchar readbuffer[128];
+	gchar ss[32];
 	g_snprintf(readbuffer, 128, "%lf", timeout_sec);
+	g_snprintf(ss, 32, "%d", sampleSize);
 	pipe(fd);
 
 	if((childpid = fork()) == -1)
@@ -31,7 +33,7 @@ void evaluate(double* time_usr, double* time_sys, double* memory, double* failNu
 
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
-		execl("memory", "memory", CURRDIR, TESTCASEDIR, profile_times==0?"1":"0", readbuffer, (gchar*)0);
+		execl("memory", "memory", CURRDIR, TESTCASEDIR, profile_times==0?"1":"0", readbuffer, ss, (gchar*)0);
 		perror("exec");
 		exit(0);
 	}
@@ -120,4 +122,16 @@ double evaluateIndividual(individual* program, gint index){
 	profile_times++;
 	g_free(filename);
 	return 0;
+}
+
+void evaluatePopulation(GList* population){
+	individual* ind;
+	gint i=0, length=g_list_length(population);
+	GList* p=population;
+	while(p!=NULL){
+		ind=p->data;
+		evaluateIndividual(ind, i);
+		p=p->next;
+		i++;
+	}
 }

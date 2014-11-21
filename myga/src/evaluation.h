@@ -8,4 +8,6 @@
 
 double evaluateIndividual(individual*, gint);
 
+void evaluatePopulation(GList* population);
+
 #endif

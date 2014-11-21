@@ -63,6 +63,8 @@ gint numberOfGenes;
 double timeout_sec;
 gint randomSearch;
 gint extraEvaluation;
+gint sampleSize;
+double samplingGeneration;
 
 gint profile_times;
 
@@ -119,6 +121,7 @@ typedef struct _individual{
 	struct _individual** dominateSet;
 	gint dominateCount;
 	gint beDominatedCount;
+	gint wasSelected;
 }individual;
 
 typedef struct _memoryUsage{

@@ -38,14 +38,16 @@ gint crossover(GList** population){
 	gint num, length=g_list_length(*population), pos=0;
 	individual* parent1, *parent2, *child1, *child2;
 	mutType mt;
-	/* re-evaluate the population from the last generation 
+	
 	GList* p=*population;
 	while(p!=NULL){
 		parent1=p->data;
-		evaluateIndividual(parent1, pos++);
+		parent1->wasSelected=0;
+		/* re-evaluate the population from the last generation 
+		evaluateIndividual(parent1, pos++);*/
 		p=p->next;
 	}
-*/
+
 	for(num=0; num<populationSize*crossoverRate; num+=2){
 		//g_printf("crossover %d, size=%d\n", num+1, g_list_length(*population));
 		parent1=tournamentSelect(*population);

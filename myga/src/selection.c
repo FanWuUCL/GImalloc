@@ -235,14 +235,54 @@ void selection(GList** population){
 
 individual* tournamentSelect(GList* population){
 	gint size=g_list_length(population);
-	gint i;
-	individual* candidate=g_list_nth_data(population, randomIntRange(0, size));
-	individual* comp;
-	for(i=1; i<TOURNAMENT_SIZE; i++){
-		comp=g_list_nth_data(population, randomIntRange(0, size));
-		if(cmpIndividual(comp, candidate)>0) candidate=comp;
+	gint i, j;
+	individual* pool[TOURNAMENT_SIZE];
+	gint* selection=g_malloc0(size*sizeof(gint));
+	gint numberOfSelected=0;
+
+	GList* index=population;
+	individual* ind;
+	while(index!=NULL){
+		ind=index->data;
+		if(ind->wasSelected) numberOfSelected++;
+		index=index->next;
 	}
-	return candidate;
+
+	// select candidates from those haven't been selected
+	index=population;
+	for(i=0; i<TOURNAMENT_SIZE; i++){
+		if(numberOfSelected>=size) break;
+		j=randomIntRange(1, size+1-numberOfSelected);
+		while(j>0){
+			index=index->next;
+			if(index==NULL) index=population;
+			ind=index->data;
+			if(ind->wasSelected==0){
+				j--;
+			}
+		}
+		pool[i]=ind;
+		ind->wasSelected==1;
+		numberOfSelected++;
+	}
+	if(i==0){
+		g_printf("All individuals were selected. Exit.\n");
+		exit(0);
+	}
+	
+	gint candidate=0;
+	for(j=1; j<i; j++){
+		if(cmpIndividual(pool[j], pool[candidate])>0){
+			pool[candidate]->wasSelected=0;
+			candidate=j;
+		}
+		else{
+			pool[j]->wasSelected=0;
+		}
+	}
+	
+	g_free(selection);
+	return pool[candidate];
 }
 
 // evaluate every individual VERIFY_TIMES times
@@ -259,6 +299,7 @@ void verifyPopulation(GList** population){
 	g_printf("\n");
 	ori->time=accTime/VERIFY_TIMES;
 	ori->memory=accMemory/VERIFY_TIMES;
+	if(*population==NULL) return;
 	gint failTimes;
 	for(num=0; num<length; num++){
 		accTime=0;	

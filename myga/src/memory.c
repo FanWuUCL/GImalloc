@@ -17,6 +17,8 @@
 #define TIMEOUT 1
 #endif
 
+#define STD_EVALUATION_TIMES 3
+
 GList* testcases;
 
 gchar* CURRDIR;
@@ -30,6 +32,8 @@ double timeout_sec;
 int allRequestPeak;
 
 int noe;
+
+GRand* randomUtility;
 
 gint readProcMemory(gint i){
 	gchar* filename=g_malloc(128*sizeof(gchar));
@@ -154,7 +158,10 @@ gint mycp(const char *from, const char *to)
 
 gint profile(double* time_usr, double* time_sys, double* memory, double* correctness, gint suiteSize, gint isStd){
 	double tusr=0, tsys=0, correctness_t=0;
-	gint memory_new=0, memory_new_one=0;
+	double stdTime=0;
+	gint stdMemory=0;
+	gint memory_new_one=0;
+	double memory_new=0;
 	allRequestPeak=0;
 	noe=0;
 	gchar* line;
@@ -162,13 +169,60 @@ gint profile(double* time_usr, double* time_sys, double* memory, double* correct
 	gchar* append=g_malloc(8*sizeof(gchar));
 	if(isStd) g_snprintf(append, 32, ".s");
 	else append[0]='\0';
-	gint i, j, length=g_list_length(testcases);
-	gint fullTest=1;
-	if(suiteSize==0 || suiteSize>length){
+	gint i, j, k, length=g_list_length(testcases);
+	//gint fullTest=1;
+	gint* testSuite=g_malloc0(length*sizeof(gint));
+	double* testResults=g_malloc0(length*sizeof(double));
+	gint* testMemory=g_malloc0(length*sizeof(gint));
+	gint flippedSize, index;
+	FILE* resultsFile;
+
+	if(isStd>0 || suiteSize<=0 || suiteSize>length){
 		suiteSize=length;
+		for(i=0; i<suiteSize; i++){
+			testSuite[i]=1;
+		}
 	}
-	else{
-		suiteSize=length;
+	else{		// randomly sample testcases
+		if(suiteSize>length/2){
+			flippedSize=length-suiteSize;
+		}
+		else{
+			flippedSize=suiteSize;
+		}
+		index=0;
+		for(i=0; i<flippedSize; i++){
+			j=g_rand_int_range(randomUtility, 1, length+1-i);
+			while(j>0){
+				index++;
+				if(index>=length){
+					index-=length;
+				}
+				if(testSuite[index]==0){
+					j--;
+				}
+			}
+			testSuite[index]=1;
+		}
+		if(flippedSize!=suiteSize){
+			for(i=0; i<length; i++){
+				testSuite[i]=1-testSuite[i];
+			}
+		}
+	}
+	// read testResults file
+	if(!isStd){
+		g_snprintf(filename, 128, "%stestResults.txt", CURRDIR);
+		resultsFile=fopen(filename, "r");
+		for(i=0; i<length; i++){
+			fgets(filename, 128, resultsFile);
+			sscanf(filename, "%lf\t%d", &testResults[i], &testMemory[i]);
+			if(testSuite[i]){
+				stdTime+=testResults[i];
+				stdMemory+=testMemory[i];
+			}
+		}
+		fclose(resultsFile);
 	}
 	// clean the output files
 	for(i=0; i<length; i++){
@@ -179,7 +233,7 @@ gint profile(double* time_usr, double* time_sys, double* memory, double* correct
 	}
 	line=g_malloc(512*sizeof(gchar));
 	gchar **cmdv=NULL;
-	gint pid, mpid, sampleN;
+	gint pid, mpid;
 	FILE *mfp;
 	tusr=0;
 	tsys=0;
@@ -189,102 +243,128 @@ gint profile(double* time_usr, double* time_sys, double* memory, double* correct
 	struct timespec sleepUnit;
 	sleepUnit.tv_sec=0;
 	sleepUnit.tv_nsec=SLEEP_UNIT*1000;
-	for(i=0; i<suiteSize; i++){
-fprintf(logfp, ".");
-fflush(logfp);
-		//j=fullTest? i: randomIntRange(0, length);
-		j=i;
-		g_snprintf(filename, 128, "%sout%d%s", CURRDIR, j, append);
-		sampleN=0;
-		g_snprintf(line, 512, "subject %s%s", TESTCASEDIR, (char*)g_list_nth_data(testcases, j));
-		g_shell_parse_argv(line, NULL, &cmdv, NULL);
-		if((pid=fork())<0){
-			g_printf("fork() for subject execution failed.\n");
-			exit(0);
-		}
-		if(pid==0){
-			if(g_freopen(filename, "w", stdout)==NULL) perror("redirect to file failed.");
-			g_snprintf(filename, 128, "%sprocMemory%d", CURRDIR, j);
-			if(g_freopen(filename, "w", stderr)==NULL) perror("redirect stderr to file failed.");
-			execv("subject", cmdv);
-			fprintf(logfp, "execv() failed.\n");
-			fflush(logfp);
-			exit(0);
-		}
-		g_strfreev(cmdv);
-
-		// parent process, wait for pid
-		if(isStd){
-			wait4(pid, &tmp_int, 0, &usage);
-		}
-		else{
-			timeout=(gint)(timeout_sec*1000000/SLEEP_UNIT);
-			while(timeout>0 && wait4(pid, &tmp_int, WNOHANG, &usage)==0){
-				timeout--;
-				nanosleep(&sleepUnit, NULL);
-			}
-			if(timeout<=0){
-				kill(pid, SIGKILL);
-				waitpid(pid, &tmp_int, 0);
-				break;
-			}
-		}
-#ifdef CUSTOM_EXTRA_SAVING
-		CUSTOM_EXTRA_SAVING;
-#endif
-fprintf(logfp, "-");
-fflush(logfp);
-		//g_spawn_close_pid(pid);
-		//fprintf(stderr, "%d samples for case %d.\n", sampleN, j);
-		memory_new_one=readProcMemory(j);
-		//fprintf(stderr, "heap=%d, for case %d.\n", memory_new_one, j);
-		memory_new+=memory_new_one;
-		tusr+=usage.ru_utime.tv_sec+(usage.ru_utime.tv_usec)/(double)1000000;
-		tsys+=usage.ru_stime.tv_sec+(usage.ru_stime.tv_usec)/(double)1000000;
-		// when the total execution time exceeds time limit, directly return
-//fprintf(logfp, "<%lf>", tusr+tsys);
-//fflush(logfp);
-		if(isStd==0){
-			g_snprintf(filename, 128, "%sout%d", CURRDIR, j);
-			g_snprintf(line, 128, "%sout%d.s", CURRDIR, j);
-			if(cmpOutput(filename, line) || tusr+tsys>timeout_sec){
-				timeout=-1;
-				break;
-			}
-		}
-if(i%10==9){
-	fprintf(logfp, "\n");
-	fflush(logfp);
-}
-	}
-fprintf(logfp, "\ncomparison\n");
-fflush(logfp);
-	// cmp the output and summarise the correctness
-	if(timeout<=0){
-		correctness_t=suiteSize-i;
+	gint stdEvalTimes;
+	if(isStd){
+		stdEvalTimes=STD_EVALUATION_TIMES;
 	}
 	else{
+		stdEvalTimes=1;
+	}
+	for(k=0; k<stdEvalTimes; k++){
+		for(i=0; i<length; i++){
+			if(testSuite[i]==0){
+				continue;
+			}
+			j=i;
+			g_snprintf(filename, 128, "%sout%d%s", CURRDIR, j, append);
+			g_snprintf(line, 512, "subject %s%s", TESTCASEDIR, (char*)g_list_nth_data(testcases, j));
+			g_shell_parse_argv(line, NULL, &cmdv, NULL);
+			if((pid=fork())<0){
+				g_printf("fork() for subject execution failed.\n");
+				exit(0);
+			}
+			if(pid==0){
+				if(g_freopen(filename, "w", stdout)==NULL) perror("redirect to file failed.");
+				g_snprintf(filename, 128, "%sprocMemory%d", CURRDIR, j);
+				if(g_freopen(filename, "w", stderr)==NULL) perror("redirect stderr to file failed.");
+				execv("subject", cmdv);
+				fprintf(logfp, "execv() failed.\n");
+				fflush(logfp);
+				exit(0);
+			}
+			g_strfreev(cmdv);
+
+			// parent process, wait for pid
+			if(isStd){
+				wait4(pid, &tmp_int, 0, &usage);
+			}
+			else{
+				timeout=(gint)(timeout_sec*1000000/SLEEP_UNIT);
+				while(timeout>0 && wait4(pid, &tmp_int, WNOHANG, &usage)==0){
+					timeout--;
+					nanosleep(&sleepUnit, NULL);
+				}
+				if(timeout<=0){
+					kill(pid, SIGKILL);
+					waitpid(pid, &tmp_int, 0);
+					break;
+				}
+			}
+#ifdef CUSTOM_EXTRA_SAVING
+			CUSTOM_EXTRA_SAVING;
+#endif
+			//g_spawn_close_pid(pid);
+			memory_new_one=readProcMemory(j);
+			if(isStd && k==0){
+				testMemory[i]=memory_new_one;
+			}
+			memory_new+=memory_new_one;
+			tmp_double=usage.ru_utime.tv_sec+(usage.ru_utime.tv_usec)/(double)1000000;
+			if(isStd){
+				testResults[i]+=tmp_double;
+			}
+			tusr+=tmp_double;
+			tmp_double=usage.ru_stime.tv_sec+(usage.ru_stime.tv_usec)/(double)1000000;
+			if(isStd){
+				testResults[i]+=tmp_double;
+			}
+			tsys+=tmp_double;
+			// when the total execution time exceeds time limit, directly return
+			if(isStd==0){
+				g_snprintf(filename, 128, "%sout%d", CURRDIR, j);
+				g_snprintf(line, 128, "%sout%d.s", CURRDIR, j);
+				if(cmpOutput(filename, line) || tusr+tsys>timeout_sec){
+					timeout=-1;
+					break;
+				}
+			}
+		}
+	}
+	// cmp the output and summarise the correctness
+	if(timeout<=0){
+		correctness_t=i+1;
+	}
+	else{
+		tusr/=stdEvalTimes;
+		tsys/=stdEvalTimes;
+		memory_new/=stdEvalTimes;
 		if(isStd==0){
 #ifdef CUSTOM_CORRECTNESS
 			CUSTOM_CORRECTNESS;
 #else
 			for(i=0; i<length; i++){
+				if(testSuite[i]==0){
+					continue;
+				}
 				g_snprintf(filename, 128, "%sout%d", CURRDIR, i);
 				g_snprintf(line, 128, "%sout%d.s", CURRDIR, i);
 				correctness_t+=cmpOutput(filename, line);
 			}
 #endif
+			tusr/=stdTime;
+			tsys/=stdTime;
+			memory_new/=stdMemory;
+		}
+		else{
+			g_snprintf(filename, 128, "%stestResults.txt", CURRDIR);
+			resultsFile=fopen(filename, "w+");
+			for(i=0; i<length; i++){
+				g_fprintf(resultsFile, "%lf\t%d\n", testResults[i]/stdEvalTimes, testMemory[i]);
+			}
+			fclose(resultsFile);
+			memory_new/=1024;
 		}
 	}
-fprintf(logfp, "finish\n");
-fflush(logfp);
 	g_free(filename);
 	g_free(append);
-	g_snprintf(line, 128, "%lf %lf %lf %lf\n", tusr, tsys, memory_new/(double)1024, correctness_t);
+	g_snprintf(line, 128, "%lf %lf %lf %lf\n", tusr, tsys, memory_new, correctness_t);
 	gint lineLength=strlen(line);
 	write(STDOUT_FILENO, line, lineLength);
 	//g_printf("%d\n", allRequestPeak);
 	g_free(line);
+	g_free(testSuite);
+	g_free(testResults);
+	g_free(testMemory);
 	*time_usr=tusr;
 	*time_sys=tsys;
 	*memory=memory_new/(double)1024;
@@ -303,6 +383,7 @@ void readTestcases(){
 	while(!feof(fp)){
 		line=g_malloc0(128*sizeof(gchar));
 		if(!fgets(line, 128, fp)){
+			g_free(line);
 			continue;
 		}
 		i=0;
@@ -327,7 +408,8 @@ void freeTestcases(){
 }
 
 void main(int argc, char** argv){
-	gint isStd;
+	gint isStd=1;
+	gint suiteSize=0;
 	if(argc>=2){
 		CURRDIR=argv[1];
 		if(argc>=3){
@@ -336,6 +418,10 @@ void main(int argc, char** argv){
 				isStd=atoi(argv[3]);
 				if(argc>=5){
 					timeout_sec=atof(argv[4]);
+					if(argc>=6){
+						suiteSize=atoi(argv[5]);
+					
+					}
 				}
 				else{
 					timeout_sec=TIMEOUT;
@@ -359,12 +445,14 @@ void main(int argc, char** argv){
 		timeout_sec=TIMEOUT;
 	}
 
+	randomUtility=g_rand_new();
 	logfp=fopen("population/memoryLog.txt", "w+");
 	readTestcases();
 fprintf(logfp, "timeout_sec=%lf\n", timeout_sec);
 fflush(logfp);
-	double time, time_usr, time_sys, memory, correctness;
-	profile(&time_usr, &time_sys, &memory, &correctness, 0, isStd);
+	double time=0, time_usr=0, time_sys=0, memory=0, correctness=0;
+	profile(&time_usr, &time_sys, &memory, &correctness, suiteSize, isStd);
 	freeTestcases();
 	fclose(logfp);
+	g_rand_free(randomUtility);
 }

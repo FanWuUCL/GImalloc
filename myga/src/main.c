@@ -142,6 +142,7 @@ static void printManual(){
 	g_printf("\t-d\twhether include deep parameters, 0 means don't include whilst 1 include, default 1\n");
 	g_printf("\t-r\truning random search, 1 means using random search whilst 0 using NSGA II, default 0\n");
 	g_printf("\t-e\textra evalutions, number of randomly generated individuals as seeds before any algorithm, default 0\n");
+	g_printf("\t-s\ttestsuite sample number, in the first several generations, only evaluate the performance on sampled test cases, 0 means full test, default 0\n");
 	g_printf("\t-h\tprint this manual\n");
 }
 
@@ -154,6 +155,8 @@ static void parseArgs(gint argc, gchar** argv){
 	timeout_sec=DEFAULT_TIMEOUT_SEC;
 	randomSearch=0;
 	extraEvaluation=0;
+	sampleSize=0;
+	samplingGeneration=0.5;
 	gint i=1;
 	while(i<argc){
 		if(g_strcmp0(argv[i], "-p")==0){
@@ -222,6 +225,14 @@ static void parseArgs(gint argc, gchar** argv){
 			extraEvaluation=atoi(argv[i+1]);
 			i+=2;
 		}
+		else if(g_strcmp0(argv[i], "-s")==0){
+			if(i+1>=argc){
+				g_printf("Lack of value for %s\n", argv[i]);
+				exit(0);
+			}
+			sampleSize=atoi(argv[i+1]);
+			i+=2;
+		}
 		else if(g_strcmp0(argv[i], "-h")==0){
 			printManual();
 			exit(0);
@@ -233,7 +244,7 @@ static void parseArgs(gint argc, gchar** argv){
 		}
 	}
 	if(randomSearch==0){
-		COMBINED_POPULATION_SIZE=extraEvaluation>populationSize?extraEvaluation:populationSize;
+		COMBINED_POPULATION_SIZE=extraEvaluation>populationSize?extraEvaluation:(gint)(populationSize*(1+crossoverRate)+1);
 	}
 	else if(randomSearch==1){
 		COMBINED_POPULATION_SIZE=populationSize*generationMax+extraEvaluation;
@@ -251,8 +262,8 @@ void main(int argc, char** argv){
 	printStdComsumption();
 
 	if(randomSearch==1){
-		g_printf("Random search with %d evaluations.\n", populationSize*generationMax);
-		population=initializeRandPopulation(ori, populationSize*generationMax+extraEvaluation);
+		g_printf("Random search with %d evaluations.\n", (int)(populationSize*generationMax*crossoverRate+extraEvaluation));
+		population=initializeRandPopulation(ori, (int)(populationSize*generationMax*crossoverRate+extraEvaluation));
 		savePopulation(population, 999);
 	}
 	else if(randomSearch==2){
@@ -269,6 +280,12 @@ void main(int argc, char** argv){
 		for(i=0; i<generationMax; i++){
 			t1=time(NULL);
 			g_printf("\n========================GENERATION %d=========================\n", i);
+			if(sampleSize>0 && i>=generationMax*samplingGeneration){
+				sampleSize=0;
+				g_printf("Transfer to full-test.\n");
+				evaluatePopulation(population);
+				g_printf("\n");
+			}
 			crossover(&population);
 savePopulation(population, i);
 			selection(&population);

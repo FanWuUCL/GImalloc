@@ -33,7 +33,7 @@
 #define DEFAULT_TIMEOUT_SEC 2
 #endif
 // timeout in multiple of original time consumption
-#define TIMEOUT_MULTIPLE 1.2
+#define TIMEOUT_MULTIPLE 2
 // sample number for testcases
 #define CASES_PER_PROG 20
 // # of times a testcase should be run against for

@@ -101,7 +101,7 @@ double evaluateIndividual(individual* program, gint index){
 			program->evaluateTimes++;
 			program->time_repeat[i]=time_usr+time_sys;
 			program->time+=program->time_repeat[i];
-			if(program->time_repeat[i]>ori->time*TIMEOUT_MULTIPLE){
+			if(program->time_repeat[i]>TIMEOUT_MULTIPLE){
 				break;
 			}
 		}

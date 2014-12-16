@@ -1,67 +1,76 @@
 
 \section{Results}
 \label{sec_results}
-\subsection{Matrics}
+\subsection{Metrics}
 \label{sec_matrics}
 
-In order to answer RQ1 and RQ2, we collect the non-dominated set of solutions from each algorithm for 30 runs, and report it in an attainment-surface as introduced by Fonseca\cite{attainment_surface:1996}. To quantitatively compare the quality of each algorithm, we calculate Hypervolume, Contribution and Diversity indicators to assess multi-objective Pareto Front.
+In order to answer RQ1 and RQ2, we collect the non-dominated set of solutions from each algorithm for 30 runs, and report it in an attainment-surface as introduced by Fonseca \cite{attainment_surface:1996}. To quantitatively compare the quality of each algorithm, we calculate Hypervolume, Contribution and Diversity indicators to assess multi-objective Pareto Front.
 
-\textbf{Hypervolume}: The Hypervolume indicator\cite{797969} denotes the space dominated by any of the solutions on the Pareto Front. It is calculated as the hypervolume of the union of hypercubes dominated by each solution on the Front. The bigger the Hypervolume is, the more area is donimated by the Pareto Front in the objective space.
+\textbf{Hypervolume}: The Hypervolume indicator \cite{797969} denotes the space dominated by any of the solutions on the Pareto Front. It is calculated as the hypervolume of the union of hypercubes dominated by each solution on the Front. The bigger the Hypervolume is, the more area is donimated by the Pareto Front in the objective space.
 
-\textbf{Contribution}: Since there is no way to know the true Pareto Front, we use the non-dominated set of joint solutions from all experiments to approximate the true Pareto Front. In this case, Contribution indicator represents the ratio of solutions on the true Pareto Front are found by a given algorithm.
+\textbf{Contribution}: Since there is no way to know the true Pareto Front, we use the non-dominated set of joint solutions from all experiments to approximate the true Pareto Front. In this case, the Contribution indicator represents the ratio of solutions on the true Pareto Front are found by a given algorithm.
 
-\textbf{Diversity}: We are also interested in how the solutions found by a given algorithm spread over the Pareto Front. Intuitively, we would like the solutions to be uniformly distributed. The Diversity indicator introduced by Deb\cite{996017} is used.
+\textbf{Diversity}: We are also interested in how the solutions found by a given algorithm spread over the Pareto Front. Intuitively, we would like the solutions to be uniformly distributed. The Diversity indicator introduced by Deb \cite{996017} is used.
 
 To facilitate a more easy comparison across subject programs, all objectives are normalised to the original performance of each subject.
 
 \subsection{Answers to RQs}
 \label{sec_answers}
 
-In subsequent report, for brevity, we use \emph{Random} to refer to the random search for Shallow Parameters, \emph{Shallow} as NSGAII search for Shallow Parameters and \emph{Deep} as NSGAII search for joint Shallow and Deep Parameters. Recall that all of the performance is normalised to it's original, so in all graphs, the original always locates at (1, 1).
+\newcommand{\shallow}{Sha}
+\newcommand{\all}{All}
+\newcommand{\randomsearch}{Rand}
+\newcommand{\nsgaii}{NSGA}
+\newcommand{\sr}{\emph{\shallow\randomsearch}}
+\newcommand{\sn}{\emph{\shallow\nsgaii}}
+\newcommand{\dr}{\emph{\all\randomsearch}}
+\newcommand{\dn}{\emph{\all\nsgaii}}
 
-\begin{figure*}[htbp]
+For brevity we use \emph{\shallow} to refer to shallow parameters and \emph{\all} to refer to all parameters including shallow and deep parameters, followed by \emph{\randomsearch} or \emph{\nsgaii} to indicate the search method (random search or NSGA II). For example, \sn refers using NSGA II to search for better shallow parameters. Recall that all of the performance is normalised to it's original, so in subsequent graphs, the performance of the original program always locates at (1, 1). 
+
+\begin{figure}[htbp]
 	\centering
 	\subfigure[espresso]{
 		\label{fig_shallow_random_espresso}
-		\includegraphics[width=0.4\textwidth]{espresso_shallow_random}
+		\includegraphics[width=0.2\textwidth]{tba}%espresso_shallow_random}
 	}
 	\subfigure[gawk]{
 		\label{fig_shallow_random_gawk}
-		\includegraphics[width=0.4\textwidth]{gawk_shallow_random}
+		\includegraphics[width=0.2\textwidth]{tba}%gawk_shallow_random}
 	}
 	\subfigure[flex]{
 		\label{fig_shallow_random_flex}
-		\includegraphics[width=0.4\textwidth]{flex_shallow_random}
+		\includegraphics[width=0.2\textwidth]{tba}%flex_shallow_random}
 	}
 	\subfigure[sed]{
 		\label{fig_shallow_random_sed}
-		\includegraphics[width=0.4\textwidth]{sed_shallow_random}
+		\includegraphics[width=0.2\textwidth]{tba}%sed_shallow_random}
 	}
 	\caption{0\%, 50\%, 100\%-attainment surfaces of Random and Shallow for each application.}\label{fig_shallow_random}
-\end{figure*}
+\end{figure}
 
-\begin{figure*}[htbp]
+\begin{figure}[htbp]
 	\centering
 	\subfigure[espresso]{
 		\label{fig_deep_shallow_espresso}
-		\includegraphics[width=0.4\textwidth]{espresso_deep_shallow}
+		\includegraphics[width=0.2\textwidth]{tba}%espresso_deep_shallow}
 	}
 	\subfigure[gawk]{
 		\label{fig_deep_shallow_gawk}
-		\includegraphics[width=0.4\textwidth]{gawk_deep_shallow}
+		\includegraphics[width=0.2\textwidth]{tba}%gawk_deep_shallow}
 	}
 	\subfigure[flex]{
 		\label{fig_deep_shallow_flex}
-		\includegraphics[width=0.4\textwidth]{flex_deep_shallow}
+		\includegraphics[width=0.2\textwidth]{tba}%flex_deep_shallow}
 	}
 	\subfigure[sed]{
 		\label{fig_deep_shallow_sed}
-		\includegraphics[width=0.4\textwidth]{sed_deep_shallow}
+		\includegraphics[width=0.2\textwidth]{tba}%sed_deep_shallow}
 	}
 	\caption{0\%, 50\%, 100\%-attainment surfaces of Deep and Shallow for each application.}\label{fig_deep_shallow}
-\end{figure*}
+\end{figure}
 
-In order to answer RQ1 and RQ2, we first report the 0\%, 50\%, 100\%-attainment surfaces of Random/Shallow and Shallow/Deep algorithm on all subjects in Figure \ref{fig_shallow_random} and Figure \ref{fig_deep_shallow} respectively. Notice that the waste memory at the high-water-mark concerns most to us, we report this as memory in all our results. In Figure \ref{fig_shallow_random}, we can see that Shallow algorithm is better than Random on subject \emph{sed}, while they are incomparable on the other three subjects. In Figure \ref{fig_deep_shallow}, Deep algorithm is better than Shallow on three out of four subjects: \emph{espresso}, \emph{gawk}, \emph{sed}, while incomparable on subject \emph{flex}. Notice that unlike other three subjects, Deep can not find solutions have better performance on memory consumption on subject \emph{flex}, and both Shallow and Deep algorithm perform as good as Random, it implies that the optimal solution is very easy to find in the search space. So any search algorithm would fail to ourperform Random search on this special case.
+In order to answer RQ1 and RQ2, we first report the 0\%, 50\%, 100\%-attainment surfaces of Random/Shallow and Shallow/Deep algorithm on all subjects in Figure \ref{fig_shallow_random} and Figure \ref{fig_deep_shallow} respectively. The waste memory at the high-water-mark is our primary target since the remaining non-waste memory is needed and thus cannot be reduced. In Figure \ref{fig_shallow_random}, we can see that Shallow algorithm is better than Random on subject \emph{sed}, while they are incomparable on the other three subjects. In Figure \ref{fig_deep_shallow}, Deep algorithm is better than Shallow on three out of four subjects: \emph{espresso}, \emph{gawk}, \emph{sed}, while incomparable on subject \emph{flex}. Notice that unlike other three subjects, Deep can not find solutions have better performance on memory consumption on subject \emph{flex}, and both Shallow and Deep algorithm perform as good as Random, it implies that the optimal solution is very easy to find in the search space. So any search algorithm would fail to ourperform Random search on this special case.
 
 To get a closer look of the results, we calculated the Hypervolume, Contribution and Diversity of each algorithm on every subject, and report them in Figure \ref{fig_hypervolume}, \ref{fig_contribution}, \ref{fig_diversity} respectively in the means of boxplots for all 30 runs. In terms of Hypervolume indicator, Deep algorithm performs the best in general, with an exception on subject \emph{flex}. Shallow algorithm is statistically better than Random on subject \emph{sed}, but there is no significant difference between them on the other three subjects. In terms of Contribution indicator, the performance of three algorithms are similar to that of Hypervolume Indicator. We still have Deep algorithm no worse than other algorithms on all subjects. At last, Figure \ref{fig_diversity} shows that, all three algorithms generate non-dominated solutions with almost the same diversity, with Shallow performs slightly better on subject \emph{flex}.
 
@@ -109,7 +118,7 @@ Besides the indicators above, we are also interested in the capability of findin
 	\caption{Contribution indicator of Random, Shallow and Deep on all subjects. Bigger value is better.}\label{fig_contribution}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
 	\centering
 	\subfigure[espresso]{
 		\label{fig_diversity_espresso}
@@ -130,7 +139,7 @@ Besides the indicators above, we are also interested in the capability of findin
 	\caption{Diversity indicator of Random, Shallow and Deep on all subjects. Smaller value is better.}\label{fig_diversity}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
 	\centering
 	\subfigure[espresso]{
 		\label{fig_best_time_espresso}
@@ -151,7 +160,7 @@ Besides the indicators above, we are also interested in the capability of findin
 	\caption{The most time-saving performance found by each algorithm. Less is better.}\label{fig_best_time}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
 	\centering
 	\subfigure[espresso]{
 		\label{fig_best_time_espresso}

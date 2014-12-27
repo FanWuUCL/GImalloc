@@ -20,7 +20,7 @@ We ask the RQ2 to see how useful our approach is at finding better configuration
 \item[RQ3] {\bf Do we see evidence that our Deep Parameter Tuning approach can expose implicit parameters which are meaningful to human developers? }
 \end{description} 
 
-Should it turn out that the Deep Parameter Tuning approach performs well, achieving much improvement than the Shallow Parameter Tuning approach, then we have evidence to suggest that the mutation based sensitivity analyse used in our approach is able to locate the inner expressions or variables which are sensitive to the given non-functional properties. However, do these inner expressions or variables also make sense to software developer? To answer this research question, we manually investigate the exposed variable and try to learn why tuning these parameters can make \emph{dlmalloc} more efficient.  
+Should it turn out that the Deep Parameter Tuning approach performs well, achieving more improvement than the Shallow Parameter Tuning approach, then we have evidence to suggest that the mutation based sensitivity analyse used in our approach is able to locate the inner expressions or variables which are sensitive to the given non-functional properties. However, do these inner expressions or variables also make sense to software developer? To answer this research question, we manually investigate the exposed variables and try to learn why tuning these parameters can make \emph{dlmalloc} more efficient.  
 
 
 \subsection{Dlmalloc}
@@ -122,5 +122,8 @@ For our evaluation, we selected four real world applications: \emph{espresso}, \
 We first used the Shallow Parameters only and applied NSGAII algorithm with a population of 50 for 300 generations, using 5000 randomly generated chromesomes as seeding, to search for the optimal values. A random search was also applied with the same computation budget in optimising the Shallow Parameters. Then we applied selective Mutation Operators to gather the sensitivity information and expose 9 Deep Parameters (the same number of deep parameters as we have shallow parameters for fair comparison) for each subject program separately, as described in section \ref{sec_deep_parameter_optimisation}. Combining Shallow and Deep Parameters, we again applied NSGAII and random search with other identical experimental settings. All experiments were repeated for 30 runs to have a statistics conclusion.
 
 All experiments were carried out on desktop machines with a quad-core CPU and 7.7 GB memory runing 64-bit Ubuntu 14.04. We used \emph{dlmalloc} version 2.8.6, which was compiled with gcc 4.8.1 with -O3 option. In order to capture the execution time and memory consumption precisely, we developed our own performance tool to measure the CPU time and the high-water-mark vitural memory consumption (see Section \ref{sec_nsgaii}). The tool is publicly available at **www.fan.put.a.link.later.
+\\
+\\
+\\
 %(**describe how we apply our approach on the dlmalloc case study, including separately finding best locations to expose with respect to each subject application)
 %(**mention we use NSGA II to optimize both Deep and Shallow parameters after we expose Deep Parameters from each subject. reference the section describing Shallow Parameter and NSGA II)

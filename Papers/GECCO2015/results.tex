@@ -26,53 +26,35 @@ To facilitate a more easy comparison across subject programs, all objectives are
 \newcommand{\dr}{\emph{\all\randomsearch}}
 \newcommand{\dn}{\emph{\all\nsgaii}}
 
-For brevity we use \emph{\shallow} to refer to shallow parameters and \emph{\all} to refer to all parameters including shallow and deep parameters, followed by \emph{\randomsearch} or \emph{\nsgaii} to indicate the search method (random search or NSGA II). For example, \sn{} refers using NSGA II to search for better values for shallow parameters.
+For brevity we use \emph{\shallow} to refer to shallow parameters and \emph{\all} to refer to all parameters including shallow and deep parameters, followed by \emph{\randomsearch} or \emph{\nsgaii} to indicate the search method used (random search or NSGA II). For example, \sn{} refers using NSGA II to search for better values for shallow parameters.
 In subsequent graphs, the performance of the original program always locates at (1, 1) since all the performance is normalised to it.
 
-\begin{figure}[htbp]
+\begin{figure*}[htb]
 	\centering
 	\subfigure[espresso]{
-		\label{fig_shallow_random_espresso}
-		\includegraphics[width=0.2\textwidth]{tba}%espresso_shallow_random}
+		\label{fig_attainment_espresso}
+		\includegraphics[width=0.45\textwidth]{espresso_attainment}%espresso_shallow_random}
 	}
 	\subfigure[gawk]{
-		\label{fig_shallow_random_gawk}
-		\includegraphics[width=0.2\textwidth]{tba}%gawk_shallow_random}
+		\label{fig_attainment_gawk}
+		\includegraphics[width=0.45\textwidth]{gawk_attainment}%gawk_shallow_random}
 	}
 	\subfigure[flex]{
-		\label{fig_shallow_random_flex}
-		\includegraphics[width=0.2\textwidth]{tba}%flex_shallow_random}
+		\label{fig_attainment_flex}
+		\includegraphics[width=0.45\textwidth]{flex_attainment}%flex_shallow_random}
 	}
 	\subfigure[sed]{
-		\label{fig_shallow_random_sed}
-		\includegraphics[width=0.2\textwidth]{tba}%sed_shallow_random}
+		\label{fig_attainment_sed}
+		\includegraphics[width=0.45\textwidth]{espresso_attainment}%sed_shallow_random}
 	}
-	\caption{0\%, 50\%, 100\%-attainment surfaces of Random and Shallow for each application.}\label{fig_shallow_random}
-\end{figure}
+	\subfigure{
+		\label{fig_attainment_legend}
+		\includegraphics[width=0.4\textwidth]{attainment_legend}
+	}
+	\caption{0\%, 50\%, 100\%-attainment surfaces of the results of \sr{}, \sn{}, \dr{}, \dn{} over 20 runs for each application.}\label{fig_attainment}
+\end{figure*}
 
-\begin{figure}[htbp]
-	\centering
-	\subfigure[espresso]{
-		\label{fig_deep_shallow_espresso}
-		\includegraphics[width=0.2\textwidth]{tba}%espresso_deep_shallow}
-	}
-	\subfigure[gawk]{
-		\label{fig_deep_shallow_gawk}
-		\includegraphics[width=0.2\textwidth]{tba}%gawk_deep_shallow}
-	}
-	\subfigure[flex]{
-		\label{fig_deep_shallow_flex}
-		\includegraphics[width=0.2\textwidth]{tba}%flex_deep_shallow}
-	}
-	\subfigure[sed]{
-		\label{fig_deep_shallow_sed}
-		\includegraphics[width=0.2\textwidth]{tba}%sed_deep_shallow}
-	}
-	\caption{0\%, 50\%, 100\%-attainment surfaces of Deep and Shallow for each application.}\label{fig_deep_shallow}
-\end{figure}
-
-(**Fan says he will change the following results later.)
-In order to answer RQ1 and RQ2, we first report the 0\%, 50\%, 100\%-attainment surfaces of \sr{}/\sn{} and \sn{}/\dn{} algorithm on all subjects in Figure \ref{fig_shallow_random} and Figure \ref{fig_deep_shallow} respectively. The waste memory at the high-water-mark is our primary target since the remaining non-waste memory is needed and thus cannot be reduced. In Figure \ref{fig_shallow_random}, we can see that Shallow algorithm is better than Random on subject \emph{sed}, while they are incomparable on the other three subjects. In Figure \ref{fig_deep_shallow}, Deep algorithm is better than Shallow on three out of four subjects: \emph{espresso}, \emph{gawk}, \emph{sed}, while incomparable on subject \emph{flex}. Notice that unlike other three subjects, Deep can not find solutions have better performance on memory consumption on subject \emph{flex}, and both Shallow and Deep algorithm perform as good as Random, it implies that the optimal solution is very easy to find in the search space. So any search algorithm would fail to ourperform Random search on this special case.
+In order to answer RQ1 and RQ2, we first report the 0\%, 50\%, 100\%-attainment surfaces of \sr{}/\sn{} and \sn{}/\dn{} algorithm on all subjects in Figure \ref{fig_attainment}. The wasted memory at the high-water-mark is our primary target since the remaining non-wasted memory is needed and thus cannot be reduced. In Figure \ref{fig_shallow_random}, we can see that Shallow algorithm is better than Random on subject \emph{sed}, while they are incomparable on the other three subjects. In Figure \ref{fig_deep_shallow}, Deep algorithm is better than Shallow on three out of four subjects: \emph{espresso}, \emph{gawk}, \emph{sed}, while incomparable on subject \emph{flex}. Notice that unlike other three subjects, Deep can not find solutions have better performance on memory consumption on subject \emph{flex}, and both Shallow and Deep algorithm perform as good as Random, it implies that the optimal solution is very easy to find in the search space. So any search algorithm would fail to ourperform Random search on this special case.
 
 To get a closer look of the results, we calculated the Hypervolume, Contribution and Diversity of each algorithm on every subject, and report them in Figure \ref{fig_hypervolume}, \ref{fig_contribution}, \ref{fig_diversity} respectively in the means of boxplots for all 30 runs. In terms of Hypervolume indicator, Deep algorithm performs the best in general, with an exception on subject \emph{flex}. Shallow algorithm is statistically better than Random on subject \emph{sed}, but there is no significant difference between them on the other three subjects. In terms of Contribution indicator, the performance of three algorithms are similar to that of Hypervolume Indicator. We still have Deep algorithm no worse than other algorithms on all subjects. At last, Figure \ref{fig_diversity} shows that, all three algorithms generate non-dominated solutions with almost the same diversity, with Shallow performs slightly better on subject \emph{flex}.
 
@@ -145,27 +127,6 @@ Besides the indicators above, we are also interested in the capability of findin
 	\centering
 	\subfigure[espresso]{
 		\label{fig_best_time_espresso}
-		\includegraphics[width=0.22\textwidth]{espresso_best_time}
-	}
-	\subfigure[gawk]{
-		\label{fig_best_time_gawk}
-		\includegraphics[width=0.22\textwidth]{gawk_best_time}
-	}
-	\subfigure[flex]{
-		\label{fig_best_time_flex}
-		\includegraphics[width=0.22\textwidth]{flex_best_time}
-	}
-	\subfigure[sed]{
-		\label{fig_best_time_sed}
-		\includegraphics[width=0.22\textwidth]{sed_best_time}
-	}
-	\caption{The most time-saving performance found by each algorithm. Less is better.}\label{fig_best_time}
-\end{figure}
-
-\begin{figure}[htb]
-	\centering
-	\subfigure[espresso]{
-		\label{fig_best_time_espresso}
 		\includegraphics[width=0.22\textwidth]{espresso_best_memory}
 	}
 	\subfigure[gawk]{
@@ -180,7 +141,7 @@ Besides the indicators above, we are also interested in the capability of findin
 		\label{fig_best_time_sed}
 		\includegraphics[width=0.22\textwidth]{sed_best_memory}
 	}
-	\caption{The most time-saving performance found by each algorithm. Less is better.}\label{fig_best_memory}
+	\caption{The most memory-saving performance found by each algorithm. Less is better.}\label{fig_best_memory}
 \end{figure}
 
 To have a more quantative look at up to how much time and memory we can save from the original by our approach, we collect the best performance in terms of time and memory from all 30 runs for each subject-algorithm pair. The result is list in Table \ref{table_best_time_memory}. As clearly showed, Deep algorithm provides the possibility to further reduce the memory consumption.
@@ -193,7 +154,7 @@ To have a more quantative look at up to how much time and memory we can save fro
 \label{table_best_time_memory}
 \begin{tabular}{|c|r|r|r|r|r|r|r|r|}
 \hline
-\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Subject\\ Name\end{tabular}} & \multirow{2}{*}{\begin{tabular}[c]{@{}r@{}}Time\\ Original\end{tabular}} & \multicolumn{3}{r|}{Time Reduction} & \multirow{2}{*}{\begin{tabular}[c]{@{}r@{}}Memory Original\\ (Peak/Wasted)\end{tabular}} & \multicolumn{3}{r|}{Memory Waste Reduction} \\ \cline{3-5} \cline{7-9} 
+\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Subject\\ Name\end{tabular}} & \multirow{2}{*}{\begin{tabular}[c]{@{}r@{}}Time\\ Original\end{tabular}} & \multicolumn{3}{r|}{Time Reduction} & \multirow{2}{*}{\begin{tabular}[c]{@{}r@{}}Memory Original\\ (Peak/wasted)\end{tabular}} & \multicolumn{3}{r|}{Memory waste Reduction} \\ \cline{3-5} \cline{7-9} 
                                                                         &                                                                          & Random     & Shallow    & Deep      &                                                                                          & Random       & Shallow       & Deep         \\ \hline
 espresso                                                                & 4.75s                                                                    & 2.0\%      & 1.6\%      & 42.9\%    & 5152/978KB                                                                               & 39.3\%       & 39.3\%        & 40.1\%       \\ \hline
 gawk                                                                    & 6.61s                                                                    & 3.3\%      & 2.8\%      & 2.6\%     & 29680/3552KB                                                                             & 15.1\%       & 15.1\%        & 16.8\%       \\ \hline
@@ -226,4 +187,4 @@ To answer RQ3, we manually inspect the Deep Parameters exposed from each subject
 \end{figure}
 
 The examples are shown in Figure \ref{deep_parameter}. Both of these two Deep Parameters are exposed from the function \emph{sys\_alloc()}, which manages most of the allocation from the system. The fist expression containing \emph{EXPOSE\_4334} is executed when the top chunk is not big enough to serve the memory requet and is about to be extended in system's dynamic memory, and the value of this expression decides how much memory should be get from the system this time. Smaller values tend to save memory, but may cause the program extend the top chunk more frequently, thus a waste of time. And how much memory should be get at this point may vary from applications to applications, so we expose a Deep Parameter from here so that we can control the size to be extended accordingly. The second example happens when initializing the heap. The value of the expression containing \emph{EXPOSE\_4425} is used to determine how much memory should be pre-allocated at the first time. For similar reason, bigger values tend to waste memory but save time.
-\\
+

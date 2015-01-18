@@ -1,17 +1,25 @@
 
 \documentclass{sig-alternate}
-\conferenceinfo{GECCO}{'15, Madrid, Spain}
 \usepackage{graphicx}
 \usepackage{subfigure}
+%\usepackage{subfig}
 \usepackage{multirow}
 \graphicspath{{pics/}}
 \usepackage{listings}
 \usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic}
 \usepackage[sort]{natbib}
 %\usepackage[]{algorithm2e}
 
 
 \begin{document}
+
+ \conferenceinfo{GECCO'15,} {July 11-15, 2015, Madrid, Spain.}
+    \CopyrightYear{2015}
+    \crdata{TBA}
+    \clubpenalty=10000
+    \widowpenalty = 10000
 
 \title{Deep Parameter Optimisation}
 
@@ -57,6 +65,17 @@
 %We report experiments that show the deep parameter optimisation competes with the shallow parameter optimisation and the default configurations. For \# real world subjects, the deep parameter optimisation saves x\% of memory and reduce y\% of execution time overall.  We also present reasons why the implicit parameters exposed by our approach are meaningful to human developer. Deep parameter optimisation is thus a promising way to improve non-functional property for memory allocators.
 %
 
+%In Software Engineering, it is almost impossible for developers to both implement desired functionalities and optimise multiple non-functionalities, especially when they are all important to users but conflicting each other. There are many search-based approaches that automatically optimise these properties by tuning the parameters designed by developers of an application, or `shallow' parameters.
+%However, the potential improvement of an application is limited by the design of these parameters. 
+%In this paper, we proposea mutation-based approach to automatically discover and expose `deep' parameters, by tuning which we may break through the limit. We apply the approach on \emph{dlmalloc}, widely used C memory allocator, to show how this approach can achieve high performance on execution time and memory consumption of 4 subject programs. The results show that we can achieve 16\% and 21\% reduction on execution time and wasted memory respectively. In 3 out of 4 subjects, deep parameter tuning achieves a reduction rate on memory consumption that can never be achieved by shallow parameter tuning.
+
+We introduce a mutation-based approach to automatically discover and expose `deep' (previously unavailable) parameters that affect a program's runtime costs.
+These discovered parameters, together with existing (`shallow') parameters, form a search space that we tune using SBSE in a bi-objective formulation that optimises both time and space.
+We implemented our approach and evaluated it on four real-world programs.
+The results show that we can improve execution time by 12\% or achieve a 21\% space reduction in the best cases.
+In three subjects, our deep parameter tuning represents a significant improvement over the baseline of shallow parameter tuning,
+demonstrating the potential value of our deep parameter extraction approach.
+
 \end{abstract}
 
 % A category with the (minimum) three required fields
@@ -81,7 +100,7 @@
 
 %ACKNOWLEDGMENTS are optional
 \section{Acknowledgments}
-**Acknowledgement. Grant.
+Fan Wu is sponsored by Chinese Scholarship Council.
 
 %
 % The following two commands are all you need in the

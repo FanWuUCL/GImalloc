@@ -23,11 +23,15 @@
 
 \title{Deep Parameter Optimisation}
 
-\numberofauthors{2} %  in this sample file, there are a *total*
-% of EIGHT authors. SIX appear on the 'first-page' (for formatting
-% reasons) and the remaining two appear in the \additionalauthors section.
-%
-\author{
+%\numberofauthors{2} 
+%\author{
+%\alignauthor Fan Wu, Mark Harman, Yue Jia and Jens Krinke\\
+%       \affaddr{CREST, UCL, London, UK}
+%\alignauthor Westley Weimer\\
+%       \affaddr{University of Virginia}\\
+%       \affaddr{USA}
+%}
+
 % You can go ahead and credit any number of authors here,
 % e.g. one 'row of three' or two rows (consisting of one row of three
 % and a second row of one, two or three).
@@ -37,18 +41,7 @@
 % e-mail address. Additionally, tag each line of
 % affiliation/address with \affaddr, and tag the
 % e-mail address with \email.
-%
-% 1st. author
-\alignauthor Fan Wu, Mark Harman, Yue Jia and Jens Krinke\\
-       \affaddr{CREST, UCL, London, UK}
-       %\affaddr{London, UK}
-       %\affaddr{London WC1E 6BT, United Kingdom}\\
-       %\email{fan.wu.12@ucl.ac.uk}
-% 2nd. author
-\alignauthor Westley Weimer\\
-       \affaddr{University of Virginia}\\
-       \affaddr{USA}
-}
+
 % There's nothing stopping you putting the seventh, eighth, etc.
 % author on the opening page (as the 'third row') but we ask,
 % for aesthetic reasons that you place these 'additional authors'
@@ -70,7 +63,7 @@
 %In this paper, we proposea mutation-based approach to automatically discover and expose `deep' parameters, by tuning which we may break through the limit. We apply the approach on \emph{dlmalloc}, widely used C memory allocator, to show how this approach can achieve high performance on execution time and memory consumption of 4 subject programs. The results show that we can achieve 16\% and 21\% reduction on execution time and wasted memory respectively. In 3 out of 4 subjects, deep parameter tuning achieves a reduction rate on memory consumption that can never be achieved by shallow parameter tuning.
 
 We introduce a mutation-based approach to automatically discover and expose `deep' (previously unavailable) parameters that affect a program's runtime costs.
-These discovered parameters, together with existing (`shallow') parameters, form a search space that we tune using Search Based technique in a bi-objective formulation that optimises both time and space.
+These discovered parameters, together with existing (`shallow') parameters, form a search space that we tune using search-based optimisation in a bi-objective formulation that optimises both time and memory consumption.
 We implemented our approach and evaluated it on four real-world programs.
 The results show that we can improve execution time by 12\% or achieve a 21\% memory consumption reduction in the best cases.
 In three subjects, our deep parameter tuning represents a significant improvement over the baseline of shallow parameter tuning,

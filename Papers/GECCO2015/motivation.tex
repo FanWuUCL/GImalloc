@@ -18,15 +18,42 @@ static void* sys_alloc(mstate m,size_t nb) {
 \label{exp}
 \end{figure}
 
-Figure \ref{exp} shows a part of the {\tt sys\_alloc} function in \emph{dlmalloc}. We explain its internal operation here to give the reader a feeling for the opportunities for optimisation. Of course, our parameter exposing and search-based tuning are general purpose techniques that have no knowledge of how \emph{dlmalloc} operates. To efficiently manage memory, \emph{dlmalloc} maintains an internal structure to organize the heap for memory reuse. Only when \emph{dlmalloc} cannot find a suitable chunk of memory for a memory request, does it call {\tt sys\_alloc()} to extend the current heap.
+Figure \ref{exp} shows a part of the {\tt sys\_alloc} function in \emph{dlmalloc}. We explain its internal operation here to give the reader a feeling for the opportunities for optimisation. Of course, our parameter exposing and search-based tuning are general purpose techniques that have no knowledge of how \emph{dlmalloc} operates. \emph{Dlmalloc} maintains an internal structure to organize the heap for memory reuse. Only when \emph{dlmalloc} cannot find a suitable chunk of memory for a memory request does it call {\tt sys\_alloc()} to extend the current heap.
 
-After applying the mutation analysis, we found mutants generated from mutating Line \ref{call_morecore} have a notable affect on the memory consumption and the execution time of \emph{dlmalloc}. We take a close took at Line \ref{call_morecore}. It calls the {\tt CALL\_MORECORE()} function, which takes an integer as input, when first time \emph{malloc} is called to obtain the beginning address of the heap. {\tt CALL\_MORECORE()} is a macro which links to the system call that extends or shrinks the current heap and returns the beginning address of the newly allocated region of heap. Specially, {\tt CALL\_MORECORE(0)} neither extends nor shrinks the heap but simply returns the current address of the heap, which is the original purpose of Line 6 mentioned above.
+% Fan, the "mutation analysis" bit in the next paragraph is quite
+% "Used before being defined". I added this paragraph to make things make
+% more sense, but please correct it -- I may not be describing your process
+% accurately. 
 
-Changing the input value for {\tt CALL\_MORECORE()} in Line \ref{call_morecore} allows us to control the amount of pre-allocated memory. However, although \emph{dlmalloc} provides several tuneable parameters to programmers, allowing them to adjust behaviors (see Section 5 for details), none of these shallow parameters can affect the {\tt CALL\_MORECORE()} function directly. To expose a deep parameter $D$, our tool `discovered' that it should transform Line \ref{call_morecore} into the code below, where $D$ is the deep parameter exposed that controls the pre-allocated heap.
+% Fan checked the paragraph and it is accurate.
+
+Our approach begins with a form of mutation analysis that evaluates
+subexpressions in the program to determine their utility as candidate
+deep parameters. A subexpression is evaluated by mutating it, running
+the resulting program variant against a test suite, and evaluating the
+results in terms of functional and non-functional properties. A
+subexpression that can be profitably mutated to optimise a non-functional
+property while retaining functional correctness can serve as a deep
+parameter.  
+
+In this example, the mutation analysis finds that mutants generated from mutating Line \ref{call_morecore} have a notable affect on the memory consumption and the execution time of \emph{dlmalloc}. We take a close took at Line \ref{call_morecore}. It calls the {\tt CALL\_MORECORE()} function, which takes an integer as input
+% , when first time \emph{malloc} is called to obtain the beginning address of the heap. 
+{\tt CALL\_MORECORE()} is a macro wrapping the system call that extends or shrinks the current heap and returns the beginning address of the newly allocated region of heap. Specifically, {\tt CALL\_MORECORE(0)} neither extends nor shrinks the heap but simply returns the current address of the heap, which is the original purpose of Line 6 mentioned above.
+
+Changing the input value for {\tt CALL\_MORECORE()} in Line
+\ref{call_morecore} allows us to control the amount of memory
+pre-allocated. However, although \emph{dlmalloc} provides several tuneable
+parameters to programmers, allowing them to adjust behaviors (see Section 5
+for details), none of these shallow parameters can affect the {\tt
+CALL\_MORECORE()} function directly. Our algorithm exposes this as a new
+a deep parameter by 
+transforming Line \ref{call_morecore} into
+the code below, where $D$ is the deep parameter exposed that controls the
+pre-allocated heap.
 
 \begin{lstlisting}
 char * base = (char*)CALL_MORECORE(0 + D);
 \end{lstlisting}
 
-The optimal size of pre-allocated memory depends on the specific program using this memory allocator. If the pre-allocated memory is too large, it could be a waste of memory. On the other hand, if it is too small, soon \emph{dlmalloc} will call {\tt CALL\_MORECORE()} again to extend the heap, thus wasting time. By tuning the deep parameter $D$, SBSE can balance the time and space consumption. This is just one example of a potential deep parameter. In our mutation analysis experiments, our tool `discovers' that by changing the value of this deep parameter, it can achieve a modest (2.5\%) time reduction without wasting more space in one of our subjects.
+The optimal size of pre-allocated memory depends on the specific program using this tunable memory allocator. Too much pre-allocation results in waste. On the other hand, too little means that later requests must call {\tt CALL\_MORECORE()} again to extend the heap, increasing runtime. By tuning the deep parameter $D$, an SBSE approach can balance time and space consumption. This is just one example of a potential deep parameter. In our mutation analysis experiments, our tool `discovers' that by changing the value of this deep parameter, it can achieve a modest (2.5\%) time reduction without increasing heap space in one of our subjects.
 

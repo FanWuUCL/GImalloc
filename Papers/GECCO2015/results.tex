@@ -1,18 +1,24 @@
 
 \section{Results}
 \label{sec_results}
+
+% FIXME: If you can, put a paragraph summarizing this section here so that
+% the section heading is not immediately followed by the subsection heading.
+% Fan wrote the following.
+
+We formalise the metrics we use to compare multi-objective optimisation approaches in this section.
+The results are presented in Section \ref{sec_answers}, and are used to answer the \textbf{RQ}s.
+
 \subsection{Metrics}
 \label{sec_matrics}
 
-In order to answer RQ1 and RQ2, we collect the non-dominated set of solutions from each algorithm for 20 runs, and report it in an attainment-surface as introduced by Fonseca \cite{attainment_surface:1996}. To quantitatively compare the quality of each algorithm, we calculate Hypervolume and Contribution indicators to assess multi-objective Pareto Front.
+To investigate RQ1 and RQ2, we collect the non-dominated set of solutions from each algorithm for 20 runs, and report it in an attainment surface as introduced by Fonseca \cite{attainment_surface:1996}. To quantitatively compare the quality of each algorithm, we calculate Hypervolume and Contribution indicators to assess the multi-objective Pareto Front.
 
-\textbf{Hypervolume}: The Hypervolume indicator \cite{797969} denotes the space dominated by any of the solutions on the Pareto Front. It is calculated as the hypervolume of the union of hypercubes dominated by each solution on the Front. The bigger the Hypervolume is, the more area is dominated by the Pareto Front in the objective space.
+\textbf{Hypervolume}: The Hypervolume indicator \cite{797969} measures the space dominated by a the solutions. It is defined as the hypervolume of the union of hypercubes dominated by each solution on the Front. The bigger the Hypervolume, the more area is dominated by the Pareto Front in the objective space, and thus the better the solution.
 
-\textbf{Contribution}: Since there is no way to know the true Pareto Front, we use the non-dominated set of joint solutions from all experiments to approximate the true Pareto Front. In this case, the Contribution indicator represents the ratio of solutions on the true Pareto Front are found by a given algorithm.
+\textbf{Contribution}: Since there is no way to know the true Pareto Front, we use the non-dominated set of joint solutions from all experiments to approximate the true Pareto Front. In this case, the Contribution indicator represents the ratio of solutions on the true Pareto Front are found by a given algorithm. A higher ratio indicates a more successful search. 
 
-%\textbf{Diversity}: We are also interested in how the solutions found by a given algorithm spread over the Pareto Front. Intuitively, we would like the solutions to be uniformly distributed. The Diversity indicator introduced by Deb \cite{996017} is used.
-
-To facilitate a more easy comparison across subject programs, all objectives are normalised to the original performance of each subject.
+To admit comparison across subject programs, objectives are normalised to the original performance of each subject.
 
 \subsection{Answers to RQs}
 \label{sec_answers}
@@ -33,19 +39,19 @@ For brevity we use \emph{\shallow} to refer to shallow parameters and \emph{\all
 	\centering
 	\subfigure[espresso]{
 		\label{fig_attainment_espresso}
-		\includegraphics[width=0.47\textwidth]{espresso_attainment_best}%espresso_shallow_random}
+		\scalebox{0.5}{\includegraphics[width=0.47\textwidth]{espresso_attainment_best}}%espresso_shallow_random}
 	}
 	\subfigure[gawk]{
 		\label{fig_attainment_gawk}
-		\includegraphics[width=0.47\textwidth]{gawk_attainment_best}%gawk_shallow_random}
+		\scalebox{0.5}{\includegraphics[width=0.47\textwidth]{gawk_attainment_best}}%gawk_shallow_random}
 	}
 	\subfigure[flex]{
 		\label{fig_attainment_flex}
-		\includegraphics[width=0.47\textwidth]{flex_attainment_best}%flex_shallow_random}
+		\scalebox{0.5}{\includegraphics[width=0.47\textwidth]{flex_attainment_best}}%flex_shallow_random}
 	}
 	\subfigure[sed]{
 		\label{fig_attainment_sed}
-		\includegraphics[width=0.47\textwidth]{sed_attainment_best}%sed_shallow_random}
+		\scalebox{0.5}{\includegraphics[width=0.47\textwidth]{sed_attainment_best}}%sed_shallow_random}
 	}
 	\subfigure{
 		\label{fig_attainment_legend}
@@ -54,22 +60,43 @@ For brevity we use \emph{\shallow} to refer to shallow parameters and \emph{\all
 	\caption{0\%-attainment surfaces of the results of \sr{}, \sn{}, \dr{}, \dn{} over 20 runs for each application.}\label{fig_attainment}
 \end{figure*}
 
-In order to answer RQ1 and RQ2, we first report the 0\%-attainment surfaces (the combined best solutions over all runs) of the results of \sr{}, \sn{}, \dr{} and \dn{} on all subjects in Figure \ref{fig_attainment}. The solutions are plotted according to their execution time and wasted memory at the high-water-mark compared to the original performance. Specially, the original always lies at (1, 1) and pinpointed by light grey dashed lines. The wasted memory at the high-water-mark is our primary target since the remaining non-wasted memory is needed and thus cannot be reduced. 
-In the figure, it is clear that all of the algorithms can reduce time/memory consumption without losing the other performance, implying that the default configuration of \emph{dlmalloc} is not optimal for each application. In three subjects (\emph{espresso}, \emph{gawk} and \emph{sed}), \dn{} outperforms the other three on memory objective. But on time aspect, it's not clear which algorithm is better since different algorithms have their own strengths on different subjects. 
+To answer RQ1 and RQ2, we first report the 0\%-attainment surfaces (the combined best solutions over all runs) of the results of \sr{}, \sn{}, \dr{} and \dn{} on all subjects in Figure \ref{fig_attainment}. The solutions are plotted according to their execution time and memory usage at the high-water-mark compared to the original performance. Specially, the original always lies at (1, 1) and pinpointed by light grey dashed lines. The high-water-mark is our primary target since the remaining non-wasted memory is needed and thus cannot be reduced. 
+The figure shows that all of the algorithms can reduce time or memory consumption without reducing the other objective, implying that the default configuration of \emph{dlmalloc} is not optimal for any application considered. In three subjects (\emph{espresso}, \emph{gawk} and \emph{sed}), \dn{} outperforms the other three on memory objective. In terms of time, no algorithm is strictly better and each has its own strengths on different subjects. 
 %In Figure \ref{fig_shallow_random}, we can see that Shallow algorithm is better than Random on subject \emph{sed}, while they are incomparable on the other three subjects. In Figure \ref{fig_deep_shallow}, Deep algorithm is better than Shallow on three out of four subjects: \emph{espresso}, \emph{gawk}, \emph{sed}, while incomparable on subject \emph{flex}. Notice that unlike other three subjects, Deep can not find solutions have better performance on memory consumption on subject \emph{flex}, and both Shallow and Deep algorithm perform as good as Random, it implies that the optimal solution is very easy to find in the search space. So any search algorithm would fail to ourperform Random search on this special case.
 
 To get a closer look of the results, we calculated the Hypervolume and Contribution indicator of each algorithm on every subject, and report them in Figure \ref{fig_hypervolume} and \ref{fig_contribution} respectively in the means of boxplots for all 20 runs. 
-In Figure \ref{fig_hypervolume}, all the values are normalised to the hypervolume of the `true' Pareto Front (combined non-dominating solutions from all experiments), and the closer the value is to 1 the better. It is clear that \dn{} ourperforms the others on subject \emph{espresso} and \emph{sed} while it doesn't perform very well on subject \emph{flex}, and on subject \emph{gawk} the best value reached by \dn{} is better than that of the others.
+In Figure \ref{fig_hypervolume}, all the values are normalised to the hypervolume of the `true' Pareto Front (combined non-dominating solutions from all experiments), and the closer the value is to 1 the better. It is clear that \dn{} outperforms the others on subject \emph{espresso} and \emph{sed} while it doesn't perform very well on subject \emph{flex}, and on subject \emph{gawk} the best value reached by \dn{} is better than that of the others.
 %In terms of Hypervolume indicator, Deep algorithm performs the best in general, with an exception on subject \emph{flex}. Shallow algorithm is statistically better than Random on subject \emph{sed}, but there is no significant difference between them on the other three subjects. 
-In terms of Contribution indicator, the performance of all algorithms are similar to that of Hypervolume Indicator. We still have \dn{} no worse than other algorithms on all subjects but \emph{flex}, on which \sn{} has the biggest Contribution value.
+In terms of Contribution, the performance of all algorithms are similar to that of Hypervolume. In general \dn{} is no worse than other algorithms on all subjects but \emph{flex}, where \sn{} has the biggest Contribution value.
 %At last, Figure \ref{fig_diversity} shows that, all three algorithms generate non-dominated solutions with almost the same diversity, with Shallow performs slightly better on subject \emph{flex}.
 
 %Besides the indicators above, we are also interested in the capability of finding extreme solutions of all algorithms. This can be shown by comparing the most time-saving and memory-saving performance found by each of the algorithms. We gather the best performance in terms of time and memory respectively from all 20 runs and show how often these values can be achieved by each of the algorithms in Figure \ref{fig_best_time} and \ref{fig_best_memory}. In terms of time consumption, while incomparable on three subjects, Shallow and Deep consistantly find better performance on subject \emph{sed} than that found by Random, but there is no statistical difference between Shallow and Deep on all subjects. On the other hand, Deep algorithm is able to find more memory reduction on three out of four subjects, indicating the Deep parameters almost always carry extra information on memory usage.
 
-Since \dn{} is good at finding better performance on memory consumption, we report the most memory-saving performance found by each algorithm of each of 20 runs in Figure \ref{fig_best_memory}. On subject \emph{espresso} and \emph{sed}, \dn{} almost guarantees to find more memory reduction than that found by other approaches. On \emph{gawk}, it doesn't find better configurations in terms of memory consumptoin but has the potential to do so.
+Since \dn{} is good at finding better performance on memory consumption, we report the most memory-saving performance found by each algorithm of each of 20 runs in Figure \ref{fig_best_memory}. On subject \emph{espresso} and \emph{sed}, \dn{} finds more memory reduction than the other approaches. On \emph{gawk}, it does not perform as consistently, but can also find more memory reduction than other approaches in the best case. 
+% FIXME: What does ``potential to do so'' mean here? Please clarify this
+% analysis.
+% Fan was trying to say, for gawk, though on average AllNSGA doesn't perform as good and stable as other approaches,
+% but can occationally outperform other approaches.
 
-In all experiments of \dr{} we observe a lot of invalid configurations (that cause the program to crash) generated and evaluated. Surprisingly, even by justing tuning the shallow parameters, those designed by programmers for users to tune, can \sr{}/\sn{} find some configurations that crash the program.
-Unlike shallow parameters, deep parameters are exposed from internal sub-expressions that were not monitored or protected by the programmers, hence they are expected to cause crashes more often. As a result, the valid configurations are diluted in the search space. Without any guidance, \dr{} finds valid configurations less often than \sr{}, thus performs worse than \sr{}. This is also the reason why the performance of \dn{} is not alway stable on all subjects. Despite diluted search space, deep parameters still carry extra information, which allows \dn{} to find better configurations than the ones can be possibly found by \sn{}.
+In all experiments involving \dr{} we generated and evaluated invalid
+configurations (i.e., those that that cause the program to crash). However,
+this issue is not specific to our Deep Parameter approach: 
+surprisingly, even by just tuning the programmer-specified shallow parameters, 
+the \sr{} and \sn{} optimisations also encounter and discard some
+configurations that crash the program.
+Unlike shallow parameters, deep parameters are exposed from internal
+sub-expressions that were not monitored or protected by the programmers,
+hence they are expected to cause crashes more often. As a result, the valid
+configurations are sparser in the search space. Without any guidance, \dr{}
+finds valid configurations less often than \sr{}, and thus requires more
+optimisation time than \sr{}. Holding the searches to the same budget means
+that \dn{}, which must explore a higher search space, will exhibit a higher
+variance. 
+% This is also the reason why the performance of \dn{} is not alway
+% stable on all subjects. 
+Despite this more challenging search space, exposing and optimising deep
+parameters still allows \dn{} to find better configurations
+than \sn{}.
  
 \begin{figure}[htbp]
 	\centering
@@ -89,7 +116,7 @@ Unlike shallow parameters, deep parameters are exposed from internal sub-express
 		\label{fig_hypervolume_sed}
 		\includegraphics[width=0.22\textwidth]{sed_hypervolume}
 	}
-	\caption{Hypervolume indicator of \sr{}, \sn{}, \dr{}, \dn{} on all subjects. The values are normalised to the hypervolume of the `true' Pareto Front. Bigger value is better.}\label{fig_hypervolume}
+	\caption{Hypervolume indicator of \sr{}, \sn{}, \dr{}, \dn{} on all subjects. The values are normalised to the hypervolume of the `true' Pareto Front. Larger values are better.}\label{fig_hypervolume}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -110,7 +137,7 @@ Unlike shallow parameters, deep parameters are exposed from internal sub-express
 		\label{fig_contribution_sed}
 		\includegraphics[width=0.22\textwidth]{sed_contribution}
 	}
-	\caption{Contribution indicator of \sr{}, \sn{}, \dr{}, \dn{} on all subjects. Bigger value is better.}\label{fig_contribution}
+	\caption{Contribution indicator of \sr{}, \sn{}, \dr{}, \dn{} on all subjects. Larger values are better.}\label{fig_contribution}
 \end{figure}
 
 \begin{figure}[htb]
@@ -131,17 +158,22 @@ Unlike shallow parameters, deep parameters are exposed from internal sub-express
 		\label{fig_best_time_sed}
 		\includegraphics[width=0.22\textwidth]{sed_best_memory}
 	}
-	\caption{The most memory-saving performance found by each algorithm. Less is better.}\label{fig_best_memory}
+	\caption{The best memory reduction found by each algorithm. Smaller numbers are better.}\label{fig_best_memory}
 \end{figure}
 
-To have a more quantitive look at up to how much time and memory we can save from the original by our approaches, we collect the extreme performance in terms of time or memory, those have the best performance on one objective but lose a lot on the other objective, found by each algorithm on each subject and summarise them in Table \ref{table_best_time_memory}. Some of the data are too far away from the original thus not plotted in Figure \ref{fig_attainment}. 
+To enable a more quantitive look at maximal time and memory savings, we
+examine the extreme performance observed in our experiments. We report
+those have the best performance on
+one objective, even at the cost of reducing performance on the other
+objective, found by each
+algorithm on each subject and summarise them in Table
+\ref{table_best_time_memory}. Some of these results are significant
+departures from the original and are thus not plotted in Figure
+\ref{fig_attainment}. 
 
-
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
 \begin{table*}[htbp]
 \centering
-\caption{Maximum reduction on time and memory for each algorithm and each subject}
+\caption{Best reduction of time or memory (separately) found by each algorithm}
 \label{table_best_time_memory}
 \resizebox{\textwidth}{!}{
 \begin{tabular}{|c|r|r|r|r|r|r|r|r|r|r|}
@@ -173,9 +205,7 @@ sed                      & 9.4       & 7.6      & 5.9      & 6.6      & 1.9     
 }
 \end{table}
 
-%To answer RQ3, we manually inspect the Deep Parameters exposed from each subject program and analyse why this parameter could infect the time/memory performance of a program. There are in total 23 distinct expressions from which Deep Parameters are exposed with respect to all four subjects. Among them, five expressions are found twice by Mutation-based sensitivity analysis on two different subjects, one is found three times and two are found on all four subjects. According to our knowledge to \emph{dlmalloc}, 12 out of all 23 distinct expressions make sense that they would affect the performance if their values are changed. Moreover, 7 out of 8 expressions that are found more than once are reasonable. Due to limit space, we can only explain why the two expressions found from all subjects can affect the performance in the rest of this section.
 
-To answer RQ3, we provide the average computation time for each of the apporaches in Table \ref{table_computation_time}. Recall that \dr{} generates and evaluates a lot of invalid configurations and each of them will crash the program and stop the evaluation immediately, the computation time of \dr{} is the lowest among all approaches. Similarly, \dn{} generates invalid configurations more often than \sn{}, so it costs less computation time than \sn{}. Taken the deep parameter exposing time into account, \dn{} costs a little more time than \sn{} does, and the percentage of the extra computation time is reported in the last column of Table \ref{table_computation_time}. According to the table, \dn{} costs at most 18\% more computation time than \sn{} (\emph{espresso}), but costs only 0.7\% more computation time on \emph{flex}, on which \dn{} doesn't perform as good as \sn{}. 
+To answer RQ3, we provide the average optimisation computation time for each of the apporaches in Table \ref{table_computation_time}. Recall that \dr{} generates and evaluates numerous invalid configurations. However, since crashing or incorrect mutants can be discarded immediately, the computation time of \dr{} is the lowest among all approaches (given a fixed budget in terms of mutants considered). Similarly, \dn{} generates invalid configurations more often than \sn{}, so it costs less computation time than \sn{}. Taking the deep parameter discovery time into account, \dn{} requires slightly more time than \sn{} does, and the percentage of the extra computation time is reported in the last column of Table \ref{table_computation_time}. Ultimately, \dn{} costs at most 18\% more computation time than \sn{} (\emph{espresso}), but costs only 0.7\% more computation time on \emph{flex}, on which \dn{} does not perform as good \sn{}. Overall, since this optimisation step is a ``compile time'' rather than a run-time cost and can be done before deployment, we view the benefits of deep parameter optimisation as significantly outweighing their slight additional optimisation time cost.
 
-%The examples are shown in Figure \ref{deep_parameter}. Both of these two Deep Parameters are exposed from the function \emph{sys\_alloc()}, which manages most of the allocation from the system. The fist expression containing \emph{EXPOSE\_4334} is executed when the top chunk is not big enough to serve the memory requet and is about to be extended in system's dynamic memory, and the value of this expression decides how much memory should be get from the system this time. Smaller values tend to save memory, but may cause the program extend the top chunk more frequently, thus a waste of time. And how much memory should be get at this point may vary from applications to applications, so we expose a Deep Parameter from here so that we can control the size to be extended accordingly. The second example happens when initializing the heap. The value of the expression containing \emph{EXPOSE\_4425} is used to determine how much memory should be pre-allocated at the first time. For similar reason, bigger values tend to waste memory but save time.
 

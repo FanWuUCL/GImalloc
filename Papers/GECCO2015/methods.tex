@@ -1,14 +1,14 @@
 \section{Deep Parameter Optimisation}
 \label{sec_deep_parameter_optimisation}
 
-Figure \ref{system} shows the overall work flow of the deep parameter optimisation. The approach takes the source code of the program, a set of test data and a set of non-functional properties of interest. 
-It first applies mutation analysis and a non-dominated rank algorithm to discover potential locations for deep parameters, as explained in Section \ref{discovering}. It then exposes deep parameters based on the type of expressions found at the locations, as explained in Section \ref{exposing}. Finally, to tune the program, a search-based algorithm is used to search for optimised values for both shallow and deep parameters, as explained in Section \ref{sec_nsgaii}.
+Figure \ref{system} shows the work flow of our deep parameter optimisation. The approach takes the source code of the program, a set of test data and a set of non-functional properties of interest. 
+It first applies mutation analysis and a non-dominated rank algorithm to discover potential locations for deep parameters, as explained in Section \ref{discovering}. It then exposes deep parameters based on the type of expressions found at the locations (Section \ref{exposing}). Finally, to tune the program, a search-based algorithm is used to search for optimised values for both shallow and deep parameters (Section \ref{sec_nsgaii}).
 
-\begin{figure*}[htbp]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=6.2in]{pics/new_system}
-\caption{Deep parameter optimisation workflow. It takes source code of a program, test suite and non-functional properties of interest as input, applies mutation analysis to identify most sensitive parts of the code, exposes deep parameters from them and optimise them}\label{system}
-\end{figure*}
+\scalebox{0.55}{\includegraphics[width=6.2in]{pics/new_system}}
+\caption{Deep parameter optimisation workflow. Given a program, test suite and non-functional properties, our approach applies mutation analysis, exposes deep parameters, and optimise those parameters.}\label{system}
+\end{figure}
 
 \subsection{Discovering locations for deep parameters}
 \label{discovering}
@@ -17,11 +17,33 @@ In our approach, we represent the input program as an abstract syntax tree and a
 We want to find a set of locations $L_D$ such that when we tune the value of the expression at $L_D$, some non-functional properties of the program could be improved while the program retains the same functionality. 
 %We use software testing to valid the functional behaviour of the program. 
 %To valid the functional behaviour of the tuned program, we test the tuned program with the input test set and compare the output with the test output of the original program.
-We use a suite of regression test data to check for regression of functionality correctness from the optimisation as with other Genetic Improvement approaches \cite{justyna2013, Langdon:2014:IMI:2576768.2598244}. All of the testcases come along with the applications.
+We use a suite of regression test data to validate the correctness from the optimisation, following other established Genetic Improvement approaches \cite{justyna2013, Langdon:2014:IMI:2576768.2598244}. We assume the presence of a test suite with each target application.
 
-We use mutation analysis to automate the process of searching for locations $L_D$. Mutation analysis deliberately makes simple syntactic changes to the input program, to create a set of various version programs called mutants, each contains a different syntactic change \cite{5487526}. A transformation rule that generates a mutant from the input program is known as a mutation operator. By carefully choosing mutation operators, we can use mutants to simulate the effect of making changes at all potential locations $L$. Table \ref{tab:cmop} lists the operators we used to generate mutants, covering locations of constants, relational, logical and arithmetic expressions. 
-To assess the quality of a mutant, we test each mutant against the input test set and record the values of the non-functional properties. If the result of running a mutant is different from the result of running the original program for any test data in the input test set, then the mutant is said to be ``killed'', otherwise it is said to have ``survived''. 
+We use mutation analysis to automate the process of searching for locations
+$L_D$. Mutation analysis deliberately makes simple syntactic changes to the
+input program, to create a set of various version programs called mutants,
+each containing a different syntactic change \cite{5487526}. A
+transformation rule that generates a mutant from the input program is known
+as a mutation operator. By carefully choosing mutation operators, we can
+use mutants to simulate the effect of making changes at those locations $L$s
+from which a potential deep parameter may be exposed. 
+% FIXME: Wes does not understand what "simulate the effects of making
+% changes at _all_ protential locations" means in the previous sentence.
+% Please clarify for the reader. 
+% Fan tried to say that, using Mutation Operators, we can simulate
+% changes to those locations from which a deep parameter may be exposed,
+% thus to aid selecting most sensitive locations.
+Table \ref{tab:cmop} lists the operators we used to generate
+mutants, covering locations of constants, relational, logical and
+arithmetic expressions. 
+% FIXME: Walk us through two operators chosen from tab:comp. Why are they
+% good? Why did you pick them? Are they just like MOTHRA? This is a
+% contribution of your paper. Elaborate!
+% Yue added the following sentence.
+These `selective mutation operators'
+have been widely used in mutation analysis experiments \cite{5487526}.
 
+\iffalse
 \begin{table*} [ht]
 \caption{Selected mutation operators}
 \label{tab:cmop} 
@@ -44,32 +66,66 @@ To assess the quality of a mutant, we test each mutant against the input test se
 \end{tabular} 
 \end{center} 
 \end{table*} 
+\fi
 
-After all mutants are executed, we first filter out the killed mutants which fail to retain the functional behaviour.  Thus we only select pseudo equivalent mutants which preserve the behavious of the original program. A mutant is called \textbf{pseudo equivalent} with respect to a given test suite $T$ iff. it passes the regression test of $T$.
+\begin{table}[t]
+\caption{Selected mutation operators}
+\label{tab:cmop} 
+\begin{center}
+\begin{tabular}{ | l | l |}
+  \hline
+  Mutation Operators & Changes Between \\ 
+\hline
+ CRCR --- Constant replacement & constants, $0$, $1$, $-1$ \\
+ OAAN --- Arithmetic operator & \texttt{+}, \texttt{-}, \texttt{*}, \texttt{/}, \texttt{\%} \\
+ OAAA --- Arithmetic assignment & \texttt{+=}, \texttt{-=}, \texttt{*=}, \texttt{/=}, \texttt{\%=} \\
+ OCNG --- Logical context negation & $expr$, \texttt{!}$expr$ \\
+ OIDO --- Increment/decrement & \texttt{++}x, \texttt{--}x, x\texttt{++}, x\texttt{--} \\
+  OLLN --- Logical operator & \texttt{\&\&}, \texttt{||} \\ 
+  OLNG --- Logical negation & $x$ \texttt{op} $y$, $x$ \texttt{op} \texttt{!}$y$,
+  \\
+  & \texttt{!}$x$ \texttt{op} $y$, \texttt{!}($x$ \texttt{op} $y$)\\
+  ORRN --- Relational operator & \texttt{>}, \texttt{>=}, \texttt{<}, \texttt{<=}, \texttt{==} \\
+  OBBA --- Bitwise assignment & \texttt{\&=}, \texttt{|=} \\
+  OBBN --- Bitwise operator & \texttt{\&}, \texttt{|} \\
+\hline
+\end{tabular} 
+\end{center} 
+\end{table} 
 
-In practice, there are a large number of pseudo equivalent mutants \cite{5477100} generated and we only want to select a subset from them that represents the locations that could have the greatest impact on the non-functional properties of interest, and we also want to have a diverse set of choices.  
-We achieve this by ranking the mutants based on their non-functional properties using the non-dominated sorting approach of the NSGAII algorithm \cite{996017}. Each mutant is assigned a Pareto Level value and a Crowd Distance value, where Pareto Level $n$ means a mutant will be on the Pareto Front after all the mutants with Pareto Level less than $n$ are removed, while Crowd Distance indicates how close a mutant is to its neighbours on the same Pareto Level. Specially, a mutant with Pareto Level $1$ means it's on the Pareto Front among all the mutants and has the priority to be considered first. A mutant is better than another in terms of non-dominated sorting if its Pareto Level is smaller or their Pareto Level is the same but the former is less crowded (larger Crowd Distance) than the latter. After sorting all the mutants in terms of their non-functional properties, we apply a greedy algorithm to pick the first $k$ locations that could best influence the non-functional properties of the original, where $k$ is the desired number of Deep Parameters one wants to expose.
+To assess the quality of a mutant, we test each mutant against the input test set and record the values of the non-functional properties. If the functional result of running a mutant is different from the result of running the original program for any test data in the input test set, then the mutant is said to be ``killed'', otherwise it is said to have ``survived''. 
+After all mutants are executed, we first filter out the killed mutants
+which fail to retain the functional behaviour. A mutant is called
+\textbf{pseudo equivalent} with respect to a given test suite $T$ iff it
+passes the regression test of $T$.  Thus we only select pseudo equivalent
+mutants which preserve the functional behaviour of the original program
+while potentially changing non-functional behavior. 
+
+In practice, there are a large number of pseudo equivalent mutants \cite{5477100} generated. We desire a subset from them that represents the locations that could have the greatest impact on the non-functional properties of interest while also maintaining a diversity of choices.  
+We achieve this by ranking the mutants based on their non-functional properties using the non-dominated sorting approach of the NSGA II algorithm \cite{996017}. Each mutant is assigned a Pareto Level value and a Crowd Distance value, where Pareto Level $n$ means a mutant will be on the Pareto Front after all the mutants with Pareto Level less than $n$ are removed, while Crowd Distance indicates how close a mutant is to its neighbours on the same Pareto Level. For example, a mutant with Pareto Level $1$ is on the Pareto Front among all the mutants and has the priority to be considered first. A mutant is better than another in terms of non-dominated sorting if its Pareto Level is smaller or if their Pareto Levels are the same but the former is less crowded (larger Crowd Distance) than the latter. After sorting all the mutants in terms of their non-functional properties, we apply a greedy algorithm to pick the first $k$ locations that could best influence the non-functional properties of the original, where $k$ is the desired number of Deep Parameters one wants to expose.
 
 \subsection{Exposing deep parameters}
 \label{exposing}
 The second step is to expose deep parameters that allow users to modify the value of the expression at selected locations. Based on the type of mutation, we first classify the selected mutants into two sets. Set 1 contains mutants generated from CRCR, OAAN, OAAA and OIDO operators, which simulate locations with non-logical expressions. Set 2 contains mutants generated from the OCNG, OLLN, OLNG and ORRN operators, which simulate locations with logical expressions (Table \ref{tab:cmop}). 
-Given an location $L$, $E_L$ is the expression at the location $L$, we use the following transformation rules to rewrite $E_L$ with a new parameter $v$.
+Given a location $L$, $E_L$ is the expression at the location $L$, we use the following transformation rules to rewrite $E_L$ with a new parameter $v_L$.
 
 \begin{equation}
  E_L \rightarrow \left\{
   \begin{array}{l l}
-    (E_L + v) & \quad \text{if $L$ $\in$ Set 1}\\
-    (E_L) \ xor \ v & \quad \text{if $L$ $\in$ Set 2}
+    (E_L + v_L) & \quad \text{if $L$ $\in$ Set 1}\\
+    (E_L) \ xor \ v_L & \quad \text{if $L$ $\in$ Set 2}
     \end{array} \right.
 \end{equation}
 
 We use addition to affect the value of non-logical expression and exclusive or to affect the logical ones.
-Finally we expose $v$ as a `public' parameter so that users can assign value to $v$ through parameter passing or APIs.
+Finally we expose $v_L$ as a `public' parameter so that users can assign a value to $v_L$ through parameter passing or APIs.
 
 \subsection{Search-based parameter tuning}
 \label{sec_nsgaii}
 
-Although the exposed deep parameters can provide additional `knobs' \cite{Hoffmann:2011:DKR:1950365.1950390} to tune the program, they do not necessarily substitute the shallow parameters of the program.  Thus, in this work, we propose to use both shallow parameters and deep parameters and tune them together using SBSE \cite{Harman:2007:CSF:1253532.1254729}. Because we are interested in multiple properties, a multi-objective Genetic Algorithm, NSGA II \cite{996017}, is applied to search for optimal values for both shallow and deep parameters.
+Although the exposed deep parameters can provide additional `knobs' \cite{Hoffmann:2011:DKR:1950365.1950390} to tune the program, a set of $k$ deep parameters need not necessarily subsume the existing shallow parameters of the program.  Thus, in this work, we propose to use both shallow parameters and deep parameters and tune them together using SBSE \cite{Harman:2007:CSF:1253532.1254729}. Because we are interested in multiple properties, a multi-objective Genetic Algorithm, NSGA II \cite{996017}, is applied to search for optimal values for both shallow and deep parameters.
+% FIXME: You introduced NSGA II in the previous subsection. Don't
+% re-introduce it here! 
+% Fan thinks this is details of chromosome representation and configuration for NSGA II we used.
 
-
-We use an integer vector to represent the list of parameters under tuning. Each gene stores a solution value for one parameter. At each generation, our NSGAII first applies tournament selection, followed by a uniform crossover and a uniform mutation operation. In this work our fitness functions are designed to capture two non-functional properties: execution time and memory consumption, while preserving the functionality by assigning the worst value to both non-functional properties. To measure execution time, \emph{Glibc}'s \emph{wait4} system call is used to calculate the total CPU time consumed by the program. For memory consumption, we instrumented the program under tuning to record the high-water mark of the virtual memory consumption. This is due to the fact that the physical memory reported by OS is not always deterministic but depends on the workload and the OS. After fitness evaluation, a standard NSGA II non-dominated selection is applied to create the next generation. Finally, all non-dominating solutions in the final population are returned.
+We use an integer vector to represent the list of parameters under tuning. Each gene stores a solution value for one parameter. At each generation, our NSGA II implementation first applies tournament selection, followed by a uniform crossover and a uniform mutation operation. In our experiments our fitness functions are designed to capture two non-functional properties: execution time and memory consumption, while preserving the functionality by assigning the worst value to both non-functional properties. To measure execution time, \emph{Glibc}'s \emph{wait4} system call is used to calculate the total CPU time consumed by the program. For memory consumption, we instrumented the program under tuning to record the high-water mark of the virtual memory consumption. We chose this instrumentation approach because the physical memory reported by OS is not always deterministic but depends on the workload and the OS. After fitness evaluation, a standard NSGA II non-dominated selection creates the next generation. Finally, all non-dominating solutions in the final population are returned.

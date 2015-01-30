@@ -1,7 +1,33 @@
 \subsection{Threats to Validity}
 
-\textbf{Internal Validity}  When exposing deep parameters, we used Mutation-based sensitivity analysis because it advantages in efficiency and automation. but whether it is the best way to expose deep parameters needs to be proven, as well as which Mutation Operators shall be used. Intuitively, Mutation Operators change a constant or an operator in an arithmatic expression, thus are likely to change the value of the expression in different degrees, which allows us to capture the sensitivity of this expression. How good Mutation Operators are in capturing sensitivity information puts a threat to the effectiveness of our approach and remains as future work.
-Another threat to the internal validity is that the execution time measured may depend on the workload of the machine, thus it may slightly vary over time due to other works of the Operating System. By averaging 10 times of measurement, the noises were minimized in our experiments.  
+\textbf{Internal Validity}  When exposing deep parameters, we used a mutation-based sensitivity analysis because of it advantages in efficiency and automation. Whether it is the best way to expose deep parameters remains to be proven. In addition, we have not formally investigated the relative merits of the Mutation Operators used. Intuitively, our Mutation Operators change a constant or an operator in an arithmatic expression, and thus are likely to change the values of expressions in different degrees, allowing us to capture the sensitivity of that program's non-functional behavior to the value of that expression. Any lack of efficacy of these Mutation Operators at capturing sensitivity information introduces a threat to the effectiveness of our approach. A formal evaluation of mutation operators for deep parameter tuning remains as future work.
 
-\textbf{External Validity}  The choose of test suite could in some degree affect the results. Even with a good test suite that achieves a high branch coverage, it could still differ from the distribution of the real world inputs, in which case the optimized configuration over this testsuite may not achieve the best performance in real world situations. 
-One other concern is whether the result holds on other applications. Despite subject applications from different fields for different uses, potential threat to our conclusion could exist beyond our test. Currently we can safely claim that our approach works on three applications under test in this paper, but because of the wide range of where these applications come from, the approach is likely to be generalized on other applications.
+Another threat to the internal validity is that the execution time measured
+may depend on the workload of the machine. We mitigate this threat by
+ averaging the execution time of 10 trials on an otherwise-unloaded machine. 
+% FIXME: I thought is was 20 trials?
+% Fan says, when each configuration of dlmalloc is evaluated, the execution time is evaluated 10 times
+% and the mean of 10 is used as one objective. But 20 runs means the whole optimisation process
+% with 300 generations is repeated 20 times.
+
+\textbf{External Validity}  Our choice of benchmark programs and their
+associated test suites influences the generality of our results. 
+Even a good test suite that achieves a high branch coverage, for
+example, could still differ from real world
+inputs, in which case the optimised configuration over this testsuite may
+neither achieve the best performance nor retain required functionality.
+We attempt to mitigate this threat by including two subjects (\emph{flex} and \emph{sed})
+from the SIR repository \cite{SIR2005}. These subjects come with
+sets of high quality test suites, which achieve multiple adequacy 
+testig criteria.
+% FIXME (talk about SIR and how awesome the test suites are).
+% Yue added the sentences at the end.
+
+Another aspect of generality is whether these result hold on other
+applications. We attempt to mitigate this threat by selecting subject
+applications from different fields for different uses, but our results
+may not generalize beyond these benchmarks. 
+% Currently we can safely claim that our approach works on three
+% applications under test in this paper, but because of the wide range of
+% where these applications come from, the approach is likely to be
+% generalized on other applications.

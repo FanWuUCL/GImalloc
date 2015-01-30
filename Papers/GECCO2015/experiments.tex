@@ -1,44 +1,52 @@
 
 \section{Experiments}
 
-In order to assess the improvement of our Deep Parameter Tuning approach, we compared our approach with the Shallow Parameter Tuning approach and posed the following research questions: 
+To assess the improvement of our Deep Parameter Tuning approach, we compared it with Shallow Parameter Tuning and posed the following research questions: 
  
 
 \begin{description}
- \item[RQ1] {\bf How much improvement on performance can be obtained by Shallow Parameter Turning, compared with the original, using random search and NSGAII? }
+ \item[RQ1] {\bf How much performance improvement, with respect to the unmodified original program, can be obtained by Shallow Parameter Turning using random search or NSGA II? }
 \end{description}
 
-We asked RQ1 to provide us a baseline result against which we compare the results from Deep Parameter Tuning. To mimic a traditional Shallow Parameter Tuning approach, we used the same NSGAII algorithm introduced in Section \ref{sec_nsgaii} to search for the optimal values for the default explicit parameters in \emph{dlmalloc}. To answer this question, we compared the performance of the optimised configuration found by NSGA II with the default \emph{dlmalloc} configuration and the best configurations found by random search with the same computation budget.  
+We consider RQ1 to provide a baseline result against which we compare the results from Deep Parameter Tuning. To mimic a traditional Shallow Parameter Tuning approach, we used the same NSGA II algorithm described in Section \ref{sec_nsgaii} to search for the optimal values for the default explicit parameters in \emph{dlmalloc}. To answer this question, we compared the performance of the optimised configuration found by NSGA II with the default \emph{dlmalloc} configuration and the best configurations found by random search with the same computation budget.  
 
 \begin{description}
-\item[RQ2] {\bf How much additional improvement can be achieved by Deep Parameter Tuning compared with Shallow Parameter Tuning alone? }
+\item[RQ2] {\bf How much additional improvement can be achieved by our Deep Parameter Tuning algorithm compared with Shallow Parameter Tuning alone? }
 \end{description}
 
-We ask RQ2 to see how useful our approach is at finding better configurations for the given non-functional properties. Our Deep Parameter Tuning approach uses Mutation Operators to identify the most sensitive parts of the program, followed by applying NSGAII to optimise both explicit and implicit parameters for \emph{dlmalloc}. %Of course, should it turn out that the Shallow Parameter Tuning approach can find as good configuration as that by our approach, then our approach would not be needed. 
+We ask RQ2 to evaluate how useful our approach is at finding better configurations for the given non-functional properties. In these experiments, our Deep Parameter Tuning approach uses a custom mutation analysis to identify the most sensitive parts of the program, followed by an application of NSGA II to optimise both explicit and implicit parameters for \emph{dlmalloc}. 
 
 \begin{description}
-\item[RQ3] {\bf What's the time cost for each of the approaches to find their optimal solutions? }
+\item[RQ3] {\bf What are the optimisation-time costs for these approaches to find their solutions? }
 \end{description} 
 
-By answering this question, we want to know how much time does Shallow Parameter Tuning cost, and how much extra computation effort has to be put in the Deep Parameter Tuning to gain more improvement. The user may use the gain/cost ratio to decide whether to adopt Shallow or Deep Parameter Tuning.
-
-%\begin{description}
-%\item[RQ3] {\bf Do we see evidence that our Deep Parameter Tuning approach can expose implicit parameters which are meaningful to human developers? }
-%\end{description} 
-
-%Should it turn out that the Deep Parameter Tuning approach performs well, achieving more improvement than the Shallow Parameter Tuning approach, then we have evidence to suggest that the mutation based sensitivity analyse used in our approach is able to locate the inner expressions or variables which are sensitive to the given non-functional properties. However, do these inner expressions or variables also make sense to software developer? To answer this research question, we manually investigate the exposed variables and try to learn why tuning these parameters can make \emph{dlmalloc} more efficient, and to give some qualitative findings regarding human-meaningfulness.
-
+Since our Deep Parameter Tuning approach exposes additional parameters
+which are then optimised in conjunction with the baseline shallow
+parameters, it may require extra resources at optimisation time.  
+We thus measure the baseline cost of Shallow Parameter Tuning, as
+well as the extra computation required by our Deep Parameter
+Tuning. The user may use this gain/cost ratio to
+decide whether to employ Shallow or Deep Parameter Tuning.
 
 \subsection{Experiment Target}
 
-Dynamic memory allocation is an essential activity in most of the applications. It happens when an application needs a piece of memory the size of which cannot be determined until runtime.
+Dynamic memory allocation is an essential activity in many applications. It
+most commonly happens when an application requires memory of a size that 
+cannot be determined until runtime.
 %Most systems support some system calls that could dynamically assign some memory to an application. When an application asks for some dynamic memory from the operating system, the simplest way is to give the exact size of memory it requests through these system calls, and to retrieve that memory back as soon as the application frees it. However, these allocation and deallocation system calls are usually much slower than other operations. So frequently allocating memory directly from the system is impractical for most of the applications. 
 
 %Memory allocators have been introduced and developed to solve this problem using different allocation strategies. Usually applications communicate with the operating system in terms of memory only through their memory allocators. The idea of these allocators is to try to hold and manage some extra memory to satisfy subsequent memory requests from the application as effiecently as possible. On the other hand, when a piece of memory is freed by the application, before being released to the system, it is handled by memory allocators in case there is a memory request for the same size in the near future. The allocator is thus a buffer between an application and the system. Different memory management approaches significantly influence the performance of an application in terms of both memory and time.
 
-Many memory allocation strategies and managers have been proposed and studied by many researchers to efficiently manage dynamic memory. Among them, Doug Lea's malloc (\emph{dlmalloc}) is ``among the fastest, most space-conserving, tunable, and portable general purpose allocators'' \cite{lea1996memory}. A study of Berger et al \cite{Berger:2002:RCM:582419.582421} shows that many other custom memory allocators don't perform significantly better than \emph{dlmalloc}, sometimes even worse. So in this paper, we choose \emph{dlmalloc} as our starting point and optimize its configuration to each of the subject applications.
+Many memory allocation strategies and managers have been proposed and studied by many researchers to efficiently manage dynamic memory. Among them, Doug Lea's malloc (\emph{dlmalloc}) is ``among the fastest, most space-conserving, tunable, and portable general purpose allocators'' \cite{lea1996memory}. A study of Berger \emph{et al.}~\cite{Berger:2002:RCM:582419.582421} shows that many other custom memory allocators do not perform significantly better than \emph{dlmalloc}, and are sometimes worse. We focus on \emph{dlmalloc} as an indicative starting point and optimize its configuration to each of the subject applications.
 
-\emph{Dlmalloc} is a general purpose memory allocator designed for C programs. It is usually used with its default configuration while it provides the possibility to re-configure the parameters. We call these configurable parameters provided by the original author Shallow Parameters, from which we choose 9 Shallow Parameters that are more likely to influence the time and memory performance based on our understanding. Table \ref{tab_dlmalloc_parameters} lists all 9 Shallow Parameters and brief description for them.
+\emph{Dlmalloc} is a general memory allocator for C
+programs. Although it provides a number of configuration parameters,  
+it is usually used with its default values. 
+We call these configurable parameters provided by the original author
+Shallow Parameters. In these experiments we consider the nine Shallow
+Parameters that are more relevant to the tradeoff between runtime and
+memory high water mark. Table \ref{tab_dlmalloc_parameters} briefly
+describes these Shallow Parameters. 
 
 %For example, \textbf{MALLOC\_ALIGNMENT} represents a multiple of how many bytes all request sizes should be rounded up to. It is an essential parameter since many other parameters are derived from it to avoid incompatibility. Smaller MALLOC\_ALIGNMENT tends to save memory but may not be compatible with all applications. Table \ref{tab_dlmalloc_parameters} lists all 9 Shallow Parameters and brief description for them.
 %It keeps two set of segregated lists managing small and large size available chunks respectively. Each of the segregated lists is called a bin and there are 64 small bins and 64 large bins in \emph{dlmalloc} (Figure \ref{fig_7}). For small bins, each one contains chunks in the exact same size, in which way insertion to or deletion from the list is very quick. For large bins, each bin is associated with a range of sizes and any free chunks within that range are stored in the corresponding bin in the ascending order. So managing large bins is more costly than small bins but fortunately large bins are less frequent than small bins. Apart from these bins, \emph{dlmalloc} also keeps a top chunk, which is always at the end of the heap so that it can be extended or trimmed without affecting other memory chunks. 
@@ -48,16 +56,16 @@ Many memory allocation strategies and managers have been proposed and studied by
 
 % Intruduce the 9 parameters defined in Dlmalloc (1 paragraph)
 % draw a table with "para name, type, range, default, comment"
-\begin{table*}[htbp]
+\begin{table*}[tbp]
 \centering
-\caption{Selective \emph{dlmalloc} shallow parameters}
+\caption{\emph{dlmalloc} shallow parameters used in our experiments}
 \label{tab_dlmalloc_parameters}
 \resizebox{0.9\textwidth}{!}{
 \begin{tabular}{|l|c|c|c|l|}
 \hline
 Name & Default & Range & Type & Description\\
 \hline
-MALLOC\_ALIGNMENT & $2*sizeof(void*)$ & $(1~16)*sizeof(void*)$ & $2^n*sizeof(void*)$ & Alignment unit\\
+MALLOC\_ALIGNMENT & $2*\mathit{sizeof}(void*)$ & (1 -- 16)$*\mathit{sizeof}(void*)$ & $2^n*\mathit{sizeof}(void*)$ & Alignment unit\\
 %\hline
 FOOTERS & \emph{false} & \emph{true} or \emph{false} & boolean & Additional information of each chunk\\
 %\hline
@@ -67,13 +75,13 @@ NO\_SEGMENT\_TRAVERSAL & \emph{false} & \emph{true} or \emph{false} & boolean & 
 %\hline
 MORECORE\_CONTIGUOUS & \emph{true} & \emph{true} or \emph{false} & boolean & Contiguous heap extension support\\
 %\hline
-DEFAULT\_GRANULARITY & 0 & 4KB - 512KB & $2^n$KB or 0 & Unit of heap extension\\
+DEFAULT\_GRANULARITY & 0 & 4KB -- 512KB or 0 & $2^n$KB or 0 & Unit of heap extension\\
 %\hline
-DEFAULT\_TRIM\_THRESHOLD & 2048KB & 64KB - 16MB & $2^n$KB & Threshold of trimming\\
+DEFAULT\_TRIM\_THRESHOLD & 2048KB & 64KB -- 16MB & $2^n$KB & Threshold of trimming\\
 %\hline
-DEFAULT\_MMAP\_THRESHOLD & 256KB & 16KB - 2MB & integer & Threshold of direct memory mapping\\
+DEFAULT\_MMAP\_THRESHOLD & 256KB & 16KB -- 2MB & integer & Threshold of direct memory mapping\\
 %\hline
-MAX\_RELEASE\_CHECK\_RATE & 4095 & 1000 - 10000 & integer & Frequency of coalescing\\
+MAX\_RELEASE\_CHECK\_RATE & 4095 & 1000 -- 10000 & integer & Frequency of coalescing\\
 \hline
 \end{tabular}}
 \end{table*}
@@ -92,27 +100,27 @@ MAX\_RELEASE\_CHECK\_RATE & 4095 & 1000 - 10000 & integer & Frequency of coalesc
 \subsection{Experiment Setup}
 
 
-\begin{table}[htbp]
+\begin{table}[tbp]
 \centering
 \caption{Subject applications}
 \label{tab_sub_app}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|r|r|l|}
 \hline
-Name & Loc & No. of tests & Type \\
+Name & Loc & \# Tests & Description \\
 \hline
-espresso & 13256 & 19 & Digital gate circuit simplification\\
+espresso & 13256 & 19 & Digital circuit simplification\\
 %\hline
 gawk & 45241 & 334 & String processing\\
 %\hline
-flex & 9597 & 62 & Fast lexical analyzer\\
+flex & 9597 & 62 & Fast lexical analyzer generator\\
 %\hline
 sed & 5720 & 362 & Special file editor\\
 \hline
 \end{tabular}}
 \end{table}
 
-For our evaluation, we selected four real world applications: \emph{espresso}, \emph{gawk}, \emph{flex} and \emph{sed}. \emph{Espresso} is a fast application for simplying complex digital electronic gate circuits. We use the source code and test cases from the \emph{DieHard} project \cite{Berger:2006:DPM:1133981.1134000}. \emph{Gawk} is the GNU \emph{awk} implementation for strings processing. We collect this application as well as its testsuite from the GNU archives. \emph{flex} is a tool for generating scanners, programs which recognizes lexical patterns in text, and \emph{sed} is a special editor that automatically modifies files given a set of changing rules. We obtain these last two programs and corresponding testsuite from the SIR repository \cite{SIR2005}. Summary data for these subject programs is listed in Table \ref{tab_sub_app}.
+For our evaluation, we selected four applications: \emph{espresso}, \emph{gawk}, \emph{flex} and \emph{sed}. \emph{Espresso} is a fast application for simplying complex digital electronic gate circuits. We use the \emph{espresso} benchmark source code and test cases from the \emph{DieHard} project \cite{Berger:2006:DPM:1133981.1134000}. \emph{Gawk} is the GNU \emph{awk} implementation for strings processing. We collect version 4.1.0 of this application, as well as its testsuite, from the GNU archives. \emph{flex} is a tool for generating scanners, programs which recognizes lexical patterns in text, and \emph{sed} is a special editor that automatically modifies files given a set of changing rules. We obtain these last two programs and corresponding testsuites from the SIR repository \cite{SIR2005}. Summary data for these subject programs is listed in Table \ref{tab_sub_app}.
 % and \emph{cfrac} is a factorization application for big integers. We obtain these two applications from the benchmarks of the \emph{DieHard} project \cite{Berger:2006:DPM:1133981.1134000}. \emph{Space} is a well known real world application in astronautics. We obtain this program from the SIR repository \cite{SIR2005}. \emph{Gawk} is the GNU \emph{awk} implementation for strings processing. We collect this application from the GNU archives.
 %
 %Although tuning parameter of malloc is less likely to change the behaviour of our subjects under optimise directly, some combination of unusual parameters' values could also crash a subject system. To make sure the configuration generated by our approach always prodcue the same functional results as the default configuration, we use the number of passed tests as an addtional hard constraints. We used the tests from the \emph{DieHard} project for \emph{Espresso} and \emph{cfrac} and the tests from SIR for \emph{Space}. These tests are designed by programmer and achieve high branche coverage. For \emph{gawk}, because the existing test cases are too small to precisely capture the running time, we manually generate a test suite which achieves ** branch coverage.
@@ -120,7 +128,15 @@ For our evaluation, we selected four real world applications: \emph{espresso}, \
 
 \subsection{Experiment Procedures}
 
-We first used the Shallow Parameters only and applied NSGAII algorithm with a population of 50 for 300 generations, using 5000 randomly generated chromesomes as seeding, to search for the optimal values. A random search was also applied with the same computation budget in optimising the Shallow Parameters. Then we applied selective Mutation Operators to gather the sensitivity information and expose 9 Deep Parameters (the same number of deep parameters as we have shallow parameters for fair comparison) for each subject program separately, as described in Section \ref{sec_deep_parameter_optimisation}. Combining Shallow and Deep Parameters, we again applied NSGAII and random search with other identical experimental settings. All experiments were repeated for 20 runs to have a statistics conclusion.
+We first used the Shallow Parameters only and applied the NSGA II algorithm
+with a population of 50 for 300 generations, using 5000 randomly generated
+chromesomes as seeding, to search for the optimal values. 
+% FIXME: We have to say something about where these numbers came from. 
+% Fan says the following.
+These standard values were chosen after a few trial experiments to have the best performance and ensure convergent result for the algorithms. 
+A random search was also applied with the same computation budget in optimising the Shallow Parameters. 
 
-All experiments were carried out on desktop machines with a quad-core CPU and 7.7 GB memory runing 64-bit Ubuntu 14.04. We used \emph{dlmalloc} version 2.8.6, which was compiled with gcc 4.8.1 with -O3 option. In order to capture the execution time and memory consumption precisely, we developed our own performance tool to measure the CPU time and the high-water-mark vitural memory consumption (see Section \ref{sec_nsgaii}). The tool is publicly available at github.com/FanWuUCL/memory.
+We then applied our selective mutation operators to gather sensitivity information and expose 9 Deep Parameters (the same number as the provided shallow parameters for a fairer comparison) for each subject program separately, as described in Section \ref{sec_deep_parameter_optimisation}. Combining Shallow and Deep Parameters, we again applied NSGA II and random search with other identical experimental settings. All experiments were repeated for 20 runs to admit statistical analyses. 
+
+All experiments were carried out on desktop machines with a quad-core CPU and 7.7 GB memory runing 64-bit Ubuntu 14.04. We used \emph{dlmalloc} version 2.8.6, which was compiled with gcc 4.8.1 with -O3 option. To capture the execution time and memory consumption precisely, we developed our own performance tool to measure the CPU time and the high-water-mark vitural memory consumption (see Section \ref{sec_nsgaii}). The tool is publicly available at github.com/FanWuUCL/memory.
 

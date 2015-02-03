@@ -1,6 +1,6 @@
 \subsection{Threats to Validity}
 
-\textbf{Internal Validity}  When exposing deep parameters, we used a mutation-based sensitivity analysis because of it advantages in efficiency and automation. Whether it is the best way to expose deep parameters remains to be proven. In addition, we have not formally investigated the relative merits of the Mutation Operators used. Intuitively, our Mutation Operators change a constant or an operator in an arithmatic expression, and thus are likely to change the values of expressions in different degrees, allowing us to capture the sensitivity of that program's non-functional behavior to the value of that expression. Any lack of efficacy of these Mutation Operators at capturing sensitivity information introduces a threat to the effectiveness of our approach. A formal evaluation of mutation operators for deep parameter tuning remains as future work.
+\textbf{Internal Validity}  When exposing deep parameters, we used a mutation-based sensitivity analysis because of its advantages of efficiency and automation. Whether it is the best way to expose deep parameters remains to be proven. In addition, we have not formally investigated the relative merits of the Mutation Operators used. Intuitively, our Mutation Operators change a constant or an operator in an expression, and thus are likely to change the values of expressions to different degrees, allowing us to capture the sensitivity of that program's non-functional behaviour to the value of that expression. Any lack of efficacy of these Mutation Operators at capturing sensitivity information introduces a threat to the effectiveness of our approach. A formal evaluation of mutation operators for deep parameter tuning remains as future work.
 
 Another threat to the internal validity is that the execution time measured
 may depend on the workload of the machine. We mitigate this threat by
@@ -17,9 +17,9 @@ example, could still differ from real world
 inputs, in which case the optimised configuration over this testsuite may
 neither achieve the best performance nor retain required functionality.
 We attempt to mitigate this threat by including two subjects (\emph{flex} and \emph{sed})
-from the SIR repository \cite{SIR2005}. These subjects come with
+from the SIR repository~\cite{SIR2005}. These subjects come with
 sets of high quality test suites, which achieve multiple adequacy 
-testig criteria.
+testing criteria.
 % FIXME (talk about SIR and how awesome the test suites are).
 % Yue added the sentences at the end.
 

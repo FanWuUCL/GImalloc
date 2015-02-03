@@ -5,15 +5,15 @@ optimising deep parameters to tune programs with respect to non-functional
 properties.  In particular, we focus on tuning \emph{dlmalloc}, a memory
 allocator, to reduce the time and memory high-water-mark requirements of
 off-the-shelf programs. Our approach combines a mutation analysis to
-discover sensitive deep parameters as well as an SBSE approach to
-optimising those parameters while retaining the functionality expressed in
+discover sensitive deep parameters as well as an SBSE approach which 
+subsequently optimises these parameters, while retaining the functionality expressed in
 a test suite.  In a series of experiments involving over 70,000 lines of
 code and 700 test cases we found that our deep parameter approach
-outperformed baseline optimisations using only the programmer-provided
-shallow parameters, ultimately improving execution time by 12\% 
+outperformed baseline optimisations (which use only the programmer-provided
+shallow parameters), ultimately improving execution time by 12\% 
 and memory consumption by 21\% in the best cases. In addition, despite
 the larger search space considered, the additional optimisation time cost
-of our approach is quite low. Overall we feel that deep parameter tuning 
+of our approach is acceptably low. Overall we feel that deep parameter tuning 
 approaches show much promise for the automated improvement of software
 with respect to non-functional properties.  
 

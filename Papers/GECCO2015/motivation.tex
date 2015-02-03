@@ -1,7 +1,7 @@
 
 \section{Motivating Example}
 
-We illustrate the idea of deep parameters with an example found by our approach for \emph{dlmalloc} (version 2.8.6) \cite{lea1996memory}.
+We illustrate the idea of deep parameters with an example found by our approach for \emph{dlmalloc} (version 2.8.6)~\cite{lea1996memory}.
 
 \begin{figure}[ht]
 \lstset{numbers=left, escapeinside={(*@}{@*)}}
@@ -18,7 +18,7 @@ static void* sys_alloc(mstate m,size_t nb) {
 \label{exp}
 \end{figure}
 
-Figure \ref{exp} shows a part of the {\tt sys\_alloc} function in \emph{dlmalloc}. We explain its internal operation here to give the reader a feeling for the opportunities for optimisation. Of course, our parameter exposing and search-based tuning are general purpose techniques that have no knowledge of how \emph{dlmalloc} operates. \emph{Dlmalloc} maintains an internal structure to organize the heap for memory reuse. Only when \emph{dlmalloc} cannot find a suitable chunk of memory for a memory request does it call {\tt sys\_alloc()} to extend the current heap.
+Figure~\ref{exp} shows a part of the {\tt sys\_alloc} function in \emph{dlmalloc}. We explain its internal operation here to give the reader a feeling for the opportunities for optimisation. Of course, our parameter exposing and search-based tuning are general purpose techniques that have no knowledge of how \emph{dlmalloc} operates. \emph{Dlmalloc} maintains an internal structure to organize the heap for memory reuse. Only when \emph{dlmalloc} cannot find a suitable chunk of memory for a memory request does it call {\tt sys\_alloc()} to extend the current heap.
 
 % Fan, the "mutation analysis" bit in the next paragraph is quite
 % "Used before being defined". I added this paragraph to make things make
@@ -36,18 +36,18 @@ subexpression that can be profitably mutated to optimise a non-functional
 property while retaining functional correctness can serve as a deep
 parameter.  
 
-In this example, the mutation analysis finds that mutants generated from mutating Line \ref{call_morecore} have a notable affect on the memory consumption and the execution time of \emph{dlmalloc}. We take a close took at Line \ref{call_morecore}. It calls the {\tt CALL\_MORECORE()} function, which takes an integer as input
+In this example, the mutation analysis finds that mutants generated from mutating Line~\ref{call_morecore} have a notable affect on the memory consumption and the execution time of \emph{dlmalloc}. We take a close took at Line~\ref{call_morecore}. It calls the {\tt CALL\_MORECORE()} function, which takes an integer as input
 % , when first time \emph{malloc} is called to obtain the beginning address of the heap. 
 {\tt CALL\_MORECORE()} is a macro wrapping the system call that extends or shrinks the current heap and returns the beginning address of the newly allocated region of heap. Specifically, {\tt CALL\_MORECORE(0)} neither extends nor shrinks the heap but simply returns the current address of the heap, which is the original purpose of Line 6 mentioned above.
 
-Changing the input value for {\tt CALL\_MORECORE()} in Line
-\ref{call_morecore} allows us to control the amount of memory
+Changing the input value for {\tt CALL\_MORECORE()} in Line~\ref{call_morecore} 
+allows us to control the amount of memory
 pre-allocated. However, although \emph{dlmalloc} provides several tuneable
 parameters to programmers, allowing them to adjust behaviors (see Section 5
 for details), none of these shallow parameters can affect the {\tt
 CALL\_MORECORE()} function directly. Our algorithm exposes this as a new
 a deep parameter by 
-transforming Line \ref{call_morecore} into
+transforming Line~\ref{call_morecore} into
 the code below, where $D$ is the deep parameter exposed that controls the
 pre-allocated heap.
 

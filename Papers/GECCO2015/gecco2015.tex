@@ -10,6 +10,8 @@
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage[sort]{natbib}
+\usepackage{hyperref}
+\usepackage[subtle]{savetrees}
 %\usepackage[]{algorithm2e}
 \lstset{basicstyle=\ttfamily, language=C, tabsize=2, columns=flexible}
 
@@ -33,7 +35,7 @@
 %}
 
 % You can go ahead and credit any number of authors here,
-% e.g. one 'row of three' or two rows (consisting of one row of three
+% e.g.\ one 'row of three' or two rows (consisting of one row of three
 % and a second row of one, two or three).
 %
 % The command \alignauthor (no curly braces needed) should
@@ -72,9 +74,9 @@ demonstrating the potential value of our deep parameter extraction approach.
 \end{abstract}
 
 %A category including the fourth, optional field follows...
-\category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures]
+%\category{D.2.8}{Software Engineering}{**}[**]
 
-\terms{Theory}
+%\terms{Theory}
 
 \keywords{Parameter tuning, parameter exposure, memory allocator} % NOT required for Proceedings
 
@@ -92,6 +94,8 @@ demonstrating the potential value of our deep parameter extraction approach.
 %ACKNOWLEDGMENTS are optional
 \section{Acknowledgments}
 Fan Wu is sponsored by Chinese Scholarship Council.
+Mark Harman is supported by the UK EPSRC project EP/J017515 (DAASE) and the UK EPSRC projects EP/I033688 (GISMO).
+Yue Jia is supported by the Microsoft Azure Grant 2014.
 
 %
 % The following two commands are all you need in the

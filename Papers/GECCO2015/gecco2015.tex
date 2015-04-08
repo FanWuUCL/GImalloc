@@ -1,5 +1,6 @@
 
 \documentclass{sig-alternate}
+\usepackage[subtle]{savetrees}
 \usepackage{graphicx}
 \usepackage{subfigure}
 %\usepackage{subfig}
@@ -9,9 +10,10 @@
 \usepackage{amsmath}
 \usepackage{algorithm}
 \usepackage{algorithmic}
-\usepackage[sort]{natbib}
+%\usepackage[sort]{natbib}
 \usepackage{hyperref}
-\usepackage[subtle]{savetrees}
+
+%\usepackage{savetrees}
 %\usepackage[]{algorithm2e}
 \lstset{basicstyle=\ttfamily, language=C, tabsize=2, columns=flexible}
 
@@ -25,14 +27,14 @@
 
 \title{Deep Parameter Optimisation}
 
-%\numberofauthors{2} 
-%\author{
-%\alignauthor Fan Wu, Mark Harman, Yue Jia and Jens Krinke\\
-%       \affaddr{CREST, UCL, London, UK}
-%\alignauthor Westley Weimer\\
-%       \affaddr{University of Virginia}\\
-%       \affaddr{USA}
-%}
+\numberofauthors{2} 
+\author{
+\alignauthor Fan Wu, Mark Harman, Yue Jia and Jens Krinke\\
+       \affaddr{CREST, UCL, London, UK}
+\alignauthor Westley Weimer\\
+       \affaddr{University of Virginia}\\
+       \affaddr{USA}
+}
 
 % You can go ahead and credit any number of authors here,
 % e.g.\ one 'row of three' or two rows (consisting of one row of three
@@ -68,7 +70,7 @@ We introduce a mutation-based approach to automatically discover and expose `dee
 These discovered parameters, together with existing (`shallow') parameters, form a search space that we tune using search-based optimisation in a bi-objective formulation that optimises both time and memory consumption.
 We implemented our approach and evaluated it on four real-world programs.
 The results show that we can improve execution time by 12\% or achieve a 21\% memory consumption reduction in the best cases.
-In three subjects, our deep parameter tuning represents a significant improvement over the baseline of shallow parameter tuning,
+In three subjects, our deep parameter tuning results in a significant improvement over the baseline of shallow parameter tuning,
 demonstrating the potential value of our deep parameter extraction approach.
 
 \end{abstract}
@@ -78,7 +80,7 @@ demonstrating the potential value of our deep parameter extraction approach.
 
 %\terms{Theory}
 
-\keywords{Parameter tuning, parameter exposure, memory allocator} % NOT required for Proceedings
+\keywords{Parameter tuning, parameter exposure, memory allocation} % NOT required for Proceedings
 
 
 \input{introduction}
@@ -92,18 +94,26 @@ demonstrating the potential value of our deep parameter extraction approach.
 %\end{document}  % This is where a 'short' article might terminate
 
 %ACKNOWLEDGMENTS are optional
-\section{Acknowledgments}
-Fan Wu is sponsored by Chinese Scholarship Council.
-Mark Harman is supported by the UK EPSRC project EP/J017515 (DAASE) and the UK EPSRC projects EP/I033688 (GISMO).
-Yue Jia is supported by the Microsoft Azure Grant 2014.
+%\section{Acknowledgments}
+%Fan Wu is sponsored by Chinese Scholarship Council.
+%Mark Harman is supported by the UK EPSRC project EP/J017515 (DAASE) and the UK EPSRC projects EP/I033688 (GISMO).
+%Yue Jia is supported by the Microsoft Azure Grant 2014.
 
 %
 % The following two commands are all you need in the
 % initial runs of your .tex file to
 % produce the bibliography for the citations in your paper.
-\small
+
+
+\markeverypar{\the\everypar\looseness=0 } 
+%\bibliographystyle{savetrees}
 \bibliographystyle{abbrv}
-\bibliography{myReading}  % sigproc.bib is the name of the Bibliography in this case
+{\small
+\bibliography{myReading} 
+}
+
+
+ % sigproc.bib is the name of the Bibliography in this case
 % You must have a proper ".bib" file
 %  and remember to run:
 % latex bibtex latex latex

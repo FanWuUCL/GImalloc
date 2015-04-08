@@ -1,6 +1,8 @@
+\vspace{-2mm}
+
 \section{Related Work}
 
-State-of-art dynamic memory managers (DMM) usually combine several
+State-of-the-art dynamic memory managers (DMM) usually combine several
 different allocation strategies to serve memory requests with different
 sizes. Risco-Mart\'{\i}n et al.~\cite{RiscoMartín2014109,
 Colmenar:2011:MOD:2001576.2001820} search for the best allocation strategy
@@ -16,9 +18,9 @@ allocation strategies. In our approach, changing the parameters not
 only (indirectly) changes the separators of size ranges and allocation
 strategy applied on each range, but also influences strategy behaviour. 
 
-%Some embedded systems, especially those executing multimedia applications, suffer from massive memory usage and limited resources. Risco-Martin et al.\cite{Risco-Martin:2009:ODM:1569901.1570116}\cite{RiscoMartin2010572} decomposes memory allocators into several components, for each of which there are several optional implementations of different allocation strategies. Combining different implementations to generate the optimal dynamic memory manager (DMM) becomes a searching problem. They use grammatical evolution to solve this optimization problem with two real world applications: Physics3D and VDrift. Other than \emph{dlmalloc}, they target the DMM on embedded systems that usually run memory-intensive applications. In their approach, they try to find the best combination of several basic strategies, different from which, we start from the state-of-the-art combination of allocation strategies and adjust its configuration to each application. 
+%Some embedded systems, especially those executing multimedia applications, suffer from massive memory usage and limited resources. Risco-Martin et al.\cite{Risco-Martin:2009:ODM:1569901.1570116}\cite{RiscoMartin2010572} decomposes memory allocators into several components, for each of which there are several optional implementations of different allocation strategies. Combining different implementations to generate the optimal dynamic memory manager (DMM) becomes a searching problem. They use grammatical evolution to solve this optimisation problem with two real world applications: Physics3D and VDrift. Other than \emph{dlmalloc}, they target the DMM on embedded systems that usually run memory-intensive applications. In their approach, they try to find the best combination of several basic strategies, different from which, we start from the state-of-the-art combination of allocation strategies and adjust its configuration to each application. 
 
-%Grunwald and Zorn introduced \emph{CustoMalloc}, a system that customizes and synthesizes a memory allocator for a given application\cite{SPE:SPE4380230804}. The basic idea is, run an application and record all the memory allocation and deallocation during the run so that \emph{CustoMalloc} can find the most frequent sizes. Then the system generates a custom memory allocator using two allocation strategies for different sizes: fast but more overheaded way for the most frequent sizes and traditional way for other sizes. They also reported that the performance of a synthesized allocator is not sensitive to the input of the application, suggesting that for a given application, the memory allocation and deallocation patterns for different inputs are similar. In their and our works, we both try to create a custom memory allocator for each specific application but we use a simpler way, parameter tuning in one of the best allocators. Extending from that, we expose more valuable parameters from the source code and optimize them.
+%Grunwald and Zorn introduced \emph{CustoMalloc}, a system that customizes and synthesizes a memory allocator for a given application\cite{SPE:SPE4380230804}. The basic idea is, run an application and record all the memory allocation and deallocation during the run so that \emph{CustoMalloc} can find the most frequent sizes. Then the system generates a custom memory allocator using two allocation strategies for different sizes: fast but more overheaded way for the most frequent sizes and traditional way for other sizes. They also reported that the performance of a synthesized allocator is not sensitive to the input of the application, suggesting that for a given application, the memory allocation and deallocation patterns for different inputs are similar. In their and our works, we both try to create a custom memory allocator for each specific application but we use a simpler way, parameter tuning in one of the best allocators. Extending from that, we expose more valuable parameters from the source code and optimise them.
 
 %Many works have studied the influence of algorithms'
 %configurations or means of automatically adjusting them. For purposes of comparison
@@ -32,8 +34,8 @@ While
 targeting parameter tuning as well, our approach focuses on standard
 library code, based on the assumption that the general-purpose memory
 allocators may not be optimal for each specific application. In addition,
-\emph{ParamILS} can only optimize existing (shallow) parameters, while our
-approach expose additional parameters and adjust their values to gain more
+\emph{ParamILS} can only optimise existing (shallow) parameters, while our
+approach exposes additional parameters and adjusts their values to gain more
 improvement.
 
 Hoffmann et al.~\cite{Hoffmann:2011:DKR:1950365.1950390} proposed
@@ -41,17 +43,17 @@ Hoffmann et al.~\cite{Hoffmann:2011:DKR:1950365.1950390} proposed
 behaviour to make it adaptable to fluctuating workloads. 
 % It first transforms
 % some configuration parameters to non-constant variables residing in the
-% application's memory, so the behavior of the application can be altered by
+% application's memory, so the behaviour of the application can be altered by
 % controlling these variables at runtime. Then it pre-runs the application
 % with each possible configuration to determine how these parameters
 % influence the application and memoizes the Pareto-best candidates in terms
 % of application's non-functional properties and the quality of the output.
 Whenever \emph{PowerDial} detects a resource shortage it sacrifices 
 output quality by changing the values of variables, allowing
-the application to ``survive the crisis''. One limitation of
+the application to `survive the crisis'. One limitation of
 this work is that the search space of configuration variables must be small
 enough to admit an exhaustive search. In our work the search space is too
-large to use such an exhaustive search, and thus we applied Search-Based
+large to use such an exhaustive search, and thus we applied search-based
 techniques. % Similar to \emph{ParamILS}, 
 \emph{PowerDial} only operates
 on existing (shallow) parameters. 
@@ -73,7 +75,7 @@ on adjusting them.
 This sensitivity analysis effectively reduces the 
 space, admitting practical searches.
 
-In previous work, the Software Tuning Panel for Autonomic Control 
+In previous work, the Software Tuning panel for Autonomic Control 
 (STAC)~\cite{Brake:2008:ADS:1370018.1370031} automated the expsoure of a
 limited form of `deep' parameters. 
 % STAC first generates a design graph for
@@ -87,6 +89,6 @@ limitations. First, STAC requires initial human effort to characterise
 shallow parameters. Second, STAC can only find a subset of deep parameters,
 those that have similar data transition patterns to the known shallow
 parameters. To overcome these limitations, we apply a mutation-based
-sensitivity analysis to fully automated the process of locating potential
-deep parameters and subsequently apply NSGA II to search for optimal values
+sensitivity analysis to fully automate the process of locating potential
+deep parameters and subsequently apply NSGA-II to search for optimal values
 for these parameters to balance non-functional properties of interest. 

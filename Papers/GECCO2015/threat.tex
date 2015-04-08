@@ -1,6 +1,6 @@
 \subsection{Threats to Validity}
 
-\textbf{Internal Validity}  When exposing deep parameters, we used a mutation-based sensitivity analysis because of its advantages of efficiency and automation. Whether it is the best way to expose deep parameters remains to be proven. In addition, we have not formally investigated the relative merits of the Mutation Operators used. Intuitively, our Mutation Operators change a constant or an operator in an expression, and thus are likely to change the values of expressions to different degrees, allowing us to capture the sensitivity of that program's non-functional behaviour to the value of that expression. Any lack of efficacy of these Mutation Operators at capturing sensitivity information introduces a threat to the effectiveness of our approach. A formal evaluation of mutation operators for deep parameter tuning remains as future work.
+\textbf{Internal Validity}  When exposing deep parameters, we used a mutation-based sensitivity analysis because of its advantages in terms of efficiency and automation. Whether it is the best way to expose deep parameters remains to be proven. In addition, we have not formally investigated the relative merits of the Mutation Operators used. Intuitively, our Mutation Operators change a constant or an operator in an expression, and thus are likely to change the values of expressions to different degrees, allowing us to capture the sensitivity of that program's non-functional behaviour to the value of that expression. Any lack of efficacy of these Mutation Operators at capturing sensitivity information introduces a threat to the effectiveness of our approach. A formal evaluation of mutation operators for deep parameter tuning remains as future work.
 
 Another threat to the internal validity is that the execution time measured
 may depend on the workload of the machine. We mitigate this threat by
@@ -12,9 +12,9 @@ may depend on the workload of the machine. We mitigate this threat by
 
 \textbf{External Validity}  Our choice of benchmark programs and their
 associated test suites influences the generality of our results. 
-Even a good test suite that achieves a high branch coverage, for
+Even a good test suite that achieves high branch coverage, for
 example, could still differ from real world
-inputs, in which case the optimised configuration over this testsuite may
+inputs, in which case the optimised configuration over this test suite may
 neither achieve the best performance nor retain required functionality.
 We attempt to mitigate this threat by including two subjects (\emph{flex} and \emph{sed})
 from the SIR repository~\cite{SIR2005}. These subjects come with
@@ -23,9 +23,9 @@ testing criteria.
 % FIXME (talk about SIR and how awesome the test suites are).
 % Yue added the sentences at the end.
 
-Another aspect of generality is whether these result hold on other
+Another aspect of generality is whether these results hold on other
 applications. We attempt to mitigate this threat by selecting subject
-applications from different fields for different uses, but our results
+applications from different fields, but our results
 may not generalize beyond these benchmarks. 
 % Currently we can safely claim that our approach works on three
 % applications under test in this paper, but because of the wide range of

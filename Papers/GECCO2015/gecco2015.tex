@@ -10,49 +10,40 @@
 \usepackage{amsmath}
 \usepackage{algorithm}
 \usepackage{algorithmic}
-%\usepackage[sort]{natbib}
 \usepackage{hyperref}
+\usepackage{authblk}
 
-%\usepackage{savetrees}
-%\usepackage[]{algorithm2e}
 \lstset{basicstyle=\ttfamily, language=C, tabsize=2, columns=flexible}
 
 \begin{document}
 
- \conferenceinfo{GECCO'15,} {July 11-15, 2015, Madrid, Spain.}
-    \CopyrightYear{2015}
-    \crdata{TBA}
-    \clubpenalty=10000
-    \widowpenalty = 10000
+\setcopyright{acmlicensed}
+\conferenceinfo{GECCO '15,}{July 11 - 15, 2015, Madrid, Spain}
+\isbn{978-1-4503-3472-3/15/07}\acmPrice{\$15.00}
+\doi{http://dx.doi.org/10.1145/2739480.2754648}
+
+\clubpenalty=10000
+\widowpenalty = 10000
 
 \title{Deep Parameter Optimisation}
 
-\numberofauthors{2} 
-\author{
-\alignauthor Fan Wu, Mark Harman, Yue Jia and Jens Krinke\\
-       \affaddr{CREST, UCL, London, UK}
-\alignauthor Westley Weimer\\
-       \affaddr{University of Virginia}\\
-       \affaddr{USA}
-}
+%\numberofauthors{2} 
+%\author{
+%\alignauthor Fan Wu, Mark Harman, Yue Jia and Jens Krinke\\
+%       \affaddr{CREST, UCL, London, UK}
+%\alignauthor Westley Weimer\\
+%       \affaddr{University of Virginia}\\
+%       \affaddr{USA}
+%}
 
-% You can go ahead and credit any number of authors here,
-% e.g.\ one 'row of three' or two rows (consisting of one row of three
-% and a second row of one, two or three).
-%
-% The command \alignauthor (no curly braces needed) should
-% precede each author name, affiliation/snail-mail address and
-% e-mail address. Additionally, tag each line of
-% affiliation/address with \affaddr, and tag the
-% e-mail address with \email.
+\author[*]{Fan Wu}
+\author[+]{Westley Weimer}
+\author[*]{Mark Harman}
+\author[*]{Yue Jia}
+\author[*]{Jens Krinke}
+\affil[*]{CREST, UCL, London, UK \{fan.wu.12, mark.harman, yue.jia, j.krinke\}@ucl.ac.uk}
+\affil[+]{University of Virginia, USA weimer@cs.virginia.edu}
 
-% There's nothing stopping you putting the seventh, eighth, etc.
-% author on the opening page (as the 'third row') but we ask,
-% for aesthetic reasons that you place these 'additional authors'
-% in the \additional authors block, viz.
-% Just remember to make sure that the TOTAL number of authors
-% is the number that will appear on the first page PLUS the
-% number that will appear in the \additionalauthors section.
 
 \maketitle
 \begin{abstract}

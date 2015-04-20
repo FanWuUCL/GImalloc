@@ -61,17 +61,12 @@ on existing (shallow) parameters.
 Hutter et al.~\cite{4401979} have tuned the parameters of a SAT
 solver, SPEAR, by adjusting not only the explicit parameters but also many
 implicit parameters. They expose almost all possibly tunable variables 
-(and
-% and
-%alternatives of heuristics as parameters and give them different degree of
-%attention, weighted by human intuition. Their approach involves many tunable
-% parameters and 
-thereby a much larger search space) than we do. 
+and thereby a much larger search space than we do. 
 % unscalable computation efforts. 
 To reduce the
 computation effort by limiting the search space, we use a mutation-based
-technique to find the most influential parts of the code and focus
-on adjusting them. 
+technique to find the most influential parts of the code and focus the search
+on just them. 
 This sensitivity analysis effectively reduces the 
 space, admitting practical searches.
 
@@ -92,3 +87,4 @@ parameters. To overcome these limitations, we apply a mutation-based
 sensitivity analysis to fully automate the process of locating potential
 deep parameters and subsequently apply NSGA-II to search for optimal values
 for these parameters to balance non-functional properties of interest. 
+

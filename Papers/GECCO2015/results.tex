@@ -20,6 +20,7 @@ To investigate RQ1 and RQ2, we collect the non-dominated set of solutions from e
 
 To allow comparison across subject programs, objectives are normalised to the original performance of each subject.
 
+
 \subsection{Answers to RQs}
 \label{sec_answers}
 
@@ -59,6 +60,7 @@ For brevity we use \emph{\shallow} to refer to shallow parameters and \emph{\all
 	}
 	\vspace{-1.5em}
 	\caption{Combined best solutions from the results of \sr{}, \sn{}, \dr{}, \dn{} over 20 runs for each application. Lower and lefthand solutions dominate high and righthand solutions. `Wasted' memory is memory that is used but not needed.}\label{fig_attainment}
+
 \end{figure*}
 
 To answer RQ1 and RQ2, we first report the 0\%-attainment surfaces (the `reference front' that combines best solutions over all runs) of the results of \sr{}, \sn{}, \dr{} and \dn{} on all subjects in Figure~\ref{fig_attainment}. The solutions are plotted according to their execution time and memory usage (at the `high-water-mark') compared to the original performance. Specially, the original always lies at (1, 1) and is pinpointed by light grey dashed lines. The high-water-mark is our primary target since the remaining non-wasted memory is needed and thus cannot be reduced. 
@@ -90,6 +92,7 @@ In terms of Contribution, the performance of all algorithms is similar to that o
 	}
 	\vspace{-1.2em}
 	\caption{Hypervolume indicator of \sr{}, \sn{}, \dr{}, \dn{} on all subjects. Larger values are better.}\label{fig_hypervolume}
+	\vspace{-1em}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -112,6 +115,30 @@ In terms of Contribution, the performance of all algorithms is similar to that o
 	}
 	\vspace{-1.2em}
 	\caption{Contribution indicator of \sr{}, \sn{}, \dr{}, \dn{} on all subjects. Larger values are better.}\label{fig_contribution}
+	\vspace{-1em}
+\end{figure}
+
+\begin{figure}[htb]
+	\centering
+	\subfigure[espresso]{
+		\label{fig_best_time_espresso}
+		\includegraphics[width=0.22\textwidth]{espresso_best_memory}
+	}
+	\subfigure[gawk]{
+		\label{fig_best_time_gawk}
+		\includegraphics[width=0.22\textwidth]{gawk_best_memory}
+	}
+	\subfigure[flex]{
+		\label{fig_best_time_flex}
+		\includegraphics[width=0.22\textwidth]{flex_best_memory}
+	}
+	\subfigure[sed]{
+		\label{fig_best_time_sed}
+		\includegraphics[width=0.22\textwidth]{sed_best_memory}
+	}
+	\vspace{-1.2em}
+	\caption{The least memory consumption found by each algorithm. Smaller numbers are better.}\label{fig_best_memory}
+	\vspace{-1em}
 \end{figure}
 
 Since \dn{} is good at finding better performance on memory consumption, we report the most memory-saving performance found by each algorithm of each of 20 runs in Figure~\ref{fig_best_memory}. On subject \emph{espresso} and \emph{sed}, \dn{} finds more memory reduction than the other approaches. On \emph{gawk}, it does not perform as consistently, but can also find more memory reduction than other approaches in the best case. 
@@ -155,30 +182,6 @@ Despite this more challenging search space, exposing and optimising deep
 parameters still allows \dn{} to find better configurations
 than \sn{}.
 
-\begin{figure}[htb]
-	\centering
-	\subfigure[espresso]{
-		\label{fig_best_time_espresso}
-		\includegraphics[width=0.22\textwidth]{espresso_best_memory}
-	}
-	\subfigure[gawk]{
-		\label{fig_best_time_gawk}
-		\includegraphics[width=0.22\textwidth]{gawk_best_memory}
-	}
-	\subfigure[flex]{
-		\label{fig_best_time_flex}
-		\includegraphics[width=0.22\textwidth]{flex_best_memory}
-	}
-	\subfigure[sed]{
-		\label{fig_best_time_sed}
-		\includegraphics[width=0.22\textwidth]{sed_best_memory}
-	}
-	\vspace{-1.2em}
-	\caption{The least memory consumption found by each algorithm. Smaller numbers are better.}\label{fig_best_memory}
-	
-	
-\end{figure}
-
 \begin{table*}[htb]
 \centering
 \caption{Vargha-Delaney effect sizes of Hypervolume, Contribution and Best Memory Reduction for any two of the approaches on all subjects. Only the effect sizes of tests with \emph{p}-value less than $5\%/16=0.3125\%$ are reported.}
@@ -196,7 +199,7 @@ than \sn{}.
 \multicolumn{1}{|c|}{\sn{}}         & \sr{}        & 0.198                     & --                        & --                        & --                       & --                        & --                        & --                        & --                       & 0.800                     & --                        & --                        & --                       \\ \hline
 \end{tabular}
 }
-\vspace{-1em}
+\vspace{-1.5em}
 \end{table*}
 
 To enable a more quantitative look at maximal time and memory savings, we
@@ -208,7 +211,7 @@ algorithm on each subject and summarise them in Table~\ref{table_best_time_memor
 Some of these results are significant
 departures from the original and are thus not plotted in Figure~\ref{fig_attainment}. 
 
-\begin{table*}[htbp]
+\begin{table*}[htb]
 \centering
 \caption{Best reduction of time or memory (separately) found by each algorithm}
 \label{table_best_time_memory}
@@ -226,7 +229,9 @@ departures from the original and are thus not plotted in Figure~\ref{fig_attainm
 \vspace{-3mm}
 \end{table*}
 
-\begin{table}[htbp]
+To answer RQ3, we provide the average optimisation computation time for each of the apporaches in Table~\ref{table_computation_time}. Recall that \dr{} generates and evaluates numerous invalid configurations. However, since crashing or incorrect mutants can be discarded immediately, the computation time of \dr{} is the lowest among all approaches (given a fixed budget in terms of mutants considered). Similarly, \dn{} generates invalid configurations more often than \sn{}, so it costs less computation time than \sn{}. Taking the deep parameter discovery time into account, \dn{} requires slightly more time than \sn{} does, and the percentage of the extra computation time is reported in the last column of Table~\ref{table_computation_time}. Ultimately, \dn{} requires at most 18\% more computation time than \sn{} (on \emph{espresso}), but requires only 0.7\% more computation time on \emph{flex}, on which \dn{} does not perform as good as \sn{}. Overall, since this optimisation step is a compile-time rather than run-time cost and can be done before deployment, we view the benefits of deep parameter optimisation as significantly outweighing their slight additional optimisation time cost.
+
+\begin{table}[h]
 \centering
 \vspace{-1.4em}
 \caption{Computation Cost in Time}
@@ -242,7 +247,6 @@ departures from the original and are thus not plotted in Figure~\ref{fig_attainm
 \emph{sed}                      & 9.4       & 7.6      & 5.9      & 6.6      & 1.9                                                                                                     & 12.6                                                                                                                          \\ \hline
 \end{tabular}
 }
+\vspace{-1em}
 \end{table}
 
-
-To answer RQ3, we provide the average optimisation computation time for each of the apporaches in Table~\ref{table_computation_time}. Recall that \dr{} generates and evaluates numerous invalid configurations. However, since crashing or incorrect mutants can be discarded immediately, the computation time of \dr{} is the lowest among all approaches (given a fixed budget in terms of mutants considered). Similarly, \dn{} generates invalid configurations more often than \sn{}, so it costs less computation time than \sn{}. Taking the deep parameter discovery time into account, \dn{} requires slightly more time than \sn{} does, and the percentage of the extra computation time is reported in the last column of Table~\ref{table_computation_time}. Ultimately, \dn{} requires at most 18\% more computation time than \sn{} (on \emph{espresso}), but requires only 0.7\% more computation time on \emph{flex}, on which \dn{} does not perform as good as \sn{}. Overall, since this optimisation step is a compile-time rather than run-time cost and can be done before deployment, we view the benefits of deep parameter optimisation as significantly outweighing their slight additional optimisation time cost.

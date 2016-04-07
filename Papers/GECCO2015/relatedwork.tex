@@ -2,17 +2,12 @@
 
 \section{Related Work}
 
-State-of-the-art dynamic memory managers (DMM) usually combine several
+State-of-the-art dynamic memory managers usually combine several
 different allocation strategies to serve memory requests with different
 sizes. Risco-Mart\'{\i}n et al.~\cite{RiscoMartín2014109,
 Colmenar:2011:MOD:2001576.2001820} search for the best allocation strategy
 for different sizes as well searching for the best range of sizes on which
 each strategy should be applied. 
-% They first record all the memory requests
-% of a subject under optimisation as the test cases to evaluate a candidate
-% DMM. Then they use Grammatical Evolution to search for the separators for
-% multiple size ranges and the best allocation strategy applied on each range
-% at the same time. 
 Their work requires human effort to implement the
 allocation strategies. In our approach, changing the parameters not
 only (indirectly) changes the separators of size ranges and allocation

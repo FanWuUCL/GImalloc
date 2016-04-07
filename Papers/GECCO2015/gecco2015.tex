@@ -11,7 +11,9 @@
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{hyperref}
-\usepackage{authblk}
+%\usepackage{authblk}
+\setlength{\paperheight}{11in}
+\setlength{\paperwidth}{8.5in}
 
 \lstset{basicstyle=\ttfamily, language=C, tabsize=2, columns=flexible}
 
@@ -36,13 +38,29 @@
 %       \affaddr{USA}
 %}
 
-\author[*]{Fan Wu}
-\author[+]{Westley Weimer}
-\author[*]{Mark Harman}
-\author[*]{Yue Jia}
-\author[*]{Jens Krinke}
-\affil[*]{CREST, UCL, London, UK \{fan.wu.12, mark.harman, yue.jia, j.krinke\}@ucl.ac.uk}
-\affil[+]{University of Virginia, USA weimer@cs.virginia.edu}
+\numberofauthors{3} 
+\author{
+\alignauthor Fan Wu \\
+\affaddr{CREST, UCL} \\
+\affaddr{London, UK} \\
+\email{fan.wu.12@ucl.ac.uk}
+\alignauthor Westley Weimer \\
+\affaddr{University of Virginia} \\
+\affaddr{Virginia, USA} \\
+\email{weimer@cs.virginia.edu}
+\alignauthor Mark Harman, Yue Jia, Jens Krinke \\
+\affaddr{CREST, UCL} \\ 
+\affaddr{London, UK} \\
+\email{\{mark.harman, yue.jia, j.krinke\}@ucl.ac.uk}
+} 
+
+%\author[*]{Fan Wu}
+%\author[+]{Westley Weimer}
+%\author[*]{Mark Harman}
+%\author[*]{Yue Jia}
+%\author[*]{Jens Krinke}
+%\affil[*]{CREST, UCL, London, UK \{fan.wu.12, mark.harman, yue.jia, j.krinke\}@ucl.ac.uk}
+%\affil[+]{University of Virginia, USA weimer@cs.virginia.edu}
 
 
 \maketitle
@@ -71,7 +89,7 @@ demonstrating the potential value of our deep parameter extraction approach.
 
 %\terms{Theory}
 
-\keywords{Parameter tuning, parameter exposure, memory allocation} % NOT required for Proceedings
+\keywords{Parameter tuning; parameter exposure; memory allocation} % NOT required for Proceedings
 
 
 \input{introduction}
